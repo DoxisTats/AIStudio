@@ -1031,12 +1031,12 @@ kbd{
     <div class="agent-hdr-inner">
       <div class="agent-hdr-left">
         <div>
-          <div class="agent-hdr-name">Employee Document Monitor</div>
+          <div class="agent-hdr-name">New agent</div>
           <div class="agent-hdr-meta">Set activation rules, user groups, and rate limits for this agent.</div>
         </div>
       </div>
       <div class="agent-hdr-right">
-        <a href="screen-4-mcp-tools.html" class="btn btn-ghost">Cancel</a><button class="btn btn-s">Save draft</button>
+        <button onclick="confirmCancel()" class="btn btn-ghost">Cancel</button><button class="btn btn-s">Save draft</button>
       </div>
     </div>
   </div>
@@ -1140,5 +1140,17 @@ kbd{
   </div>
 </div>
 
+
+<div id="discard-modal" style="display:none;position:fixed;inset:0;z-index:9999;align-items:center;justify-content:center;background:rgba(10,13,18,.4)">
+  <div style="background:#fff;border-radius:var(--r4);box-shadow:var(--sh-lg);padding:24px;width:400px;max-width:calc(100vw - 48px)">
+    <div style="font-size:18px;font-weight:600;color:var(--t1);margin-bottom:8px">Discard changes?</div>
+    <div style="font-size:14px;color:var(--t3);margin-bottom:24px">Any unsaved progress will be lost.</div>
+    <div style="display:flex;justify-content:flex-end;gap:12px">
+      <button onclick="document.getElementById('discard-modal').style.display='none'" class="btn btn-ghost">Keep editing</button>
+      <button onclick="window.location='screen-1-ai-manager.html'" style="display:inline-flex;align-items:center;height:40px;padding:10px 16px;border-radius:var(--r2);border:none;background:#f04438;color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit">Discard</button>
+    </div>
+  </div>
+</div>
+<script>function confirmCancel(){document.getElementById('discard-modal').style.display='flex'}</script>
 </body>
 </html>
