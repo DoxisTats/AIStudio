@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Search — Doxis Business Studio</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gray-25:#fdfdfd;--gray-50:#fafafa;--gray-100:#f5f5f5;
+  --gray-200:#e9eaeb;--gray-300:#d5d7da;--gray-400:#a4a7ae;
+  --gray-500:#717680;--gray-600:#535862;--gray-700:#414651;
+  --gray-800:#252b37;--gray-900:#181d27;
+  --brand-25:#f3f7f8;--brand-50:#e6eff1;--brand-100:#dae7ea;
+  --brand-300:#9bbfc7;--brand-400:#6aa0ac;--brand-500:#388090;
+  --brand-600:#1f7082;--brand-700:#066074;--brand-800:#075365;
+  --error-100:#fee4e2;--error-500:#f04438;--error-700:#b42318;
+  --warning-100:#fef0c7;--warning-500:#f79009;--warning-700:#b54708;
+  --success-100:#dcfae6;--success-500:#17b26a;--success-700:#067647;
+  --bg:#ffffff;--bg-s:var(--gray-50);
+  --bd:var(--gray-300);--bd2:var(--gray-200);
+  --t1:var(--gray-900);--t2:var(--gray-700);--t3:var(--gray-600);--t4:var(--gray-500);
+  --r:6px;--r2:8px;--r3:10px;--r4:12px;--r-full:9999px;
+  --sw:260px;--hh:64px;
+  --sh-xs:0 1px 2px 0 rgba(10,13,18,.05);
+  --sh-sm:0 1px 3px 0 rgba(10,13,18,.1),0 1px 2px -1px rgba(10,13,18,.1);
+  --sh-md:0 4px 8px -2px rgba(10,13,18,.1),0 2px 4px -2px rgba(10,13,18,.06);
+}
+body{
+  font-family:'Inter var','Inter',system-ui,sans-serif;
+  background:var(--bg-s);color:var(--t1);font-size:14px;line-height:1.5;
+}
+.app{display:flex;padding-top:var(--hh);min-height:100vh}
+.main{margin-left:var(--sw);flex:1;min-width:0}
+
+/* ── Top header ─────────────────────────────────────────────── */
+.hdr{position:fixed;top:0;left:0;right:0;height:64px;background:url(data/header-bg.png) center/cover #075365;display:flex;align-items:center;justify-content:space-between;padding:0 22px;z-index:200}
+.hdr-brand{display:flex;flex-direction:column;align-items:flex-start;gap:3px;width:134px;flex-shrink:0}
+.hdr-logo-img{width:90px;height:22px;object-fit:contain;display:block}
+.hdr-bs{font-family:'Poppins','Inter',sans-serif;font-size:10px;font-weight:500;color:#fff;line-height:12px;white-space:nowrap}
+.hdr-search{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.2);border:1px solid #6aa0ac;border-radius:8px;padding:8px 12px;width:496px;flex-shrink:0}
+.hdr-search-text{font-family:'Inter var','Inter',sans-serif;font-size:16px;color:#fff;flex:1}
+.hdr-si{width:20px;height:20px;min-width:16px;min-height:16px;flex-shrink:0;display:block;filter:brightness(0) invert(1)}
+.hdr-right{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.hdr-btn{width:40px;height:40px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:6px}
+.hdr-btn:hover{background:rgba(255,255,255,.1)}
+.hdr-avatar-wrap{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.7);overflow:hidden;cursor:pointer;flex-shrink:0}
+.hdr-avatar{width:100%;height:100%;object-fit:cover;display:block}
+
+/* ── Sidebar ─────────────────────────────────────────────────── */
+.sidebar{width:260px;background:#fff;border-right:1px solid #e9eaeb;position:fixed;top:64px;bottom:0;left:0;display:flex;flex-direction:column;overflow:hidden}
+.sb-scroll{flex:1;overflow-y:auto}
+.sb-grp0{padding:8px}
+.sb-grp{padding:8px;display:flex;flex-direction:column;gap:16px}
+.sb-grp-inner{display:flex;flex-direction:column}
+.sb-sec-hdr{height:28px;padding:4px 8px;display:flex;align-items:center;font-family:'Inter var','Inter',sans-serif;font-size:12px;font-weight:600;color:#717680;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nw{padding:2px 0}
+.nc{display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:6px;background:#fff;font-family:'Inter var','Inter',sans-serif;font-size:14px;font-weight:500;color:#414651;cursor:pointer;text-decoration:none;transition:background .1s}
+.nc:hover{background:#f5f5f5}
+.ni{width:20px;height:20px;min-width:16px;min-height:16px;flex-shrink:0;display:block}
+.nchev{width:16px;height:16px;min-width:16px;min-height:16px;flex-shrink:0;display:block;margin-left:auto}
+.nc-flex{flex:1;min-width:0}
+.nc-sub{padding-left:40px;padding-right:12px}
+.nc-sub-active{background:#e6eff1 !important;color:#066074 !important}
+.sb-bot{padding:8px;flex-shrink:0}
+
+/* ── Page header ─────────────────────────────────────────────── */
+.pg-hdr{padding:28px 32px 20px;max-width:1600px;margin-left:auto;margin-right:auto}
+.pg-title{font-size:24px;font-weight:700;color:var(--t1);line-height:32px}
+.pg-sub{font-size:14px;color:var(--t3);margin-top:4px;line-height:20px}
+
+/* ── Content area ────────────────────────────────────────────── */
+.cw{padding:0 32px 48px;display:flex;flex-direction:column;gap:16px;max-width:1600px;margin-left:auto;margin-right:auto}
+
+/* ── Main toggle (44×24 per Figma) ──────────────────────────── */
+.tog{position:relative;display:inline-block;width:44px;height:24px;cursor:pointer;flex-shrink:0}
+.tog input{opacity:0;width:0;height:0;position:absolute}
+.tog-t{position:absolute;inset:0;background:var(--gray-300);border-radius:var(--r-full);transition:background .18s}
+.tog-t::after{content:'';position:absolute;width:20px;height:20px;background:#fff;border-radius:50%;top:2px;left:2px;transition:transform .18s;box-shadow:0 1px 3px rgba(0,0,0,.18)}
+.tog input:checked+.tog-t{background:var(--brand-700)}
+.tog input:checked+.tog-t::after{transform:translateX(20px)}
+/* Row toggles (36×20) */
+.tog-sm{width:36px;height:20px}
+.tog-sm .tog-t::after{width:16px;height:16px}
+.tog-sm input:checked+.tog-t::after{transform:translateX(16px)}
+
+/* ── Capabilities card (includes metrics) ───────────────────── */
+.cap-card{
+  background:#fff;border:1px solid var(--bd2);
+  border-radius:var(--r4);box-shadow:var(--sh-xs);overflow:hidden;
+}
+.cap-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:24px 24px 20px;}
+.cap-left{display:flex;align-items:flex-start;gap:16px}
+.cap-title{font-size:15px;font-weight:700;color:var(--t1);display:flex;align-items:center;gap:8px;line-height:24px;margin-bottom:4px;flex-wrap:wrap}
+.cap-desc{font-size:13px;color:var(--t3);line-height:1.55;max-width:620px}
+
+/* Status pill — matches Figma exactly */
+.cap-badge{display:inline-flex;align-items:center;gap:5px;padding:2px 8px;border-radius:var(--r-full);font-size:12px;font-weight:600;line-height:18px;white-space:nowrap}
+.cap-badge.disabled{background:#fff3cd;color:#92400e;border:1px solid #fcd34d}
+.cap-badge.enabled {background:var(--success-100);color:var(--success-700);border:1px solid #6ee7b7}
+.cap-dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0}
+
+/* Settings button */
+.settings-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:var(--r2);font-size:13px;font-weight:500;color:var(--t3);background:#fff;border:1px solid var(--bd2);cursor:pointer;white-space:nowrap;transition:background .1s,border-color .1s;flex-shrink:0}
+.settings-btn:hover{background:var(--bg-s);border-color:var(--bd);color:var(--t2)}
+
+/* Metrics row (inside cap-card, below divider) */
+.cap-metrics{display:flex;gap:8px;padding:0 24px 24px}
+.metric-cell{flex:1;padding:12px 16px;background:var(--gray-50);border:1px solid #f5f5f5;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:16px;white-space:nowrap}
+.metric-lbl{font-size:14px;font-weight:600;color:var(--t3)}
+.metric-num{font-size:24px;font-weight:700;color:var(--t1)}
+
+/* ── Table card ──────────────────────────────────────────────── */
+.main-card{background:#fff;border:1px solid var(--bd2);border-radius:var(--r4);box-shadow:var(--sh-xs);overflow:hidden}
+
+/* Tab bar */
+.tab-bar{display:flex;align-items:center;justify-content:space-between;padding:0 16px;border-bottom:1px solid var(--bd2);background:#fff;min-height:56px}
+.tabs{display:flex;background:var(--gray-50);border:1px solid var(--bd2);border-radius:10px;padding:4px;gap:0}
+.tab{padding:8px 12px;font-size:14px;font-weight:600;color:var(--t4);cursor:pointer;border-radius:6px;transition:all .12s;user-select:none;height:36px;display:flex;align-items:center;white-space:nowrap}
+.tab:hover{color:var(--t2)}
+.tab.active{background:#fff;color:var(--t2);box-shadow:var(--sh-sm)}
+
+/* Search + filter toolbar */
+.toolbar-right{display:flex;align-items:center;gap:8px}
+.search-wrap{display:flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--bd);border-radius:var(--r2);padding:6px 10px;width:320px;box-shadow:var(--sh-xs)}
+.search-wrap input{border:none;outline:none;background:transparent;font-size:13px;color:var(--t1);flex:1;font-family:inherit;min-width:0}
+.search-wrap input::placeholder{color:var(--t4)}
+.filter-btn{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:var(--r2);background:#fff;border:1px solid var(--bd2);cursor:pointer;box-shadow:var(--sh-xs);transition:background .1s;color:var(--t4)}
+.filter-btn:hover{background:var(--bg-s);color:var(--t2)}
+
+/* Table */
+table{width:100%;border-collapse:collapse}
+thead th{text-align:left;font-size:12px;font-weight:600;color:var(--t4);padding:10px 14px;background:var(--gray-50);border-bottom:1px solid var(--bd2)}
+thead th:first-child{padding-left:20px}
+tbody tr{background:#fff;border-bottom:1px solid var(--bd2);transition:background .08s}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:var(--gray-25)}
+td{padding:12px 14px;font-size:14px;color:var(--t2);vertical-align:middle}
+td:first-child{padding-left:20px;width:52px}
+
+/* App / class row cells */
+.app-icon{width:28px;height:28px;border-radius:6px;background:var(--gray-100);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.app-name{font-size:14px;font-weight:600;color:var(--t1);line-height:20px}
+.app-type{font-size:12px;color:var(--t4);line-height:16px;margin-top:1px}
+.app-cell{display:flex;align-items:center;gap:10px}
+.app-cell-text{display:flex;flex-direction:column}
+
+/* Descriptor tags */
+.dtags{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.dt{display:inline-flex;align-items:center;padding:2px 8px;border-radius:var(--r-full);font-size:12px;font-weight:500;white-space:nowrap;line-height:18px;border:1px solid transparent}
+.dt-blue  {background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}
+.dt-dark  {background:#1e293b;color:#f8fafc;border-color:#334155}
+.dt-orange{background:#fff7ed;color:#c2410c;border-color:#fed7aa}
+.dt-green {background:#f0fdf4;color:#15803d;border-color:#bbf7d0}
+.dt-gray  {background:var(--gray-100);color:var(--gray-600);border-color:var(--gray-200)}
+.dt-more  {background:var(--gray-100);color:var(--t4);border-color:var(--gray-200);font-size:11px}
+
+/* Status badges */
+.sbadge{display:inline-flex;align-items:center;gap:5px;padding:2px 10px;border-radius:var(--r-full);font-size:12px;font-weight:600;white-space:nowrap;line-height:18px;border:1px solid transparent}
+.sbadge-dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0}
+.sb-working {background:#f0fdf4;color:#15803d;border-color:#bbf7d0}
+.sb-review  {background:#fff7ed;color:#c2410c;border-color:#fed7aa}
+.sb-disabled{background:var(--gray-100);color:var(--gray-500);border-color:var(--gray-200)}
+
+/* Review / action links */
+.review-link{font-size:13px;font-weight:600;color:var(--brand-700);cursor:pointer;text-decoration:none;white-space:nowrap;background:none;border:none;padding:0;font-family:inherit}
+.review-link:hover{text-decoration:underline}
+.review-link.muted{color:var(--t4);font-weight:500}
+
+/* Add descriptors button */
+.add-desc-btn{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:var(--r-full);font-size:12px;font-weight:500;background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;cursor:pointer;white-space:nowrap}
+.add-desc-btn:hover{background:#fff0dc}
+
+/* ── Toast notification ──────────────────────────────────────── */
+.toast{position:fixed;top:80px;right:24px;z-index:400;background:#fff;border:1px solid var(--bd2);border-radius:var(--r3);box-shadow:var(--sh-md);padding:14px 16px;display:flex;align-items:flex-start;gap:10px;width:340px;transform:translateX(400px);transition:transform .32s cubic-bezier(.34,1.26,.64,1)}
+.toast.show{transform:translateX(0)}
+.toast-icon-wrap{width:36px;height:36px;border-radius:50%;background:var(--success-100);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.toast-title{font-size:13px;font-weight:700;color:var(--t1);margin-bottom:2px}
+.toast-desc{font-size:12px;color:var(--t3);line-height:1.5}
+.toast-close{background:none;border:none;cursor:pointer;color:var(--t4);padding:2px;border-radius:4px;flex-shrink:0;margin-top:-2px;line-height:1}
+.toast-close:hover{color:var(--t2)}
+
+/* ── Modal overlay ───────────────────────────────────────────── */
+.modal-overlay{position:fixed;inset:0;background:rgba(10,13,18,.45);z-index:500;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{background:#fff;border-radius:16px;padding:28px 28px 24px;width:440px;box-shadow:0 20px 60px rgba(10,13,18,.25);transform:scale(.96) translateY(8px);transition:transform .2s cubic-bezier(.34,1.2,.64,1)}
+.modal-overlay.open .modal{transform:scale(1) translateY(0)}
+.modal-icon{width:52px;height:52px;border-radius:50%;background:var(--brand-50);border:8px solid var(--brand-25);display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.modal-title{font-size:18px;font-weight:700;color:var(--t1);text-align:center;margin-bottom:8px}
+.modal-desc{font-size:14px;color:var(--t3);text-align:center;line-height:1.6;margin-bottom:24px}
+.modal-btns{display:flex;gap:12px}
+.modal-btn{flex:1;padding:10px 18px;border-radius:var(--r2);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .1s,border-color .1s;border:1px solid var(--bd)}
+.modal-btn-cancel{background:#fff;color:var(--t2)}
+.modal-btn-cancel:hover{background:var(--bg-s)}
+.modal-btn-confirm{background:var(--brand-700);color:#fff;border-color:var(--brand-700)}
+.modal-btn-confirm:hover{background:var(--brand-800);border-color:var(--brand-800)}
+.hdr-actions{display:flex;gap:2px}
+.nav-toggle{position:absolute;opacity:0;width:0;height:0;pointer-events:none}
+.hdr-menu-btn{
+  display:none;align-items:center;justify-content:center;
+  width:40px;height:40px;border-radius:6px;background:none;
+  border:none;cursor:pointer;flex-shrink:0;
+}
+.hdr-menu-btn:hover{background:rgba(255,255,255,.1)}
+.hdr-menu-icon{display:block}
+.hdr-close-icon{display:none}
+.nav-toggle:checked ~ .app .sidebar{transform:translateX(0) !important;box-shadow:4px 0 24px rgba(0,0,0,.15)}
+.nav-toggle:checked ~ header .hdr-menu-icon{display:none}
+.nav-toggle:checked ~ header .hdr-close-icon{display:block}
+.nav-toggle:checked ~ .app::before{content:'';position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:149}
+@media (max-width:1023px){
+  .hdr-menu-btn{display:flex}
+  .hdr-search{width:auto;flex:1;max-width:360px}
+  .sidebar{transform:translateX(-260px);transition:transform .22s ease;z-index:150}
+  .main{margin-left:0 !important}
+}
+</style>
+</head>
+<body>
+
+<input type="checkbox" id="nav-toggle" class="nav-toggle">
+<!-- Top header -->
+<header class="hdr">
+  <label for="nav-toggle" class="hdr-menu-btn">
+    <span class="hdr-menu-icon"><svg width="20" height="20" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="1.8" stroke-linecap="round" viewBox="0 0 20 20"><line x1="3" y1="6" x2="17" y2="6"/><line x1="3" y1="10" x2="17" y2="10"/><line x1="3" y1="14" x2="17" y2="14"/></svg></span>
+    <span class="hdr-close-icon"><svg width="20" height="20" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="1.8" stroke-linecap="round" viewBox="0 0 20 20"><line x1="5" y1="5" x2="15" y2="15"/><line x1="15" y1="5" x2="5" y2="15"/></svg></span>
+  </label>
+  <div class="hdr-brand">
+    <img src="data/doxis-logo.svg" alt="DOXIS" class="hdr-logo-img">
+    <span class="hdr-bs">Business Studio</span>
+  </div>
+  <div class="hdr-search">
+    <img src="data/icons/search-lg.svg" class="hdr-si" alt="">
+    <span class="hdr-search-text">Search</span>
+  </div>
+  <div class="hdr-right">
+    <div class="hdr-actions">
+      <button class="hdr-btn"><img src="data/icons/bell-01.svg" class="hdr-si" alt=""></button>
+      <button class="hdr-btn"><img src="data/icons/help-circle.svg" class="hdr-si" alt=""></button>
+    </div>
+    <div class="hdr-avatar-wrap"><img src="data/avatar.png" class="hdr-avatar" alt="TS"></div>
+  </div>
+</header>
+
+<div class="app">
+
+  <!-- Sidebar -->
+  <nav class="sidebar">
+  <div class="sb-scroll">
+    <div class="sb-grp0">
+      <div class="nw"><a class="nc"><img src="data/icons/bar-chart-square-02.svg" class="ni" alt="Overview"><span class="nc-flex">Overview</span></a></div>
+      <div class="nw"><a class="nc"><img src="data/icons/book-open-01.svg" class="ni" alt="Library"><span class="nc-flex">Library</span></a></div>
+      <div class="nw"><a class="nc"><img src="data/icons/intersect-square.svg" class="ni" alt="Applications"><span class="nc-flex">Applications</span></a></div>
+      <div class="nw"><a class="nc"><img src="data/icons/link-04.svg" class="ni" alt="Integrations"><span class="nc-flex">Integrations</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+      <div class="nw"><a class="nc"><img src="data/icons/cpu-chip-01.svg" class="ni" alt="AI studio"><span class="nc-flex">AI studio</span><img src="data/icons/chevron-down.svg" class="nchev" alt="" style="transform:rotate(180deg)"></a></div>
+      <div class="nw"><a class="nc nc-sub" href="screen-1-ai-manager.html"><span class="nc-flex">AI agent manager</span></a></div>
+      <div class="nw"><a class="nc nc-sub nc-sub-active" href="screen-8-superhuman-search.html"><span class="nc-flex">Superhuman search</span></a></div>
+
+    </div>
+    <div class="sb-grp">
+      <div class="sb-grp-inner">
+        <div class="sb-sec-hdr">Configuration</div>
+        <div class="nw"><a class="nc"><img src="data/icons/tool-02.svg" class="ni" alt="General"><span class="nc-flex">General</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/database-02.svg" class="ni" alt="Databases"><span class="nc-flex">Databases</span></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/data.svg" class="ni" alt="Metadata"><span class="nc-flex">Metadata</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/file-02.svg" class="ni" alt="Document management"><span class="nc-flex">Document management</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/search-sm.svg" class="ni" alt="Search"><span class="nc-flex">Search</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/layout-left.svg" class="ni" alt="Template designer"><span class="nc-flex">Template designer</span><img src="data/icons/link-external-02.svg" class="nchev" alt=""></a></div>
+      </div>
+      <div class="sb-grp-inner">
+        <div class="sb-sec-hdr">Access &amp; Security</div>
+        <div class="nw"><a class="nc"><img src="data/icons/building-07.svg" class="ni" alt="Organization"><span class="nc-flex">Organization</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/lock-unlocked-03.svg" class="ni" alt="Access control"><span class="nc-flex">Access control</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/scale-01.svg" class="ni" alt="Retention rules"><span class="nc-flex">Retention rules</span></a></div>
+      </div>
+      <div class="sb-grp-inner">
+        <div class="sb-sec-hdr">Operations</div>
+        <div class="nw"><a class="nc"><img src="data/icons/clock-fast-forward.svg" class="ni" alt="Timeslices"><span class="nc-flex">Timeslices</span></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/server-03.svg" class="ni" alt="Agents &amp; Webhooks"><span class="nc-flex">Agents &amp; Webhooks</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/search-sm.svg" class="ni" alt="Fulltext"><span class="nc-flex">Fulltext</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/file-download-01.svg" class="ni" alt="File import (FIPS)"><span class="nc-flex">File import (FIPS)</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/server-04.svg" class="ni" alt="Storage jobs"><span class="nc-flex">Storage jobs</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/bar-chart-square-02.svg" class="ni" alt="System status"><span class="nc-flex">System status</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+      </div>
+    </div>
+  </div>
+  <div class="sb-bot">
+    <div class="nw"><a class="nc"><img src="data/icons/layout-left.svg" class="ni" alt="Collapse menu"><span class="nc-flex">Collapse menu</span></a></div>
+  </div>
+</nav>
+
+  <!-- Main content -->
+  <main class="main">
+    <div class="pg-hdr">
+      <h1 class="pg-title">AI Search</h1>
+      <p class="pg-sub">Enable Ask Doxi and Superhuman search in one place.</p>
+    </div>
+
+    <div class="cw">
+
+      <!-- ── AI Capabilities card (toggle + metrics in one card) ── -->
+      <div class="cap-card">
+        <div class="cap-top">
+          <div class="cap-left">
+            <label class="tog" style="margin-top:1px" onclick="onMainToggleClick(event)">
+              <input type="checkbox" id="main-toggle" onchange="onMainToggleChange(this)" style="pointer-events:none" checked>
+              <span class="tog-t"></span>
+            </label>
+            <div>
+              <div class="cap-title">
+                AI capabilities
+                <span class="cap-badge disabled" id="cap-badge" style="display:none">
+                  <span class="cap-dot"></span>Currently disabled
+                </span>
+              </div>
+              <div class="cap-desc">Enable and choose the applications and classes where Ask Doxi and Superhuman search should be available.</div>
+            </div>
+          </div>
+          <button class="settings-btn">
+            <img src="data/icons/settings-01.svg" width="14" height="14" alt="">
+            Settings
+          </button>
+        </div>
+        <!-- Metrics row -->
+        <div class="cap-metrics">
+          <div class="metric-cell">
+            <div class="metric-lbl">Applications in scope</div>
+            <div class="metric-num" id="m-apps">0</div>
+          </div>
+          <div class="metric-cell">
+            <div class="metric-lbl">Classes in scope</div>
+            <div class="metric-num" id="m-classes">0</div>
+          </div>
+          <div class="metric-cell">
+            <div class="metric-lbl">Open follow-ups</div>
+            <div class="metric-num" id="m-followups">0</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Table card ─────────────────────────────────────────── -->
+      <div class="main-card">
+
+        <!-- Tab bar + search -->
+        <div class="tab-bar">
+          <div class="tabs">
+            <div class="tab active" id="tab-apps" onclick="switchTab('apps')">Applications</div>
+            <div class="tab" id="tab-classes" onclick="switchTab('classes')">Classes</div>
+          </div>
+          <div class="toolbar-right">
+            <div class="search-wrap">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 14 14" style="opacity:.4;flex-shrink:0"><circle cx="6" cy="6" r="4"/><path d="M9.5 9.5L13 13" stroke-linecap="round"/></svg>
+              <input type="text" placeholder="Search…" id="search-input" oninput="filterRows(this.value)">
+            </div>
+            <button class="filter-btn" title="Filter">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 14 14"><path d="M1 3h12M3.5 7h7M6 11h2" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Applications panel -->
+        <div id="panel-apps">
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Applications</th>
+                <th>Included classes</th>
+              </tr>
+            </thead>
+            <tbody id="apps-tbody"></tbody>
+          </table>
+        </div>
+
+        <!-- Classes panel -->
+        <div id="panel-classes" style="display:none">
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Classes</th>
+                <th>Included classes</th>
+              </tr>
+            </thead>
+            <tbody id="classes-tbody"></tbody>
+          </table>
+        </div>
+
+      </div><!-- /main-card -->
+    </div><!-- /cw -->
+  </main>
+</div>
+
+<!-- Toast notification (AI capabilities enabled) -->
+<div class="toast" id="toast">
+  <div class="toast-icon-wrap">
+    <svg width="16" height="13" fill="none" viewBox="0 0 16 13"><path d="M1.5 6.5L6 11 14.5 2" stroke="var(--success-700)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+  <div style="flex:1;min-width:0">
+    <div class="toast-title">AI capabilities enabled</div>
+    <div class="toast-desc">You can now configure Superhuman Search across your classes and applications.</div>
+  </div>
+  <button class="toast-close" onclick="closeToast()">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 14 14"><path d="M3 3l8 8M11 3l-8 8" stroke-linecap="round"/></svg>
+  </button>
+</div>
+
+<!-- "Enable AI Capabilities?" modal (triggered by row toggle when AI is off) -->
+<div class="modal-overlay" id="enable-modal">
+  <div class="modal">
+    <div class="modal-icon">
+      <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="var(--brand-100)"/><path d="M8 12l3 3 5-5" stroke="var(--brand-700)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="modal-title">Enable AI Capabilities?</div>
+    <div class="modal-desc" id="modal-desc">To activate the <strong id="modal-item-name">HR Onboarding</strong> application, please confirm that you want to enable AI capabilities.</div>
+    <div class="modal-btns">
+      <button class="modal-btn modal-btn-cancel" onclick="cancelModal()">Cancel</button>
+      <button class="modal-btn modal-btn-confirm" onclick="confirmModal()">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── Data ─────────────────────────────────────────────────────── */
+var APPS = [
+  { id:'hr',  name:'HR Onboarding',       type:'Custom',   enabled:true,
+    tags:[{l:'Data',c:'dt-blue'},{l:'Code',c:'dt-dark'},{l:'Recruitment',c:'dt-orange'},{l:'Recruitment',c:'dt-orange'},{l:'Recruitment',c:'dt-orange'},{l:'Recruitment',c:'dt-orange'}], more:11, status:'review' },
+  { id:'fin', name:'Finance Automation',  type:'Standard', enabled:false,
+    tags:[{l:'Contracts',c:'dt-gray'},{l:'Contracts',c:'dt-gray'},{l:'Contracts',c:'dt-gray'},{l:'Contracts',c:'dt-gray'},{l:'Invoices',c:'dt-gray'},{l:'Invoices',c:'dt-gray'}], more:11, status:'disabled' },
+  { id:'pol', name:'Policy Hub',          type:'Standard', enabled:true,
+    tags:[{l:'Capital',c:'dt-green'},{l:'Policies',c:'dt-blue'},{l:'Policies',c:'dt-blue'},{l:'Policies',c:'dt-blue'},{l:'Policies',c:'dt-blue'},{l:'Policies',c:'dt-blue'},{l:'Policies',c:'dt-blue'}], more:3, status:'working' },
+  { id:'con', name:'Contract Repository', type:'Standard', enabled:false,
+    tags:[{l:'Resources',c:'dt-gray'},{l:'Management',c:'dt-gray'},{l:'Management',c:'dt-gray'},{l:'Management',c:'dt-gray'},{l:'Management',c:'dt-gray'},{l:'Management',c:'dt-gray'}], more:10, status:'disabled' }
+];
+
+var CLASSES = [
+  { id:'docs',    name:'Documents',             type:'E-file class',   enabled:false, tags:[], more:0, status:'disabled', action:'add' },
+  { id:'contr',   name:'Contracts',             type:'BPM class',      enabled:true,
+    tags:[{l:'Capital',c:'dt-green'},{l:'Policies',c:'dt-blue'},{l:'Policies',c:'dt-blue'},{l:'Policies',c:'dt-blue'},{l:'Policies',c:'dt-blue'},{l:'Policies',c:'dt-blue'},{l:'Policies',c:'dt-blue'}], more:3, status:'working', action:'review' },
+  { id:'hr',      name:'HR',                    type:'Document class', enabled:true,
+    tags:[{l:'Data',c:'dt-blue'},{l:'Code',c:'dt-dark'},{l:'Recruitment',c:'dt-orange'},{l:'Recruitment',c:'dt-orange'},{l:'Recruitment',c:'dt-orange'},{l:'Recruitment',c:'dt-orange'}], more:11, status:'review', action:'review' },
+  { id:'docmgmt', name:'Document Management',   type:'E-file class',   enabled:true, tags:[], more:0, status:'working', action:'add-desc' },
+  { id:'docmg2',  name:'Document Management II',type:'E-file class',   enabled:false,
+    tags:[{l:'Contracts',c:'dt-gray'},{l:'Contracts',c:'dt-gray'},{l:'Contracts',c:'dt-gray'},{l:'Contracts',c:'dt-gray'},{l:'Invoices',c:'dt-gray'},{l:'Invoices',c:'dt-gray'}], more:11, status:'disabled', action:'review' }
+];
+
+var aiEnabled = true;
+var currentTab = 'apps';
+var toastTimer = null;
+var pendingToggle = null; // {type:'app'|'class', id, cb}
+
+/* ── SVG Icons ────────────────────────────────────────────────── */
+var APP_ICONS = {
+  hr:  '<svg width="14" height="14" fill="none" stroke="var(--brand-600)" stroke-width="1.7" viewBox="0 0 14 14"><circle cx="7" cy="4.5" r="2.5"/><path d="M1.5 13c0-3.03 2.46-5.5 5.5-5.5s5.5 2.47 5.5 5.5" stroke-linecap="round"/></svg>',
+  fin: '<svg width="14" height="14" fill="none" stroke="var(--brand-600)" stroke-width="1.7" viewBox="0 0 14 14"><rect x="1.5" y="3.5" width="11" height="7.5" rx="1.5"/><path d="M1.5 6.5h11M5 9h1.5" stroke-linecap="round"/></svg>',
+  pol: '<svg width="14" height="14" fill="none" stroke="var(--brand-600)" stroke-width="1.7" viewBox="0 0 14 14"><path d="M3 1.5h5.5L11 4.5v8H3z"/><path d="M8 1.5v3.5h3M5 7h4M5 9.5h2.5" stroke-linecap="round"/></svg>',
+  con: '<svg width="14" height="14" fill="none" stroke="var(--brand-600)" stroke-width="1.7" viewBox="0 0 14 14"><path d="M3 1.5h5L11 5v7.5H3z"/><path d="M7.5 1.5V5.5H11M5 7h4M5 9.5h4M5 11.5h2" stroke-linecap="round"/></svg>'
+};
+var CLASS_ICONS = {
+  docs:    '<svg width="14" height="14" fill="none" stroke="var(--brand-600)" stroke-width="1.7" viewBox="0 0 14 14"><path d="M3 1.5h5L11 5v7.5H3z"/><path d="M7.5 1.5V5.5H11" stroke-linecap="round"/></svg>',
+  contr:   '<svg width="14" height="14" fill="none" stroke="var(--brand-600)" stroke-width="1.7" viewBox="0 0 14 14"><path d="M3 1.5h5L11 5v7.5H3z"/><path d="M5 7.5h4M5 9.5h2.5" stroke-linecap="round"/></svg>',
+  hr:      '<svg width="14" height="14" fill="none" stroke="var(--brand-600)" stroke-width="1.7" viewBox="0 0 14 14"><circle cx="7" cy="4.5" r="2.5"/><path d="M1.5 13c0-3.03 2.46-5.5 5.5-5.5s5.5 2.47 5.5 5.5" stroke-linecap="round"/></svg>',
+  docmgmt: '<svg width="14" height="14" fill="none" stroke="var(--brand-600)" stroke-width="1.7" viewBox="0 0 14 14"><rect x="2" y="2" width="10" height="10" rx="1.5"/><path d="M4.5 5h5M4.5 7.5h5M4.5 10h2.5" stroke-linecap="round"/></svg>',
+  docmg2:  '<svg width="14" height="14" fill="none" stroke="var(--brand-600)" stroke-width="1.7" viewBox="0 0 14 14"><rect x="2" y="2" width="10" height="10" rx="1.5"/><path d="M4.5 5h5M4.5 7.5h3" stroke-linecap="round"/></svg>'
+};
+
+/* ── Helpers ──────────────────────────────────────────────────── */
+function tagsHTML(tags, more) {
+  if (!tags || !tags.length) return '<span style="color:var(--t4);font-size:13px">—</span>';
+  var h = tags.map(function(t){ return '<span class="dt '+t.c+'">'+t.l+'</span>'; }).join('');
+  if (more > 0) h += '<span class="dt dt-more">+'+more+'</span>';
+  return '<div class="dtags">'+h+'</div>';
+}
+
+function emptyTags() {
+  return '<span style="color:var(--t4);font-size:13px">—</span>';
+}
+
+function statusBadge(s) {
+  var map = {
+    working : ['sb-working', 'Working'],
+    review  : ['sb-review',  'Needs review'],
+    disabled: ['sb-disabled','Deactivated']
+  };
+  var v = map[s] || map.disabled;
+  return '<span class="sbadge '+v[0]+'"><span class="sbadge-dot"></span>'+v[1]+'</span>';
+}
+
+/* ── Render Applications ──────────────────────────────────────── */
+function renderApps(filter) {
+  filter = (filter||'').toLowerCase();
+  var rows = APPS.filter(function(a){ return !filter || a.name.toLowerCase().indexOf(filter)>=0; });
+  var html = rows.map(function(a) {
+    var isOn = a.enabled && aiEnabled;
+    var showTags = aiEnabled; // show tags whenever main is on, regardless of row state
+    var reviewCls = isOn ? 'review-link' : 'review-link muted';
+    var reviewTxt = aiEnabled ? '<a href="screen-8-hr-onboarding.html" class="'+reviewCls+'">Review</a>' : '';
+    return '<tr>'
+      + '<td><label class="tog tog-sm" style="margin:0" onclick="onRowToggleClick(event,\'app\',\''+a.id+'\')">'
+      +   '<input type="checkbox"'+(isOn?' checked':'')+' onchange="toggleApp(\''+a.id+'\',this)" style="pointer-events:none">'
+      +   '<span class="tog-t"></span></label></td>'
+      + '<td><div class="app-cell">'
+      +   '<div class="app-icon">'+(APP_ICONS[a.id]||'')+'</div>'
+      +   '<div class="app-cell-text"><div class="app-name">'+a.name+'</div><div class="app-type">'+a.type+'</div></div>'
+      + '</div></td>'
+      + '<td>'+(showTags ? tagsHTML(a.tags, a.more) : emptyTags())+'</td>'
+      + '</tr>';
+  }).join('');
+  document.getElementById('apps-tbody').innerHTML = html || '<tr><td colspan="3" style="text-align:center;padding:36px;color:var(--t4)">No applications match your search.</td></tr>';
+}
+
+/* ── Render Classes ───────────────────────────────────────────── */
+function renderClasses(filter) {
+  filter = (filter||'').toLowerCase();
+  var rows = CLASSES.filter(function(c){ return !filter || c.name.toLowerCase().indexOf(filter)>=0; });
+  var html = rows.map(function(c) {
+    var isOn = c.enabled && aiEnabled;
+    var showTags = aiEnabled;
+
+    var actionCell = '';
+    if (aiEnabled) {
+      if (c.action === 'review') {
+        actionCell = '<a href="screen-8-hr-onboarding.html" class="review-link'+(isOn?'':' muted')+'">Review</a>';
+      } else if (c.action === 'add') {
+        actionCell = '<span class="review-link muted" style="font-weight:500">Add</span>';
+      } else if (c.action === 'add-desc') {
+        actionCell = '<span style="display:flex;gap:12px;align-items:center">'
+          + '<button class="add-desc-btn">Add descriptors</button>'
+          + '<span class="review-link muted" style="font-weight:500">Add</span>'
+          + '</span>';
+      }
+    }
+
+    var tagsCell = '';
+    if (showTags) {
+      if (c.tags && c.tags.length) {
+        tagsCell = tagsHTML(c.tags, c.more);
+      } else if (isOn && c.action === 'add-desc') {
+        tagsCell = ''; // shown in action cell
+      } else {
+        tagsCell = emptyTags();
+      }
+    } else {
+      tagsCell = emptyTags();
+    }
+
+    return '<tr>'
+      + '<td><label class="tog tog-sm" style="margin:0" onclick="onRowToggleClick(event,\'class\',\''+c.id+'\')">'
+      +   '<input type="checkbox"'+(isOn?' checked':'')+' onchange="toggleClass(\''+c.id+'\',this)" style="pointer-events:none">'
+      +   '<span class="tog-t"></span></label></td>'
+      + '<td><div class="app-cell">'
+      +   '<div class="app-icon">'+(CLASS_ICONS[c.id]||'')+'</div>'
+      +   '<div class="app-cell-text"><div class="app-name">'+c.name+'</div><div class="app-type">'+c.type+'</div></div>'
+      + '</div></td>'
+      + '<td>'+tagsCell+'</td>'
+      + '</tr>';
+  }).join('');
+  document.getElementById('classes-tbody').innerHTML = html || '<tr><td colspan="3" style="text-align:center;padding:36px;color:var(--t4)">No classes match your search.</td></tr>';
+}
+
+/* ── Metrics ──────────────────────────────────────────────────── */
+function updateMetrics() {
+  var a = aiEnabled ? APPS.filter(function(x){ return x.enabled; }).length : 0;
+  var c = aiEnabled ? CLASSES.filter(function(x){ return x.enabled; }).length : 0;
+  var f = aiEnabled ? APPS.concat(CLASSES).filter(function(x){ return x.enabled && x.status==='review'; }).length : 0;
+  setM('m-apps', a);
+  setM('m-classes', c);
+  setM('m-followups', f);
+}
+function setM(id, v) {
+  var el = document.getElementById(id);
+  el.textContent = v;
+  el.className = 'metric-num' + (v > 0 ? ' live' : '');
+}
+
+/* ── Main toggle ──────────────────────────────────────────────── */
+function onMainToggleClick(e) {
+  // Allow normal toggle behavior — no modal for main toggle
+}
+function onMainToggleChange(cb) {
+  aiEnabled = cb.checked;
+  var badge = document.getElementById('cap-badge');
+  if (aiEnabled) {
+    badge.style.display = 'none';
+    showToast();
+  } else {
+    badge.innerHTML = '<span class="cap-dot"></span>Currently disabled';
+    badge.className = 'cap-badge disabled';
+    badge.style.display = 'inline-flex';
+  }
+  document.getElementById('m-apps').textContent = aiEnabled ? '2' : '0';
+  document.getElementById('m-classes').textContent = aiEnabled ? '37' : '0';
+  document.getElementById('m-followups').textContent = aiEnabled ? '1' : '0';
+  render();
+}
+
+/* ── Row toggle — intercept when AI is off ────────────────────── */
+function onRowToggleClick(e, type, id) {
+  e.preventDefault();
+  e.stopPropagation();
+  if (aiEnabled) {
+    // AI already on — just toggle normally
+    var list = type === 'app' ? APPS : CLASSES;
+    var item = list.find(function(x){ return x.id===id; });
+    if (!item) return;
+    item.enabled = !item.enabled;
+    if (item.enabled && item.status === 'disabled') item.status = 'review';
+    render();
+  } else {
+    // AI is off — show confirmation modal
+    var list = type === 'app' ? APPS : CLASSES;
+    var item = list.find(function(x){ return x.id===id; });
+    if (!item) return;
+    pendingToggle = { type: type, id: id };
+    var kind = type === 'app' ? 'application' : 'class';
+    document.getElementById('modal-item-name').textContent = item.name;
+    document.getElementById('modal-desc').innerHTML =
+      'To activate the <strong>'+item.name+'</strong> '+kind+', please confirm that you want to enable AI capabilities.';
+    document.getElementById('enable-modal').classList.add('open');
+  }
+}
+
+function cancelModal() {
+  pendingToggle = null;
+  document.getElementById('enable-modal').classList.remove('open');
+}
+
+function confirmModal() {
+  document.getElementById('enable-modal').classList.remove('open');
+  if (pendingToggle) {
+    // Enable main toggle
+    aiEnabled = true;
+    var cb = document.getElementById('main-toggle');
+    cb.checked = true;
+    var badge = document.getElementById('cap-badge');
+    badge.style.display = 'none';
+    // Enable the specific row
+    var list = pendingToggle.type === 'app' ? APPS : CLASSES;
+    var item = list.find(function(x){ return x.id===pendingToggle.id; });
+    if (item) {
+      item.enabled = true;
+      if (item.status === 'disabled') item.status = 'review';
+    }
+    pendingToggle = null;
+    showToast();
+    render();
+  }
+}
+
+function toggleApp(id, cb) { /* handled by onRowToggleClick */ }
+function toggleClass(id, cb) { /* handled by onRowToggleClick */ }
+
+/* ── Tab switch ───────────────────────────────────────────────── */
+function switchTab(tab) {
+  document.getElementById('tab-apps').className    = 'tab'+(tab==='apps'   ?' active':'');
+  document.getElementById('tab-classes').className = 'tab'+(tab==='classes'?' active':'');
+  document.getElementById('panel-apps').style.display    = tab==='apps'   ? '' : 'none';
+  document.getElementById('panel-classes').style.display = tab==='classes'? '' : 'none';
+  document.getElementById('search-input').value = '';
+  currentTab = tab;
+}
+
+/* ── Search ───────────────────────────────────────────────────── */
+function filterRows(val) {
+  if (currentTab==='apps') renderApps(val);
+  else renderClasses(val);
+}
+
+/* ── Toast ────────────────────────────────────────────────────── */
+function showToast() {
+  clearTimeout(toastTimer);
+  document.getElementById('toast').classList.add('show');
+  toastTimer = setTimeout(closeToast, 4500);
+}
+function closeToast() {
+  document.getElementById('toast').classList.remove('show');
+}
+
+/* ── Full render ──────────────────────────────────────────────── */
+function render() {
+  var q = document.getElementById('search-input').value;
+  renderApps(currentTab==='apps' ? q : '');
+  renderClasses(currentTab==='classes' ? q : '');
+  updateMetrics();
+}
+
+document.getElementById('m-apps').textContent = aiEnabled ? '2' : '0';
+document.getElementById('m-classes').textContent = aiEnabled ? '37' : '0';
+document.getElementById('m-followups').textContent = aiEnabled ? '1' : '0';
+render();
+</script>
+</body>
+</html>

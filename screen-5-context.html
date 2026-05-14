@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New Agent — Context — Doxis Business Studio</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gray-25:#fdfdfd;--gray-50:#fafafa;--gray-100:#f5f5f5;
+  --gray-200:#e9eaeb;--gray-300:#d5d7da;--gray-400:#a4a7ae;
+  --gray-500:#717680;--gray-600:#535862;--gray-700:#414651;
+  --gray-800:#252b37;--gray-900:#181d27;
+  --brand-25:#f3f7f8;--brand-50:#e6eff1;--brand-100:#dae7ea;
+  --brand-300:#9bbfc7;--brand-400:#6aa0ac;--brand-500:#388090;
+  --brand-600:#1f7082;--brand-700:#066074;--brand-800:#075365;
+  --error-100:#fee4e2;--error-500:#f04438;--error-700:#b42318;
+  --warning-100:#fef0c7;--warning-500:#f79009;--warning-700:#b54708;
+  --success-50:#f0fdf4;--success-100:#dcfae6;--success-500:#17b26a;--success-700:#067647;
+  --bg:#ffffff;--bg-s:var(--gray-50);--bg-t:var(--gray-100);
+  --bd:var(--gray-300);--bd2:var(--gray-200);
+  --t1:var(--gray-900);--t2:var(--gray-700);--t3:var(--gray-600);--t4:var(--gray-500);
+  --r:6px;--r2:8px;--r3:10px;--r4:12px;--r-full:9999px;
+  --sw:260px;--hh:64px;
+  --sh-xs:0 1px 2px 0 rgba(10,13,18,.05);
+  --sh-md:0 4px 6px -1px rgba(10,13,18,.1),0 2px 4px -2px rgba(10,13,18,.06);
+  --focus-ring:0 0 0 4px rgba(56,128,144,.25),0 0 0 2px #fff;
+}
+body{font-family:'Inter var','Inter',system-ui,sans-serif;background:var(--bg-s);color:var(--t1);font-size:14px;line-height:1.5}
+.app{display:flex;padding-top:var(--hh);min-height:100vh}
+.main{margin-left:var(--sw);flex:1;min-width:0;height:calc(100vh - var(--hh));display:flex;flex-direction:column;overflow:hidden}
+
+/* ─── Agent context header ───────────────────────────────────── */
+.agent-hdr{background:#fff;border-bottom:1px solid var(--bd2);flex-shrink:0;min-height:80px}
+.agent-hdr-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1600px;margin:0 auto;padding:16px 24px}
+.agent-hdr-left{display:flex;align-items:center;gap:12px;min-width:0}
+.agent-hdr-name{font-size:24px;font-weight:600;color:var(--t1);line-height:32px}
+.agent-hdr-meta{font-size:14px;color:var(--t3);margin-top:2px}
+.agent-hdr-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+/* ─── Step tab strip ─────────────────────────────────────────── */
+.step-tabs{background:#fff;border-bottom:1px solid var(--bd2);flex-shrink:0}
+.step-tabs-inner{display:flex;max-width:1600px;margin:0 auto;padding:0 24px}
+.step-tab{flex:1;padding:12px 20px;border-top:3px solid transparent;cursor:pointer;transition:background .1s;text-decoration:none;display:block}
+.step-tab:hover{background:var(--gray-50)}
+.step-tab.done{border-top-color:var(--brand-600)}
+.step-tab.active{border-top-color:var(--brand-600)}
+.step-tab-label{font-size:13px;font-weight:600;color:var(--gray-700);line-height:18px}
+.step-tab.active .step-tab-label{color:var(--brand-700)}
+.step-tab-sub{font-size:11px;color:var(--gray-600);margin-top:2px;line-height:16px}
+.step-tab.active .step-tab-sub{color:var(--brand-600)}
+
+/* Page header */
+.pg-hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:20px 24px 14px;max-width:1600px;margin:0 auto;flex-shrink:0;width:100%}
+.pg-title{font-size:22px;font-weight:600;line-height:30px;color:var(--t1)}
+.pg-sub{font-size:14px;color:var(--t3);margin-top:2px;line-height:20px}
+
+/* Content wrapper */
+.cw{padding:32px 24px;display:flex;flex-direction:column;gap:16px;max-width:1600px;margin:0 auto;flex:1;min-height:0;width:100%;overflow:hidden;padding-bottom:100px}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 16px;height:40px;font-family:inherit;font-size:14px;font-weight:600;line-height:20px;border-radius:var(--r2);border:1px solid transparent;cursor:pointer;text-decoration:none;white-space:nowrap;transition:background .12s,box-shadow .12s,color .12s}
+.btn-p{background:var(--brand-700);color:#fff;border-color:var(--brand-700);box-shadow:var(--sh-xs)}
+.btn-p:hover{background:var(--brand-800)}
+.btn-s{background:#fff;color:var(--t2);border-color:var(--bd);box-shadow:var(--sh-xs)}
+.btn-s:hover{background:var(--bg-s)}
+.btn-ghost{background:transparent;color:var(--t2);border-color:transparent}
+.btn-ghost:hover{background:var(--bg-t)}
+
+/* Stepper */
+.stepper{display:flex;align-items:flex-start;background:#fff;border:1px solid var(--bd2);border-radius:var(--r2);padding:20px 28px;box-shadow:var(--sh-xs);gap:0;flex-shrink:0}
+.step{display:flex;flex-direction:column;align-items:center;gap:8px;flex:1;position:relative;text-align:center}
+.step:not(:last-child)::after{content:'';position:absolute;top:15px;left:calc(50% + 20px);right:calc(-50% + 20px);height:2px;background:repeating-linear-gradient(90deg,var(--gray-300) 0,var(--gray-300) 5px,transparent 5px,transparent 9px)}
+.step.done:not(:last-child)::after{background:repeating-linear-gradient(90deg,var(--brand-300) 0,var(--brand-300) 5px,transparent 5px,transparent 9px)}
+.step-icon{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;position:relative;z-index:1;border:2px solid var(--gray-200);background:#fff;color:var(--gray-400);flex-shrink:0;transition:background .15s,border-color .15s,box-shadow .15s}
+.step-icon svg{min-width:auto;min-height:auto}
+.step.active .step-icon{border-color:var(--brand-700);color:var(--brand-700);box-shadow:0 0 0 4px rgba(6,96,116,.14)}
+.step.done .step-icon{background:#079455;border-color:#079455;color:#fff}
+.step-content{display:flex;flex-direction:column;align-items:center;gap:2px}
+.step-label{font-size:13px;font-weight:600;line-height:18px;color:var(--gray-400)}
+.step-sub{font-size:11px;font-weight:400;line-height:16px;color:var(--gray-400)}
+.step.active .step-label{color:var(--t1)}
+.step.active .step-sub{color:var(--t3)}
+.step.done .step-label{color:var(--brand-700)}
+.step.done .step-sub{color:var(--brand-500)}
+
+/* Header & Sidebar */
+.hdr{position:fixed;top:0;left:0;right:0;height:64px;background:url(data/header-bg.png) center/cover #075365;display:flex;align-items:center;justify-content:space-between;padding:0 22px;z-index:200}
+.hdr-brand{display:flex;flex-direction:column;align-items:flex-start;gap:3px;width:134px;flex-shrink:0}
+.hdr-logo-img{width:90px;height:22px;object-fit:contain;display:block}
+.hdr-bs{font-family:'Poppins','Inter',sans-serif;font-size:10px;font-weight:500;color:#fff;line-height:12px;white-space:nowrap}
+.hdr-search{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.2);border:1px solid #6aa0ac;border-radius:8px;padding:8px 12px;width:496px;flex-shrink:0}
+.hdr-search-text{font-family:'Inter var','Inter',sans-serif;font-size:16px;color:#fff;flex:1}
+.hdr-si{width:20px;height:20px;min-width:16px;min-height:16px;flex-shrink:0;display:block;filter:brightness(0) invert(1)}
+.hdr-right{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.hdr-actions{display:flex;gap:2px}
+.hdr-btn{width:40px;height:40px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:6px}
+.hdr-btn:hover{background:rgba(255,255,255,.1)}
+.hdr-avatar-wrap{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.7);overflow:hidden;cursor:pointer;flex-shrink:0}
+.hdr-avatar{width:100%;height:100%;object-fit:cover;display:block}
+.sidebar{width:260px;background:#fff;border-right:1px solid #e9eaeb;position:fixed;top:64px;bottom:0;left:0;display:flex;flex-direction:column;overflow:hidden}
+.sb-scroll{flex:1;overflow-y:auto}
+.sb-grp0{padding:8px}
+.sb-grp{padding:8px;display:flex;flex-direction:column;gap:16px}
+.sb-grp-inner{display:flex;flex-direction:column}
+.sb-sec-hdr{height:28px;padding:4px 8px;display:flex;align-items:center;font-size:12px;font-weight:600;color:#717680;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nw{padding:2px 0}
+.nc{display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:6px;background:#fff;font-size:14px;font-weight:500;color:#414651;cursor:pointer;text-decoration:none;transition:background .1s}
+.nc:hover{background:#f5f5f5}
+.ni{width:20px;height:20px;min-width:16px;min-height:16px;flex-shrink:0;display:block}
+.nchev{width:16px;height:16px;min-width:16px;min-height:16px;flex-shrink:0;display:block;margin-left:auto}
+svg{min-width:16px;min-height:16px}
+.nc-flex{flex:1;min-width:0}
+.nc-sub{padding-left:40px;padding-right:12px}
+.nc-sub-active{background:#e6eff1 !important;color:#066074 !important}
+.sb-bot{padding:8px;flex-shrink:0}
+.autosave-ind{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--t4)}
+.autosave-dot{width:6px;height:6px;border-radius:50%;background:#17b26a;flex-shrink:0;animation:ux-pulse 2.4s ease-in-out infinite}
+@keyframes ux-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+/* Wizard footer */
+.wiz-footer{position:fixed;bottom:0;left:var(--sw);right:0;z-index:50;background:#fff;box-shadow:0 -1px 0 var(--bd2),0 -4px 12px rgba(16,24,40,.04);padding:16px max(24px,calc((100vw - var(--sw) - 1600px) / 2 + 24px));display:flex;align-items:center;justify-content:space-between}
+
+/* ── Two-panel layout ─────────────────────────────────────────── */
+.two-panel{display:flex;gap:12px;flex:1;min-height:0;align-items:stretch}
+.panel-left{width:400px;flex-shrink:0;background:#fff;border:1px solid var(--bd2);border-radius:var(--r4);box-shadow:var(--sh-xs);display:flex;flex-direction:column;overflow:hidden}
+.panel-right{flex:1;min-width:0;background:#fff;border:1px solid var(--bd2);border-radius:var(--r4);box-shadow:var(--sh-xs);display:flex;flex-direction:column;overflow:hidden}
+
+/* ── Left panel: search bar ───────────────────────────────────── */
+.lp-header{padding:12px 14px;border-bottom:2px solid var(--gray-200);flex-shrink:0}
+.lp-title-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.lp-title{font-size:13px;font-weight:600;color:var(--t1)}
+.ss-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:var(--r-full);font-size:11px;font-weight:600;background:linear-gradient(135deg,var(--brand-50),#e0f2fe);color:var(--brand-700);border:1px solid var(--brand-100)}
+.ctx-search{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--bd);border-radius:var(--r2);padding:9px 12px;box-shadow:var(--sh-xs);transition:border-color .12s,box-shadow .12s}
+.ctx-search:focus-within{border-color:var(--brand-500);box-shadow:var(--focus-ring),var(--sh-xs)}
+.ctx-search input{border:none;outline:none;background:transparent;font-size:14px;color:var(--t1);flex:1;font-family:inherit;min-width:0}
+.ctx-search input::placeholder{color:var(--t4)}
+.search-clear{width:16px;height:16px;border:none;background:none;cursor:pointer;color:var(--t4);padding:0;display:flex;align-items:center;justify-content:center;border-radius:3px;flex-shrink:0}
+.search-clear:hover{color:var(--t2);background:var(--gray-100)}
+
+/* ── Left panel: filter chips ─────────────────────────────────── */
+.filter-bar{display:flex;align-items:center;gap:6px;padding:8px 14px;border-bottom:2px solid var(--gray-200);flex-shrink:0;overflow-x:auto}
+.filter-bar::-webkit-scrollbar{display:none}
+.filter-chip{display:inline-flex;align-items:center;padding:3px 10px;border-radius:var(--r-full);font-size:12px;font-weight:500;border:1px solid var(--bd2);background:#fff;color:var(--t3);cursor:pointer;white-space:nowrap;transition:background .1s,border-color .1s,color .1s}
+.filter-chip:hover{background:var(--gray-50);color:var(--t2)}
+.filter-chip.active{background:var(--brand-50);border-color:var(--brand-300);color:var(--brand-700)}
+
+
+/* ── Left panel: results section ─────────────────────────────── */
+.results-section{flex:1;min-height:0;display:flex;flex-direction:column}
+.results-sec-hdr{display:flex;align-items:center;gap:7px;padding:8px 14px;background:var(--gray-100);border-bottom:1px solid var(--bd2);flex-shrink:0}
+.results-sec-label{font-size:11px;font-weight:600;color:var(--t4);text-transform:uppercase;letter-spacing:.05em}
+.results-sec-count{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;border-radius:var(--r-full);font-size:11px;font-weight:700;background:var(--gray-200);color:var(--gray-700);border:1px solid var(--gray-300);flex-shrink:0}
+
+.results-scroll{flex:1;overflow-y:auto}
+.results-scroll::-webkit-scrollbar{width:4px}
+.results-scroll::-webkit-scrollbar-track{background:transparent}
+.results-scroll::-webkit-scrollbar-thumb{background:var(--gray-200);border-radius:4px}
+.results-scroll::-webkit-scrollbar-thumb:hover{background:var(--gray-300)}
+
+/* Result rows */
+.result-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--bd2);cursor:pointer;transition:background .08s;outline:none}
+.result-item:last-child{border-bottom:none}
+.result-item:hover{background:var(--gray-50)}
+.result-item:focus-visible{box-shadow:inset 0 0 0 2px var(--brand-400)}
+.result-item.is-previewing{background:var(--brand-50);border-left:3px solid var(--brand-700)}
+.result-item.is-previewing .result-title{color:var(--brand-700)}
+.result-icon{width:30px;height:30px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--gray-100);color:var(--gray-500)}
+.result-body{flex:1;min-width:0}
+.result-title{font-size:13px;font-weight:500;color:var(--t1);line-height:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.result-meta{font-size:11px;color:var(--t4);margin-top:2px;line-height:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.result-type{display:inline-block;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:1px 5px;border-radius:3px;margin-right:4px;background:var(--gray-100);color:var(--t4)}
+
+/* Add button */
+.add-btn-ctx{flex-shrink:0;height:26px;padding:0 10px;border-radius:var(--r-full);font-size:12px;font-weight:500;border:1px solid var(--bd);background:#fff;color:var(--t3);cursor:pointer;white-space:nowrap;transition:all .12s;display:inline-flex;align-items:center;gap:4px}
+.add-btn-ctx:hover{border-color:var(--brand-300);color:var(--brand-700);background:var(--brand-50)}
+.add-btn-ctx.is-added{border-color:var(--gray-300);background:var(--gray-100);color:var(--t3)}
+
+.lp-footer{padding:8px 14px;border-top:1px solid var(--bd2);flex-shrink:0;background:var(--gray-50);display:flex;align-items:center;gap:6px}
+
+/* ── Right panel: preview ─────────────────────────────────────── */
+.preview-area{flex:1;overflow-y:auto;display:flex;flex-direction:column;min-height:0;background:#fff}
+.preview-area::-webkit-scrollbar{width:5px}
+.preview-area::-webkit-scrollbar-track{background:transparent}
+.preview-area::-webkit-scrollbar-thumb{background:var(--gray-300);border-radius:4px}
+.preview-area::-webkit-scrollbar-thumb:hover{background:var(--gray-400)}
+
+.preview-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 32px;text-align:center;gap:10px;flex:1}
+.preview-empty-icon{width:52px;height:52px;border-radius:12px;background:var(--gray-100);border:1px solid var(--bd2);display:flex;align-items:center;justify-content:center;color:var(--t4);margin-bottom:4px}
+.preview-empty-title{font-size:14px;font-weight:600;color:var(--t2)}
+.preview-empty-sub{font-size:13px;color:var(--t4);line-height:20px;max-width:260px}
+
+.preview-doc-hdr{display:flex;align-items:flex-start;gap:12px;padding:16px 20px;border-bottom:1px solid var(--bd2);flex-shrink:0;background:#fff}
+.preview-file-icon{width:40px;height:40px;border-radius:var(--r2);background:var(--gray-100);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--gray-500)}
+.preview-title{font-size:14px;font-weight:600;color:var(--t1);line-height:20px}
+.preview-meta{font-size:12px;color:var(--t4);margin-top:3px;line-height:16px}
+.preview-tags{display:flex;align-items:center;gap:6px;margin-top:6px;flex-wrap:wrap}
+.preview-tag{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:var(--r-full);font-size:11px;font-weight:500;background:var(--gray-100);color:var(--t4);border:1px solid var(--bd2)}
+
+/* Document viewer toolbar */
+.doc-toolbar{display:flex;align-items:center;gap:8px;padding:7px 16px;border-bottom:1px solid var(--bd2);background:#fff;flex-shrink:0}
+.doc-toolbar-pg{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:500;color:var(--t4)}
+.doc-toolbar-sep{width:1px;height:14px;background:var(--bd2);margin:0 2px;flex-shrink:0}
+.doc-toolbar-zoom{font-size:12px;font-weight:500;color:var(--t3);display:inline-flex;align-items:center;gap:4px;border:1px solid var(--bd2);border-radius:5px;padding:3px 9px;cursor:default;background:#fff;user-select:none}
+.doc-toolbar-btn{width:28px;height:28px;border:none;background:none;border-radius:5px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--t4);flex-shrink:0}
+.doc-toolbar-btn:hover{background:var(--gray-100)}
+
+/* Document viewer chrome */
+.preview-body-wrap{flex:1;background:var(--gray-100);padding:28px 24px;display:flex;justify-content:center;align-items:flex-start}
+.doc-page{background:#fff;width:100%;max-width:620px;padding:52px 60px;box-shadow:0 1px 4px rgba(0,0,0,.08),0 6px 20px rgba(0,0,0,.07);border-radius:1px}
+
+/* Document page title */
+.doc-page-title{font-family:'Inter var','Inter',system-ui,sans-serif;font-size:22px;font-weight:600;color:var(--t1);line-height:1.3;margin-bottom:18px;padding-bottom:14px;border-bottom:2px solid var(--brand-700)}
+
+/* Body typography */
+.preview-body{font-size:14px;color:var(--t2);line-height:26px}
+.preview-body p{margin-bottom:14px}
+.preview-body h3{font-size:13px;font-weight:700;color:var(--t1);margin-bottom:10px;margin-top:28px;padding-bottom:8px;border-bottom:1px solid var(--gray-200)}
+.preview-body h3:first-child{margin-top:0}
+.preview-body ul{padding-left:20px;margin-bottom:14px}
+.preview-body ul li{margin-bottom:6px;color:var(--t2)}
+mark{background:#fef9c3;color:inherit;border-radius:2px;padding:0 2px;font-weight:500}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-brand">
+    <img src="data/doxis-logo.svg" alt="DOXIS" class="hdr-logo-img">
+    <span class="hdr-bs">Business Studio</span>
+  </div>
+  <div class="hdr-search">
+    <img src="data/icons/search-lg.svg" class="hdr-si" alt="">
+    <span class="hdr-search-text">Search</span>
+  </div>
+  <div class="hdr-right">
+    <div class="hdr-actions">
+      <button class="hdr-btn"><img src="data/icons/bell-01.svg" class="hdr-si" alt=""></button>
+      <button class="hdr-btn"><img src="data/icons/help-circle.svg" class="hdr-si" alt=""></button>
+    </div>
+    <div class="hdr-avatar-wrap"><img src="data/avatar.png" class="hdr-avatar" alt="TS"></div>
+  </div>
+</header>
+
+<div class="app">
+  <nav class="sidebar">
+    <div class="sb-scroll">
+      <div class="sb-grp0">
+        <div class="nw"><a class="nc"><img src="data/icons/bar-chart-square-02.svg" class="ni" alt="Overview"><span class="nc-flex">Overview</span></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/book-open-01.svg" class="ni" alt="Library"><span class="nc-flex">Library</span></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/intersect-square.svg" class="ni" alt="Applications"><span class="nc-flex">Applications</span></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/link-04.svg" class="ni" alt="Integrations"><span class="nc-flex">Integrations</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/cpu-chip-01.svg" class="ni" alt="AI studio"><span class="nc-flex">AI studio</span><img src="data/icons/chevron-down.svg" class="nchev" alt="" style="transform:rotate(180deg)"></a></div>
+        <div class="nw"><a class="nc nc-sub nc-sub-active"><span class="nc-flex">AI agent manager</span></a></div>
+        <div class="nw"><a class="nc nc-sub" href="screen-8-superhuman-search.html"><span class="nc-flex">Superhuman search</span></a></div>
+  
+      </div>
+      <div class="sb-grp">
+        <div class="sb-grp-inner">
+          <div class="sb-sec-hdr">Configuration</div>
+          <div class="nw"><a class="nc"><img src="data/icons/tool-02.svg" class="ni" alt="General"><span class="nc-flex">General</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+          <div class="nw"><a class="nc"><img src="data/icons/database-02.svg" class="ni" alt="Databases"><span class="nc-flex">Databases</span></a></div>
+          <div class="nw"><a class="nc"><img src="data/icons/data.svg" class="ni" alt="Metadata"><span class="nc-flex">Metadata</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+          <div class="nw"><a class="nc"><img src="data/icons/file-02.svg" class="ni" alt="Document management"><span class="nc-flex">Document management</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+          <div class="nw"><a class="nc"><img src="data/icons/search-sm.svg" class="ni" alt="Search"><span class="nc-flex">Search</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        </div>
+        <div class="sb-grp-inner">
+          <div class="sb-sec-hdr">Access &amp; Security</div>
+          <div class="nw"><a class="nc"><img src="data/icons/building-07.svg" class="ni" alt="Organization"><span class="nc-flex">Organization</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+          <div class="nw"><a class="nc"><img src="data/icons/lock-unlocked-03.svg" class="ni" alt="Access control"><span class="nc-flex">Access control</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        </div>
+      </div>
+    </div>
+    <div class="sb-bot">
+      <div class="nw"><a class="nc"><img src="data/icons/layout-left.svg" class="ni" alt="Collapse menu"><span class="nc-flex">Collapse menu</span></a></div>
+    </div>
+  </nav>
+
+  <main class="main">
+  <!-- Agent context header -->
+  <div class="agent-hdr">
+    <div class="agent-hdr-inner">
+      <div class="agent-hdr-left">
+        <div>
+          <div class="agent-hdr-name">Employee Document Monitor</div>
+          <div class="agent-hdr-meta">Add documents or workspaces as knowledge context — this is what the agent references when making decisions.</div>
+        </div>
+      </div>
+      <div class="agent-hdr-right">
+        <a href="screen-1-ai-manager.html" class="btn btn-ghost">Cancel</a>
+        <button class="btn btn-s">Save draft</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step tab strip -->
+  <div class="step-tabs">
+    <div class="step-tabs-inner">
+      <a href="screen-2-identity.html" class="step-tab done">
+        <div class="step-tab-label">Identity</div>
+        <div class="step-tab-sub">Name and provider</div>
+      </a>
+      <a href="screen-5-context.html" class="step-tab active">
+        <div class="step-tab-label">Context</div>
+        <div class="step-tab-sub">Knowledge and documents</div>
+      </a>
+      <a href="screen-3-data-access.html" class="step-tab">
+        <div class="step-tab-label">Permissions</div>
+        <div class="step-tab-sub">Applications and access</div>
+      </a>
+      <a href="screen-4-mcp-tools.html" class="step-tab">
+        <div class="step-tab-label">Integrations</div>
+        <div class="step-tab-sub">External integrations</div>
+      </a>
+      <a href="screen-6-activation.html" class="step-tab">
+        <div class="step-tab-label">Activation</div>
+        <div class="step-tab-sub">Triggers and limits</div>
+      <a href="screen-7-review.html" class="step-tab">
+        <div class="step-tab-label">Review</div>
+        <div class="step-tab-sub">Summary and launch</div>
+      </a>
+    </div>
+  </div>
+
+    <div class="cw">
+
+      <!-- Two-panel -->
+      <div class="two-panel">
+
+        <!-- ── Left panel ─────────────────────────────────────── -->
+        <div class="panel-left">
+
+          <!-- Search bar -->
+          <div class="lp-header">
+            <div class="lp-title-row">
+              <span class="lp-title">Search knowledge</span>
+              <span class="ss-badge">
+                <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 12 12" style="min-width:11px"><path d="M6 1l1.2 2.4L10 4.1l-2 1.95.47 2.75L6 7.5 3.53 8.8 4 6.05 2 4.1l2.8-.7z"/></svg>
+                Superhuman Search
+              </span>
+            </div>
+            <div class="ctx-search">
+              <svg width="15" height="15" fill="none" stroke="var(--t4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 15 15" style="flex-shrink:0;min-width:15px"><circle cx="6.5" cy="6.5" r="5"/><path d="M11 11l2.5 2.5"/></svg>
+              <input type="text" placeholder="Search documents, workspaces…" id="ctx-search-input" value="HR visa policy" autocomplete="off">
+              <button class="search-clear" onclick="clearSearch()" title="Clear search">
+                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" viewBox="0 0 12 12" style="min-width:12px"><path d="M2 2l8 8M10 2L2 10"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Filter chips -->
+          <div class="filter-bar">
+            <button class="filter-chip active" onclick="setFilter(this)">All</button>
+            <button class="filter-chip" onclick="setFilter(this)">Documents</button>
+            <button class="filter-chip" onclick="setFilter(this)">Workspaces</button>
+            <button class="filter-chip" onclick="setFilter(this)">Policies</button>
+          </div>
+
+          <!-- Search results section -->
+          <div class="results-section">
+            <div class="results-sec-hdr">
+              <span class="results-sec-label">Results</span>
+              <span class="results-sec-count">6</span>
+              <span style="font-size:11px;color:var(--t4);margin-left:auto">HR Records, Legal Archive</span>
+            </div>
+
+            <div class="results-scroll" role="listbox" aria-label="Search results">
+
+              <div class="result-item is-added is-previewing" role="option" tabindex="0" onclick="showPreview(0)" id="res-0">
+                <div class="result-icon doc">
+                  <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16" style="min-width:15px"><path d="M9 2H4a1 1 0 00-1 1v10a1 1 0 001 1h8a1 1 0 001-1V6M9 2l4 4M9 2v4h4"/></svg>
+                </div>
+                <div class="result-body">
+                  <div class="result-title">Work Visa &amp; <mark>Relocation Policy</mark></div>
+                  <div class="result-meta"><span class="result-type doc">Policy</span>HR Records · 14 pages · 3 days ago</div>
+                </div>
+                <button class="add-btn-ctx is-added" onclick="event.stopPropagation();toggleItem(0,this)" aria-label="Remove from context">
+                  <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 10 10" style="min-width:10px"><path d="M1.5 5l2.5 2.5 4.5-4.5"/></svg>
+                  Added
+                </button>
+              </div>
+
+              <div class="result-item is-added" role="option" tabindex="0" onclick="showPreview(1)" id="res-1">
+                <div class="result-icon doc">
+                  <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16" style="min-width:15px"><path d="M9 2H4a1 1 0 00-1 1v10a1 1 0 001 1h8a1 1 0 001-1V6M9 2l4 4M9 2v4h4"/></svg>
+                </div>
+                <div class="result-body">
+                  <div class="result-title"><mark>HR</mark> Onboarding Policy 2025</div>
+                  <div class="result-meta"><span class="result-type doc">Policy</span>HR Records · 22 pages · 1 week ago</div>
+                </div>
+                <button class="add-btn-ctx is-added" onclick="event.stopPropagation();toggleItem(1,this)" aria-label="Remove from context">
+                  <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 10 10" style="min-width:10px"><path d="M1.5 5l2.5 2.5 4.5-4.5"/></svg>
+                  Added
+                </button>
+              </div>
+
+              <div class="result-item" role="option" tabindex="0" onclick="showPreview(2)" id="res-2">
+                <div class="result-icon folder">
+                  <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16" style="min-width:15px"><path d="M2 4a1 1 0 011-1h3.586a1 1 0 01.707.293L8.707 4.7A1 1 0 009.414 5H13a1 1 0 011 1v6a1 1 0 01-1 1H3a1 1 0 01-1-1V4z"/></svg>
+                </div>
+                <div class="result-body">
+                  <div class="result-title"><mark>HR</mark> Records workspace</div>
+                  <div class="result-meta"><span class="result-type folder">Workspace</span>847 documents · All HR policies</div>
+                </div>
+                <button class="add-btn-ctx" onclick="event.stopPropagation();toggleItem(2,this)" aria-label="Add to context">
+                  <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" viewBox="0 0 10 10" style="min-width:10px"><path d="M5 1v8M1 5h8"/></svg>
+                  Add
+                </button>
+              </div>
+
+              <div class="result-item" role="option" tabindex="0" onclick="showPreview(3)" id="res-3">
+                <div class="result-icon doc">
+                  <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16" style="min-width:15px"><path d="M9 2H4a1 1 0 00-1 1v10a1 1 0 001 1h8a1 1 0 001-1V6M9 2l4 4M9 2v4h4"/></svg>
+                </div>
+                <div class="result-body">
+                  <div class="result-title">Employee Benefits &amp; Allowances</div>
+                  <div class="result-meta"><span class="result-type doc">Policy</span>HR Records · 8 pages · 2 weeks ago</div>
+                </div>
+                <button class="add-btn-ctx" onclick="event.stopPropagation();toggleItem(3,this)" aria-label="Add to context">
+                  <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" viewBox="0 0 10 10" style="min-width:10px"><path d="M5 1v8M1 5h8"/></svg>
+                  Add
+                </button>
+              </div>
+
+              <div class="result-item" role="option" tabindex="0" onclick="showPreview(4)" id="res-4">
+                <div class="result-icon doc">
+                  <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16" style="min-width:15px"><path d="M9 2H4a1 1 0 00-1 1v10a1 1 0 001 1h8a1 1 0 001-1V6M9 2l4 4M9 2v4h4"/></svg>
+                </div>
+                <div class="result-body">
+                  <div class="result-title">Remote Work Policy</div>
+                  <div class="result-meta"><span class="result-type doc">Policy</span>HR Records · 6 pages · 1 month ago</div>
+                </div>
+                <button class="add-btn-ctx" onclick="event.stopPropagation();toggleItem(4,this)" aria-label="Add to context">
+                  <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" viewBox="0 0 10 10" style="min-width:10px"><path d="M5 1v8M1 5h8"/></svg>
+                  Add
+                </button>
+              </div>
+
+              <div class="result-item" role="option" tabindex="0" onclick="showPreview(5)" id="res-5">
+                <div class="result-icon doc">
+                  <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16" style="min-width:15px"><path d="M9 2H4a1 1 0 00-1 1v10a1 1 0 001 1h8a1 1 0 001-1V6M9 2l4 4M9 2v4h4"/></svg>
+                </div>
+                <div class="result-body">
+                  <div class="result-title">Code of Conduct &amp; Ethics</div>
+                  <div class="result-meta"><span class="result-type doc">Policy</span>Legal Archive · 18 pages · 4 months ago</div>
+                </div>
+                <button class="add-btn-ctx" onclick="event.stopPropagation();toggleItem(5,this)" aria-label="Add to context">
+                  <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" viewBox="0 0 10 10" style="min-width:10px"><path d="M5 1v8M1 5h8"/></svg>
+                  Add
+                </button>
+              </div>
+
+            </div><!-- /results-scroll -->
+
+            <div class="lp-footer">
+              <svg width="12" height="12" fill="none" stroke="var(--t4)" stroke-width="1.5" viewBox="0 0 12 12" style="flex-shrink:0;min-width:12px"><circle cx="6" cy="6" r="5"/><path d="M6 5v3M6 4h.01"/></svg>
+              <span style="font-size:11px;color:var(--t4)">Click a result to preview · click Add to include in context</span>
+            </div>
+          </div><!-- /results-section -->
+
+        </div><!-- /panel-left -->
+
+        <!-- ── Right panel: document preview ──────────────────── -->
+        <div class="panel-right">
+          <div class="preview-area" id="preview-area">
+
+            <!-- Empty state -->
+            <div class="preview-empty" id="preview-empty" style="display:none">
+              <div class="preview-empty-icon">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" style="min-width:24px"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8M14 2l6 6M14 2v6h6"/></svg>
+              </div>
+              <div class="preview-empty-title">No document selected</div>
+              <div class="preview-empty-sub">Click any result to preview it here.</div>
+            </div>
+
+            <!-- Preview content -->
+            <div id="preview-content">
+              <div class="preview-doc-hdr">
+                <div class="preview-file-icon" id="preview-icon">
+                  <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 20 20" style="min-width:20px"><path d="M11.667 2.5H5a1.667 1.667 0 00-1.667 1.667v11.666A1.667 1.667 0 005 17.5h10a1.667 1.667 0 001.667-1.667V8.333M11.667 2.5L17.5 8.333M11.667 2.5v5.833H17.5"/></svg>
+                </div>
+                <div style="flex:1;min-width:0">
+                  <div class="preview-title" id="preview-title">Work Visa &amp; Relocation Policy</div>
+                  <div class="preview-meta" id="preview-meta">HR Records · Version 2.4 · Last modified 3 days ago by T. Santos</div>
+                  <div class="preview-tags" id="preview-tags">
+                    <span class="preview-tag"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 10 10" style="min-width:10px"><rect x="1" y="1" width="8" height="8" rx="1"/></svg>Policy</span>
+                    <span class="preview-tag" style="background:var(--success-100);color:var(--success-700);border-color:#abefc6"><svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 10 10" style="min-width:10px"><path d="M1.5 5l2.5 2.5 4.5-4.5"/></svg>In context</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Viewer toolbar -->
+              <div class="doc-toolbar">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 16 16" style="min-width:14px;color:var(--t4)"><path d="M9 2H4a1 1 0 00-1 1v10a1 1 0 001 1h8a1 1 0 001-1V6M9 2l4 4M9 2v4h4"/></svg>
+                <span class="doc-toolbar-pg" id="doc-pg-count">14 pages</span>
+                <div class="doc-toolbar-sep"></div>
+                <span class="doc-toolbar-pg" id="doc-version">Version 2.4</span>
+                <div style="margin-left:auto;display:flex;align-items:center;gap:6px">
+                  <div class="doc-toolbar-zoom">
+                    100%
+                    <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 10 10" style="min-width:10px"><path d="M2 3.5l3 3 3-3"/></svg>
+                  </div>
+                  <button class="doc-toolbar-btn" title="More options">
+                    <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16" style="min-width:14px"><circle cx="8" cy="3" r="1.2"/><circle cx="8" cy="8" r="1.2"/><circle cx="8" cy="13" r="1.2"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <div class="preview-body-wrap">
+                <div class="doc-page">
+                <div class="doc-page-title" id="doc-page-title">Work Visa &amp; Relocation Policy</div>
+                <div class="preview-body" id="preview-body">
+                  <h3>1. Purpose</h3>
+                  <p>This policy establishes the framework for supporting employees who require <mark>work visa</mark> sponsorship or are <mark>relocating</mark> internationally as part of their employment with the organisation. It applies to all permanent and fixed-term employees.</p>
+                  <h3>2. Visa Sponsorship</h3>
+                  <p>The organisation will consider sponsoring <mark>work visas</mark> for roles that cannot be filled by the local talent pool. Sponsorship requests must be approved by the Head of HR and the relevant department head prior to any application submission.</p>
+                  <ul>
+                    <li>Tier 2 / Skilled Worker visa: standard processing 8–12 weeks</li>
+                    <li>EU Blue Card: applicable for senior and specialised roles</li>
+                    <li>Intracompany transfer: minimum 12 months prior employment required</li>
+                  </ul>
+                  <h3>3. Relocation Support</h3>
+                  <p>Employees relocating at the organisation's request are entitled to a relocation allowance. The amount is determined by the distance of relocation and the employee's grade level.</p>
+                  <ul>
+                    <li>Domestic relocation (&gt;50 km): up to €2,500</li>
+                    <li>International relocation: up to €8,000 plus temporary accommodation for 30 days</li>
+                    <li>Family relocation supplement: additional €3,000 per dependent</li>
+                  </ul>
+                  <h3>4. Process</h3>
+                  <p>All <mark>relocation</mark> and visa requests must be submitted via the HR portal at least 90 days before the intended start date.</p>
+                </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div><!-- /panel-right -->
+
+      </div><!-- /two-panel -->
+    </div><!-- /cw -->
+  </main>
+</div>
+
+<div class="wiz-footer">
+  <a href="screen-2-identity.html" class="btn btn-s">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 14 14"><path d="M8 2L3 7l5 5"/></svg>
+    Back
+  </a>
+  <div style="display:flex;align-items:center;gap:12px">
+    <a href="screen-3-data-access.html" class="btn btn-p">
+      Continue
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 14 14"><path d="M6 2l5 5-5 5"/></svg>
+    </a>
+  </div>
+</div>
+
+<script>
+var CHECK_SVG = '<svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 10 10" style="min-width:10px"><path d="M1.5 5l2.5 2.5 4.5-4.5"/></svg>';
+var PLUS_SVG = '<svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" viewBox="0 0 10 10" style="min-width:10px"><path d="M5 1v8M1 5h8"/></svg>';
+
+var items = [
+  { id:0, type:'doc', title:'Work Visa &amp; Relocation Policy', titlePlain:'Work Visa & Relocation Policy',
+    meta:'HR Records · Version 2.4 · Last modified 3 days ago by T. Santos', shortMeta:'HR Records · 14 pages',
+    tags:[{icon:'box',label:'Policy'},{icon:'check',label:'In context',style:'background:var(--success-100);color:var(--success-700);border-color:#abefc6'}],
+    body:'<h3>1. Purpose</h3><p>This policy establishes the framework for supporting employees who require <mark>work visa</mark> sponsorship or are <mark>relocating</mark> internationally as part of their employment with the organisation. It applies to all permanent and fixed-term employees.</p><h3>2. Visa Sponsorship</h3><p>The organisation will consider sponsoring <mark>work visas</mark> for roles that cannot be filled by the local talent pool. Sponsorship requests must be approved by the Head of HR and the relevant department head prior to any application submission.</p><ul><li>Tier 2 / Skilled Worker visa: standard processing 8–12 weeks</li><li>EU Blue Card: applicable for senior and specialised roles</li><li>Intracompany transfer: minimum 12 months prior employment required</li></ul><h3>3. Relocation Support</h3><p>Employees relocating at the organisation\'s request are entitled to a relocation allowance. The amount is determined by distance and the employee\'s grade level.</p><ul><li>Domestic relocation (&gt;50 km): up to €2,500</li><li>International relocation: up to €8,000 plus 30 days accommodation</li><li>Family supplement: additional €3,000 per dependent</li></ul><h3>4. Process</h3><p>All <mark>relocation</mark> and visa requests must be submitted via the HR portal at least 90 days before the intended start date.</p>'
+  },
+  { id:1, type:'doc', title:'HR Onboarding Policy 2025', titlePlain:'HR Onboarding Policy 2025',
+    meta:'HR Records · Version 5.1 · Last modified 1 week ago by M. Müller', shortMeta:'HR Records · 22 pages',
+    tags:[{icon:'box',label:'Policy'},{icon:'check',label:'In context',style:'background:var(--success-100);color:var(--success-700);border-color:#abefc6'}],
+    body:'<h3>1. Scope</h3><p>This policy applies to all new employees joining the organisation from 1 January 2025 onwards, including permanent staff, fixed-term contractors, and seconded employees.</p><h3>2. Pre-Boarding</h3><p>The onboarding process begins as soon as the employment contract is signed. HR will initiate the DOXIS onboarding workflow which assigns tasks to IT, Facilities, and the line manager.</p><ul><li>IT equipment ordered within 3 business days of signing</li><li>System access provisioned by start date</li><li>Welcome package sent digitally via the HR portal</li></ul><h3>3. First Week</h3><p>The line manager is responsible for scheduling a structured first-week programme including team introductions, role briefings, and compliance training.</p><h3>4. Probation Review</h3><p>A formal check-in takes place at 30, 60, and 90 days. The outcome of the 90-day review determines confirmation of employment.</p>'
+  },
+  { id:2, type:'folder', title:'HR Records workspace', titlePlain:'HR Records workspace',
+    meta:'Workspace · 847 documents', shortMeta:'Workspace · 847 docs',
+    tags:[{icon:'box',label:'Workspace'}],
+    body:'<h3>Workspace overview</h3><p>The HR Records workspace contains all active HR policies, employee records templates, onboarding documentation, and compliance files for the organisation.</p><p>Adding this entire workspace as context will give the agent access to all 847 documents, including policies that may be updated over time. The agent will always use the most current version.</p><h3>Contents</h3><ul><li>134 active policies</li><li>298 process templates</li><li>415 archived records</li></ul>'
+  },
+  { id:3, type:'doc', title:'Employee Benefits &amp; Allowances', titlePlain:'Employee Benefits & Allowances',
+    meta:'HR Records · Version 3.0 · Last modified 2 weeks ago', shortMeta:'HR Records · 8 pages',
+    tags:[{icon:'box',label:'Policy'}],
+    body:'<h3>Overview</h3><p>This document outlines all employee benefits, allowances, and perks available to staff members based on their employment type and grade level.</p><h3>Core Benefits</h3><ul><li>Health insurance: employer covers 80% of premium</li><li>Pension: employer matches up to 5% of salary</li><li>Annual leave: 25 days plus public holidays</li></ul><h3>Allowances</h3><ul><li>Home office: €500 one-time setup allowance</li><li>Transport: monthly commuter subsidy up to €150</li><li>Learning &amp; development: €1,500 per year</li></ul>'
+  },
+  { id:4, type:'doc', title:'Remote Work Policy', titlePlain:'Remote Work Policy',
+    meta:'HR Records · Version 1.8 · Last modified 1 month ago', shortMeta:'HR Records · 6 pages',
+    tags:[{icon:'box',label:'Policy'}],
+    body:'<h3>Policy Statement</h3><p>The organisation supports flexible working arrangements including remote work, provided that business needs are met and employee performance is maintained.</p><h3>Eligibility</h3><p>Employees who have completed their probation period and whose role is compatible with remote working may apply for a hybrid or fully remote arrangement.</p><h3>Requirements</h3><ul><li>Minimum 2 days per week in office for hybrid roles</li><li>Reliable broadband connection (minimum 50 Mbps)</li><li>Dedicated workspace free from distractions</li><li>Participation in all team meetings via video</li></ul>'
+  },
+  { id:5, type:'doc', title:'Code of Conduct &amp; Ethics', titlePlain:'Code of Conduct & Ethics',
+    meta:'Legal Archive · Version 4.2 · Last modified 4 months ago', shortMeta:'Legal Archive · 18 pages',
+    tags:[{icon:'box',label:'Policy'}],
+    body:'<h3>Introduction</h3><p>This Code of Conduct sets out the ethical standards and behaviours expected of all employees, contractors, and partners acting on behalf of the organisation.</p><h3>Core Principles</h3><ul><li>Integrity: act honestly and transparently in all dealings</li><li>Respect: treat all colleagues and stakeholders with dignity</li><li>Accountability: take responsibility for your actions and decisions</li><li>Compliance: adhere to all applicable laws and internal policies</li></ul>'
+  }
+];
+
+var addedIds = [0, 1];
+var currentPreview = 0;
+
+function tagIcon(type) {
+  if(type==='check') return '<svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 10 10" style="min-width:10px"><path d="M1.5 5l2.5 2.5 4.5-4.5"/></svg>';
+  if(type==='lines') return '<svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 10 10" style="min-width:10px"><path d="M1 3h8M1 7h8"/></svg>';
+  return '<svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 10 10" style="min-width:10px"><rect x="1" y="1" width="8" height="8" rx="1"/></svg>';
+}
+
+function showPreview(idx) {
+  currentPreview = idx;
+  var item = items[idx];
+
+  // Highlight in results list
+  document.querySelectorAll('.result-item').forEach(function(el, i) {
+    el.classList.toggle('is-previewing', i === idx);
+  });
+
+  // Show preview content
+  document.getElementById('preview-empty').style.display = 'none';
+  document.getElementById('preview-content').style.display = '';
+
+  // Update preview icon
+  var iconEl = document.getElementById('preview-icon');
+  if(item.type === 'folder') {
+    iconEl.style.background = 'var(--brand-50)'; iconEl.style.color = 'var(--brand-700)';
+    iconEl.innerHTML = '<svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 20 20" style="min-width:20px"><path d="M2.5 5a1.25 1.25 0 011.25-1.25h4.483a1.25 1.25 0 01.884.366l1.517 1.517A1.25 1.25 0 0011.517 6H16.25A1.25 1.25 0 0117.5 7.25v8.5A1.25 1.25 0 0116.25 17H3.75A1.25 1.25 0 012.5 15.75V5z"/></svg>';
+  } else {
+    iconEl.style.background = '#f5f5f5'; iconEl.style.color = '#717680';
+    iconEl.innerHTML = '<svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 20 20" style="min-width:20px"><path d="M11.667 2.5H5a1.667 1.667 0 00-1.667 1.667v11.666A1.667 1.667 0 005 17.5h10a1.667 1.667 0 001.667-1.667V8.333M11.667 2.5L17.5 8.333M11.667 2.5v5.833H17.5"/></svg>';
+  }
+
+  document.getElementById('preview-title').innerHTML = item.title;
+  document.getElementById('preview-meta').textContent = item.meta;
+  document.getElementById('doc-page-title').innerHTML = item.title;
+
+  // Update toolbar
+  var pgTag = item.tags.find(function(t){return t.icon==='lines';});
+  document.getElementById('doc-pg-count').textContent = pgTag ? pgTag.label : '—';
+  var metaParts = item.meta.split('·');
+  document.getElementById('doc-version').textContent = metaParts[1] ? metaParts[1].trim() : '';
+
+  var isAdded = addedIds.indexOf(idx) !== -1;
+  var tagsHTML = item.tags.map(function(t) {
+    return '<span class="preview-tag"' + (t.style ? ' style="'+t.style+'"' : '') + '>' + tagIcon(t.icon) + t.label + '</span>';
+  }).join('');
+  if(isAdded && !item.tags.some(function(t){return t.icon==='check';})) {
+    tagsHTML += '<span class="preview-tag" style="background:var(--success-100);color:var(--success-700);border-color:#abefc6">' + tagIcon('check') + 'In context</span>';
+  }
+  document.getElementById('preview-tags').innerHTML = tagsHTML;
+  document.getElementById('preview-body').innerHTML = item.body;
+  document.getElementById('preview-area').scrollTop = 0;
+}
+
+function toggleItem(idx, btn) {
+  addedIds.indexOf(idx) !== -1 ? removeItem(idx) : addItem(idx, btn);
+}
+
+function addItem(idx, btn) {
+  if(addedIds.indexOf(idx) !== -1) return;
+  addedIds.push(idx);
+
+  // Update result row
+  var resEl = document.getElementById('res-' + idx);
+  if(resEl) {
+    resEl.classList.add('is-added');
+    if(btn) { btn.classList.add('is-added'); btn.innerHTML = CHECK_SVG + 'Added'; btn.setAttribute('aria-label','Remove from context'); }
+  }
+
+  if(currentPreview === idx) showPreview(idx);
+}
+
+function removeItem(idx) {
+  addedIds = addedIds.filter(function(i){return i !== idx;});
+
+  // Update result row
+  var resEl = document.getElementById('res-' + idx);
+  if(resEl) {
+    resEl.classList.remove('is-added');
+    var btn = resEl.querySelector('.add-btn-ctx');
+    if(btn) { btn.classList.remove('is-added'); btn.innerHTML = PLUS_SVG + 'Add'; btn.setAttribute('aria-label','Add to context'); }
+  }
+
+  if(currentPreview === idx) showPreview(idx);
+}
+
+function clearSearch() {
+  document.getElementById('ctx-search-input').value = '';
+  document.getElementById('ctx-search-input').focus();
+}
+
+function setFilter(chip) {
+  document.querySelectorAll('.filter-chip').forEach(function(c){c.classList.remove('active');});
+  chip.classList.add('active');
+}
+
+document.querySelectorAll('.result-item, .ctx-item').forEach(function(el) {
+  el.addEventListener('keydown', function(e) {
+    if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); }
+  });
+});
+</script>
+</body>
+</html>

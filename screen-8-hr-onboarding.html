@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HR Onboarding — AI Search — Doxis Business Studio</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gray-25:#fdfdfd;--gray-50:#fafafa;--gray-100:#f5f5f5;
+  --gray-200:#e9eaeb;--gray-300:#d5d7da;--gray-400:#a4a7ae;
+  --gray-500:#717680;--gray-600:#535862;--gray-700:#414651;
+  --gray-800:#252b37;--gray-900:#181d27;
+  --brand-25:#f3f7f8;--brand-50:#e6eff1;--brand-100:#dae7ea;
+  --brand-300:#9bbfc7;--brand-400:#6aa0ac;--brand-500:#388090;
+  --brand-600:#1f7082;--brand-700:#066074;--brand-800:#075365;
+  --error-100:#fee4e2;--error-500:#f04438;--error-700:#b42318;
+  --warning-50:#fffbeb;--warning-100:#fef0c7;--warning-500:#f79009;--warning-700:#b54708;
+  --success-100:#dcfae6;--success-500:#17b26a;--success-700:#067647;
+  --bg:#ffffff;--bg-s:var(--gray-50);
+  --bd:var(--gray-300);--bd2:var(--gray-200);
+  --t1:var(--gray-900);--t2:var(--gray-700);--t3:var(--gray-600);--t4:var(--gray-500);
+  --r:6px;--r2:8px;--r3:10px;--r4:12px;--r-full:9999px;
+  --sw:260px;--hh:64px;
+  --sh-xs:0 1px 2px 0 rgba(10,13,18,.05);
+  --sh-sm:0 1px 3px 0 rgba(10,13,18,.1),0 1px 2px -1px rgba(10,13,18,.1);
+  --sh-md:0 4px 8px -2px rgba(10,13,18,.1),0 2px 4px -2px rgba(10,13,18,.06);
+}
+body{
+  font-family:'Inter var','Inter',system-ui,sans-serif;
+  background:var(--bg-s);color:var(--t1);font-size:14px;line-height:1.5;
+}
+.app{display:flex;padding-top:var(--hh);min-height:100vh}
+.main{margin-left:var(--sw);flex:1;min-width:0}
+
+/* ── Header ──────────────────────────────────────────────────── */
+.hdr{position:fixed;top:0;left:0;right:0;height:64px;background:url(data/header-bg.png) center/cover #075365;display:flex;align-items:center;justify-content:space-between;padding:0 22px;z-index:200}
+.hdr-brand{display:flex;flex-direction:column;align-items:flex-start;gap:3px;width:134px;flex-shrink:0}
+.hdr-logo-img{width:90px;height:22px;object-fit:contain;display:block}
+.hdr-bs{font-family:'Poppins','Inter',sans-serif;font-size:10px;font-weight:500;color:#fff;line-height:12px;white-space:nowrap}
+.hdr-search{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.2);border:1px solid #6aa0ac;border-radius:8px;padding:8px 12px;width:496px;flex-shrink:0}
+.hdr-search-text{font-family:'Inter var','Inter',sans-serif;font-size:16px;color:#fff;flex:1}
+.hdr-right{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.hdr-btn{width:40px;height:40px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:6px}
+.hdr-btn:hover{background:rgba(255,255,255,.1)}
+.hdr-avatar-wrap{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.7);overflow:hidden;cursor:pointer;flex-shrink:0}
+
+/* ── Sidebar ─────────────────────────────────────────────────── */
+.sidebar{width:260px;background:#fff;border-right:1px solid #e9eaeb;position:fixed;top:64px;bottom:0;left:0;display:flex;flex-direction:column;overflow:hidden}
+.sb-scroll{flex:1;overflow-y:auto}
+.sb-grp0{padding:8px}
+.sb-grp{padding:8px;display:flex;flex-direction:column;gap:16px}
+.sb-grp-inner{display:flex;flex-direction:column}
+.sb-sec-hdr{height:28px;padding:4px 8px;display:flex;align-items:center;font-family:'Inter var','Inter',sans-serif;font-size:12px;font-weight:600;color:#717680;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nw{padding:2px 0}
+.nc{display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:6px;background:#fff;font-family:'Inter var','Inter',sans-serif;font-size:14px;font-weight:500;color:#414651;cursor:pointer;text-decoration:none;transition:background .1s}
+.nc:hover{background:#f5f5f5}
+.ni{width:20px;height:20px;min-width:16px;min-height:16px;flex-shrink:0;display:block}
+.nchev{width:16px;height:16px;min-width:16px;min-height:16px;flex-shrink:0;display:block;margin-left:auto}
+.nc-flex{flex:1;min-width:0}
+.nc-sub{padding-left:40px;padding-right:12px}
+.nc-sub-active{background:#e6eff1 !important;color:#066074 !important}
+.sb-bot{padding:8px;flex-shrink:0}
+
+/* ── Page header bar (with back + title + actions) ───────────── */
+.detail-hdr{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 32px 0;gap:16px;
+}
+.back-btn{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:500;color:var(--t3);text-decoration:none;cursor:pointer;background:none;border:none;font-family:inherit;padding:0;transition:color .1s}
+.back-btn:hover{color:var(--t1)}
+.detail-hdr-center{flex:1;min-width:0}
+.detail-title-row{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.detail-title{font-size:20px;font-weight:700;color:var(--t1);line-height:28px}
+.needs-semantics-badge{display:inline-flex;align-items:center;gap:5px;padding:2px 10px;border-radius:var(--r-full);font-size:12px;font-weight:600;background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;white-space:nowrap}
+.needs-semantics-badge.green{background:var(--success-100);color:var(--success-700);border-color:#6ee7b7}
+.detail-sub{font-size:13px;color:var(--t3);line-height:1.55;max-width:700px}
+.detail-hdr-actions{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 16px;border-radius:var(--r2);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .1s,border-color .1s;white-space:nowrap;border:1px solid var(--bd)}
+.btn-ghost{background:#fff;color:var(--t2)}
+.btn-ghost:hover{background:var(--bg-s)}
+.btn-primary{background:var(--brand-700);color:#fff;border-color:var(--brand-700)}
+.btn-primary:hover{background:var(--brand-800);border-color:var(--brand-800)}
+
+/* ── Content area ────────────────────────────────────────────── */
+.cw{padding:16px 32px 48px;max-width:1600px;margin-left:auto;margin-right:auto}
+
+/* ── Two column split ─────────────────────────────────────────── */
+.split{display:flex;gap:0;border:1px solid var(--bd2);border-radius:var(--r4);background:#fff;box-shadow:var(--sh-xs);overflow:hidden;min-height:600px}
+
+/* Left column — class list */
+.split-left{width:280px;flex-shrink:0;border-right:1px solid var(--bd2);display:flex;flex-direction:column}
+.split-left-header{padding:12px 16px;border-bottom:1px solid var(--bd2);display:flex;align-items:center;justify-content:space-between;gap:8px}
+.split-left-search{display:flex;align-items:center;gap:6px;background:var(--gray-50);border:1px solid var(--bd2);border-radius:var(--r2);padding:5px 8px;flex:1}
+.split-left-search input{border:none;outline:none;background:transparent;font-size:13px;color:var(--t1);flex:1;font-family:inherit}
+.split-left-search input::placeholder{color:var(--t4)}
+.filter-icon-btn{width:30px;height:30px;border:1px solid var(--bd2);border-radius:var(--r2);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--t4)}
+.filter-icon-btn:hover{background:var(--bg-s)}
+.class-list{flex:1;overflow-y:auto}
+.class-list-hdr{padding:8px 16px 4px;font-size:11px;font-weight:600;color:var(--t4);text-transform:uppercase;letter-spacing:.04em;display:flex;align-items:center;justify-content:space-between}
+.class-item{display:flex;align-items:center;gap:10px;padding:10px 16px;cursor:pointer;border-left:3px solid transparent;transition:background .08s;position:relative}
+.class-item:hover{background:var(--gray-25)}
+.class-item.selected{background:var(--brand-25);border-left-color:var(--brand-700)}
+.class-item.selected .class-item-name{color:var(--brand-700);font-weight:600}
+.class-cb{width:16px;height:16px;border-radius:4px;border:1.5px solid var(--bd);flex-shrink:0;display:flex;align-items:center;justify-content:center;cursor:pointer;background:#fff;transition:background .1s,border-color .1s}
+.class-cb.checked{background:var(--brand-700);border-color:var(--brand-700)}
+.class-item-name{font-size:13px;font-weight:500;color:var(--t2);flex:1;min-width:0}
+.class-item-type{font-size:11px;color:var(--t4);margin-top:1px}
+.class-status-pill{font-size:11px;font-weight:600;padding:1px 8px;border-radius:var(--r-full);white-space:nowrap;border:1px solid transparent}
+.pill-included{background:var(--success-100);color:var(--success-700);border-color:#6ee7b7}
+.pill-not{background:var(--gray-100);color:var(--gray-500);border-color:var(--gray-200)}
+.pill-review{background:#fff7ed;color:#c2410c;border-color:#fed7aa}
+
+/* Right column — semantics editor */
+.split-right{flex:1;min-width:0;display:flex;flex-direction:column}
+.semantics-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--bd2);gap:12px}
+.semantics-title{font-size:15px;font-weight:700;color:var(--t1)}
+.semantics-tag{font-size:11px;font-weight:600;padding:2px 8px;border-radius:var(--r-full);background:var(--brand-50);color:var(--brand-700);border:1px solid var(--brand-100)}
+.semantics-actions{display:flex;align-items:center;gap:8px}
+.icon-btn{width:30px;height:30px;border:1px solid var(--bd2);border-radius:var(--r2);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--t4);transition:background .1s}
+.icon-btn:hover{background:var(--bg-s);color:var(--t2)}
+.semantics-body{
+  font-family:'Inter var','Inter',system-ui,sans-serif;
+  background:var(--bg-s);color:var(--t1);font-size:14px;line-height:1.5;
+}
+
+/* Semantic panel (right side content) */
+.sem-section{padding:16px 20px;border-bottom:1px solid var(--bd2)}
+.sem-section:last-child{border-bottom:none}
+.sem-section-title{font-size:13px;font-weight:700;color:var(--t1);margin-bottom:2px}
+.sem-section-sub{font-size:12px;color:var(--t4);margin-bottom:12px;line-height:1.5}
+.form-row{display:flex;gap:12px;margin-bottom:12px}
+.form-col{flex:1;min-width:0}
+.form-label{font-size:12px;font-weight:600;color:var(--t2);margin-bottom:5px;display:block}
+.form-input{width:100%;padding:8px 12px;border:1px solid var(--bd2);border-radius:var(--r2);font-size:13px;color:var(--t1);background:#fff;font-family:inherit;outline:none;transition:border-color .1s}
+.form-input:focus{border-color:var(--brand-400);box-shadow:0 0 0 3px rgba(6,96,116,.08)}
+.form-input::placeholder{color:var(--t4)}
+.form-textarea{resize:vertical;min-height:72px;line-height:1.55}
+.form-hint{font-size:11px;color:var(--t4);margin-top:4px}
+.content-tag{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:var(--r-full);font-size:12px;font-weight:500;background:var(--brand-50);color:var(--brand-700);border:1px solid var(--brand-100);cursor:pointer}
+.content-tag:hover{background:var(--brand-100)}
+
+/* ── Toggle (small, 36×20) ───────────────────────────────────── */
+.tog{position:relative;display:inline-block;width:36px;height:20px;cursor:pointer;flex-shrink:0}
+.tog input{opacity:0;width:0;height:0;position:absolute}
+.tog-t{position:absolute;inset:0;background:var(--gray-300);border-radius:var(--r-full);transition:background .18s}
+.tog-t::after{content:'';position:absolute;width:16px;height:16px;background:#fff;border-radius:50%;top:2px;left:2px;transition:transform .18s;box-shadow:0 1px 3px rgba(0,0,0,.18)}
+.tog input:checked+.tog-t{background:var(--brand-700)}
+.tog input:checked+.tog-t::after{transform:translateX(16px)}
+
+/* Descriptors section */
+.desc-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.desc-list{display:flex;flex-direction:column;gap:1px}
+.desc-row{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--bd2)}
+.desc-row:last-child{border-bottom:none}
+.desc-name{font-size:13px;font-weight:600;color:var(--t1);min-width:140px}
+.desc-val{font-size:13px;color:var(--t2);flex:1}
+.desc-meta{font-size:12px;color:var(--t4);margin-top:2px}
+.desc-actions{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.btn-sm{padding:4px 10px;font-size:12px;font-weight:600;border-radius:var(--r2);cursor:pointer;font-family:inherit;border:1px solid var(--bd2);background:#fff;color:var(--t2);transition:background .1s}
+.btn-sm:hover{background:var(--bg-s)}
+.btn-sm.danger{color:var(--error-700);border-color:var(--error-100);background:var(--error-100)}
+.btn-sm.danger:hover{background:#fdd}
+.no-desc{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;gap:8px;color:var(--t4)}
+.no-desc-icon{width:40px;height:40px;border:1.5px solid var(--bd2);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:4px}
+.no-desc-text{font-size:14px;font-weight:500;color:var(--t3);text-align:center}
+.no-desc-sub{font-size:13px;color:var(--t4);text-align:center}
+.add-now-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:var(--r2);font-size:13px;font-weight:600;background:var(--brand-700);color:#fff;border:none;cursor:pointer;font-family:inherit;margin-top:8px;transition:background .1s}
+.add-now-btn:hover{background:var(--brand-800)}
+
+/* ── New Semantic side panel ─────────────────────────────────── */
+.sem-panel-overlay{position:fixed;inset:0;z-index:300;pointer-events:none}
+.sem-panel-overlay.open{pointer-events:all}
+.sem-panel-backdrop{position:absolute;inset:0;background:rgba(10,13,18,.3);opacity:0;transition:opacity .25s}
+.sem-panel-overlay.open .sem-panel-backdrop{opacity:1}
+.sem-panel{position:absolute;top:0;right:0;bottom:0;width:460px;background:#fff;box-shadow:-4px 0 24px rgba(10,13,18,.12);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .28s cubic-bezier(.4,0,.2,1)}
+.sem-panel-overlay.open .sem-panel{transform:translateX(0)}
+.sem-panel-hdr{display:flex;align-items:flex-start;justify-content:space-between;padding:20px 20px 16px;border-bottom:1px solid var(--bd2);gap:12px}
+.sem-panel-title{font-size:16px;font-weight:700;color:var(--t1)}
+.sem-panel-sub{font-size:13px;color:var(--t3);margin-top:3px;line-height:1.5}
+.close-btn{width:32px;height:32px;border:none;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:6px;color:var(--t4);flex-shrink:0}
+.close-btn:hover{background:var(--gray-100);color:var(--t2)}
+.sem-panel-body{
+  font-family:'Inter var','Inter',system-ui,sans-serif;
+  background:var(--bg-s);color:var(--t1);font-size:14px;line-height:1.5;
+}
+.sem-panel-section{margin-bottom:20px}
+.sem-panel-section-title{font-size:13px;font-weight:700;color:var(--t1);margin-bottom:2px}
+.sem-panel-section-sub{font-size:12px;color:var(--t4);margin-bottom:12px;line-height:1.5}
+.entity-tag{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:var(--r-full);font-size:12px;font-weight:600;background:var(--brand-50);color:var(--brand-700);border:1px solid var(--brand-100)}
+.sem-panel-footer{padding:16px 20px;border-top:1px solid var(--bd2);display:flex;align-items:center;justify-content:flex-end;gap:10px}
+.sem-desc-row{display:flex;align-items:flex-start;gap:8px;padding:12px;border:1px solid var(--bd2);border-radius:var(--r3);margin-bottom:8px;background:#fff}
+.sem-desc-col{flex:1;min-width:0}
+.sem-desc-add{display:flex;align-items:center;gap:6px;padding:8px 12px;border-radius:var(--r2);border:1px dashed var(--bd);background:#fff;color:var(--t4);cursor:pointer;font-size:13px;transition:background .1s,color .1s;width:100%;font-family:inherit;text-align:left}
+.sem-desc-add:hover{background:var(--brand-25);color:var(--brand-700);border-color:var(--brand-300)}
+.hdr-si{width:20px;height:20px;min-width:16px;min-height:16px;flex-shrink:0;display:block;filter:brightness(0) invert(1)}
+.hdr-actions{display:flex;gap:2px}
+.hdr-avatar{width:100%;height:100%;object-fit:cover;display:block}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="hdr">
+  <label for="nav-toggle" class="hdr-menu-btn">
+    <span class="hdr-menu-icon"><svg width="20" height="20" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="1.8" stroke-linecap="round" viewBox="0 0 20 20"><line x1="3" y1="6" x2="17" y2="6"/><line x1="3" y1="10" x2="17" y2="10"/><line x1="3" y1="14" x2="17" y2="14"/></svg></span>
+    <span class="hdr-close-icon"><svg width="20" height="20" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="1.8" stroke-linecap="round" viewBox="0 0 20 20"><line x1="5" y1="5" x2="15" y2="15"/><line x1="15" y1="5" x2="5" y2="15"/></svg></span>
+  </label>
+  <div class="hdr-brand">
+    <img src="data/doxis-logo.svg" alt="DOXIS" class="hdr-logo-img">
+    <span class="hdr-bs">Business Studio</span>
+  </div>
+  <div class="hdr-search">
+    <img src="data/icons/search-lg.svg" class="hdr-si" alt="">
+    <span class="hdr-search-text">Search</span>
+  </div>
+  <div class="hdr-right">
+    <div class="hdr-actions">
+      <button class="hdr-btn"><img src="data/icons/bell-01.svg" class="hdr-si" alt=""></button>
+      <button class="hdr-btn"><img src="data/icons/help-circle.svg" class="hdr-si" alt=""></button>
+    </div>
+    <div class="hdr-avatar-wrap"><img src="data/avatar.png" class="hdr-avatar" alt="TS"></div>
+  </div>
+</header>
+
+<div class="app">
+
+  <!-- Sidebar -->
+  <nav class="sidebar">
+  <div class="sb-scroll">
+    <div class="sb-grp0">
+      <div class="nw"><a class="nc"><img src="data/icons/bar-chart-square-02.svg" class="ni" alt="Overview"><span class="nc-flex">Overview</span></a></div>
+      <div class="nw"><a class="nc"><img src="data/icons/book-open-01.svg" class="ni" alt="Library"><span class="nc-flex">Library</span></a></div>
+      <div class="nw"><a class="nc"><img src="data/icons/intersect-square.svg" class="ni" alt="Applications"><span class="nc-flex">Applications</span></a></div>
+      <div class="nw"><a class="nc"><img src="data/icons/link-04.svg" class="ni" alt="Integrations"><span class="nc-flex">Integrations</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+      <div class="nw"><a class="nc"><img src="data/icons/cpu-chip-01.svg" class="ni" alt="AI studio"><span class="nc-flex">AI studio</span><img src="data/icons/chevron-down.svg" class="nchev" alt="" style="transform:rotate(180deg)"></a></div>
+      <div class="nw"><a class="nc nc-sub" href="screen-1-ai-manager.html"><span class="nc-flex">AI agent manager</span></a></div>
+      <div class="nw"><a class="nc nc-sub nc-sub-active" href="screen-8-superhuman-search.html"><span class="nc-flex">Superhuman search</span></a></div>
+
+    </div>
+    <div class="sb-grp">
+      <div class="sb-grp-inner">
+        <div class="sb-sec-hdr">Configuration</div>
+        <div class="nw"><a class="nc"><img src="data/icons/tool-02.svg" class="ni" alt="General"><span class="nc-flex">General</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/database-02.svg" class="ni" alt="Databases"><span class="nc-flex">Databases</span></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/data.svg" class="ni" alt="Metadata"><span class="nc-flex">Metadata</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/file-02.svg" class="ni" alt="Document management"><span class="nc-flex">Document management</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/search-sm.svg" class="ni" alt="Search"><span class="nc-flex">Search</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/layout-left.svg" class="ni" alt="Template designer"><span class="nc-flex">Template designer</span><img src="data/icons/link-external-02.svg" class="nchev" alt=""></a></div>
+      </div>
+      <div class="sb-grp-inner">
+        <div class="sb-sec-hdr">Access &amp; Security</div>
+        <div class="nw"><a class="nc"><img src="data/icons/building-07.svg" class="ni" alt="Organization"><span class="nc-flex">Organization</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/lock-unlocked-03.svg" class="ni" alt="Access control"><span class="nc-flex">Access control</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/scale-01.svg" class="ni" alt="Retention rules"><span class="nc-flex">Retention rules</span></a></div>
+      </div>
+      <div class="sb-grp-inner">
+        <div class="sb-sec-hdr">Operations</div>
+        <div class="nw"><a class="nc"><img src="data/icons/clock-fast-forward.svg" class="ni" alt="Timeslices"><span class="nc-flex">Timeslices</span></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/server-03.svg" class="ni" alt="Agents &amp; Webhooks"><span class="nc-flex">Agents &amp; Webhooks</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/search-sm.svg" class="ni" alt="Fulltext"><span class="nc-flex">Fulltext</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/file-download-01.svg" class="ni" alt="File import (FIPS)"><span class="nc-flex">File import (FIPS)</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/server-04.svg" class="ni" alt="Storage jobs"><span class="nc-flex">Storage jobs</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/bar-chart-square-02.svg" class="ni" alt="System status"><span class="nc-flex">System status</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+      </div>
+    </div>
+  </div>
+  <div class="sb-bot">
+    <div class="nw"><a class="nc"><img src="data/icons/layout-left.svg" class="ni" alt="Collapse menu"><span class="nc-flex">Collapse menu</span></a></div>
+  </div>
+</nav>
+
+  <!-- Main content -->
+  <main class="main">
+
+    <!-- Page header with back + title + actions -->
+    <div class="detail-hdr">
+      <div>
+        <a class="back-btn" href="screen-8-superhuman-search.html">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 16 16"><path d="M10 3L5 8l5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Back
+        </a>
+      </div>
+      <div class="detail-hdr-center">
+        <div class="detail-title-row">
+          <span class="detail-title">HR Onboarding</span>
+          <span class="needs-semantics-badge" id="needs-badge">
+            <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 10 10"><circle cx="5" cy="5" r="4"/><path d="M5 3.5v3M5 7.5v.2" stroke-linecap="round"/></svg>
+            <span id="needs-badge-text">1 need semantics</span>
+          </span>
+        </div>
+        <div class="detail-sub">Select classes, refine the description and metadata, describe contents and search terms, and add AI metadata with clear meanings.</div>
+      </div>
+      <div class="detail-hdr-actions">
+        <a href="screen-8-superhuman-search.html" class="btn btn-ghost">Cancel</a>
+        <button class="btn btn-primary" onclick="saveSemantics()">Save</button>
+      </div>
+    </div>
+
+    <div class="cw">
+      <div class="split">
+
+        <!-- Left: Class list -->
+        <div class="split-left">
+          <div class="split-left-header">
+            <div class="split-left-search">
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 13 13" style="opacity:.4;flex-shrink:0"><circle cx="5.5" cy="5.5" r="4"/><path d="M9 9l2.5 2.5" stroke-linecap="round"/></svg>
+              <input type="text" placeholder="Search…" oninput="filterClasses(this.value)">
+            </div>
+            <button class="filter-icon-btn">
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 13 13"><path d="M1 3h11M3 6.5h7M5.5 10h2" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+          <div class="class-list" id="class-list">
+            <!-- rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Right: Semantics editor -->
+        <div class="split-right">
+          <div id="semantics-panel">
+            <!-- rendered by JS depending on selected class -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- New Semantic side panel -->
+<div class="sem-panel-overlay" id="sem-panel-overlay">
+  <div class="sem-panel-backdrop" onclick="closeSemPanel()"></div>
+  <div class="sem-panel">
+    <div class="sem-panel-hdr">
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <div style="width:28px;height:28px;border-radius:50%;background:var(--brand-50);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+            <svg width="14" height="14" fill="none" stroke="var(--brand-700)" stroke-width="1.8" viewBox="0 0 14 14"><path d="M7 2v10M2 7h10" stroke-linecap="round"/></svg>
+          </div>
+          <div class="sem-panel-title">New Semantic</div>
+        </div>
+        <div class="sem-panel-sub">This helps AI interpret and understand your classes more effectively.</div>
+      </div>
+      <button class="close-btn" onclick="closeSemPanel()">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 16 16"><path d="M4 4l8 8M12 4l-8 8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="sem-panel-body">
+      <!-- Entity Definition -->
+      <div class="sem-panel-section">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+          <div>
+            <div class="sem-panel-section-title">Entity Definition</div>
+          </div>
+          <span class="entity-tag">Fulltext · Content</span>
+        </div>
+        <div class="form-row">
+          <div class="form-col">
+            <label class="form-label">Name</label>
+            <input class="form-input" type="text" placeholder="Add a name" id="sem-name">
+          </div>
+          <div class="form-col">
+            <label class="form-label">Filter value</label>
+            <input class="form-input" type="text" placeholder="Add a value" id="sem-filter">
+          </div>
+        </div>
+        <div>
+          <label class="form-label">Description</label>
+          <textarea class="form-input form-textarea" placeholder="Describe what this class contains and which natural-language terms users are likely to use when searching for it." id="sem-desc"></textarea>
+        </div>
+      </div>
+
+      <!-- Descriptors -->
+      <div class="sem-panel-section" id="panel-descriptors">
+        <div class="desc-header">
+          <div>
+            <div class="sem-panel-section-title">Descriptors</div>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button class="icon-btn" title="Sort"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 13 13"><path d="M1 4h11M3 6.5h7M5.5 9h2" stroke-linecap="round"/></svg></button>
+            <button class="icon-btn" title="Add descriptor" onclick="addDescriptorRow()" style="background:var(--brand-700);border-color:var(--brand-700);color:#fff;width:30px;height:30px"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 13 13"><path d="M6.5 2v9M2 6.5h9" stroke-linecap="round"/></svg></button>
+          </div>
+        </div>
+        <div id="descriptor-rows">
+          <!-- Populated by JS or initially empty -->
+          <div class="no-desc" id="no-desc-msg">
+            <div class="no-desc-icon">
+              <svg width="18" height="18" fill="none" stroke="var(--gray-400)" stroke-width="1.7" viewBox="0 0 18 18"><path d="M3 3h7l5 5v7H3z"/><path d="M10 3v6h5"/></svg>
+            </div>
+            <div class="no-desc-text">No descriptors available</div>
+            <div class="no-desc-sub">Add descriptors to improve search</div>
+            <button class="add-now-btn" onclick="addDescriptorRow()">
+              <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 13 13"><path d="M6.5 2v9M2 6.5h9" stroke-linecap="round"/></svg>
+              Add now
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sem-panel-footer">
+      <button class="btn btn-ghost" style="padding:8px 14px;font-size:13px" onclick="closeSemPanel()">Cancel</button>
+      <button class="btn btn-primary" style="padding:8px 14px;font-size:13px" onclick="saveSemantic()">Add</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── Data ─────────────────────────────────────────────────────── */
+var CLASSES_DATA = [
+  { id:'approval',    name:'Approval',           type:'Process class', checked:true,  status:'included',
+    semantics:[{name:'ApprovalType', enhancedName:'Type', desc:'Category of approval request: financial, HR, legal, or operational.', enabled:true}],
+    desc:'Handles approval workflows for new hire onboarding requests including offer letters, system access, and equipment provisioning.',
+    entityName:'Approval', filterVal:'', sem:'' },
+  { id:'customerws',  name:'CustomerWS',          type:'Process class', checked:false, status:'not',     semantics:[], desc:'', entityName:'', filterVal:'', sem:'' },
+  { id:'contracts',   name:'Contracts',            type:'E-file class',  checked:true,  status:'included',
+    semantics:[{name:'DocumentNumber', enhancedName:'Brand', desc:'This class refers to the unique identifier assigned to a document, often searched using terms like "record ID", "file number", or "case number".', enabled:true}],
+    desc:'Employment contracts and agreements signed during the onboarding process.', entityName:'Contracts', filterVal:'', sem:'' },
+  { id:'cloudwatch',  name:'CloudWatch',           type:'BPM class',     checked:false, status:'not',     semantics:[], desc:'', entityName:'', filterVal:'', sem:'' },
+  { id:'contrastai',  name:'ContrastAI',           type:'E-file class',  checked:false, status:'not',     semantics:[], desc:'', entityName:'', filterVal:'', sem:'' },
+  { id:'vibrantix',   name:'Vibrantix',            type:'E-file class',  checked:true,  status:'included',
+    semantics:[],
+    desc:'', entityName:'', filterVal:'', sem:'' },
+  { id:'luminosia',   name:'Luminosia',            type:'E-file class',  checked:false, status:'not',     semantics:[], desc:'', entityName:'', filterVal:'', sem:'' },
+  { id:'spectraflux', name:'Spectraflux',          type:'E-file class',  checked:false, status:'not',     semantics:[], desc:'', entityName:'', filterVal:'', sem:'' },
+  { id:'chromaflow',  name:'Chromaflow',           type:'E-file class',  checked:false, status:'not',     semantics:[], desc:'', entityName:'', filterVal:'', sem:'' }
+];
+
+var selectedClassId = 'contracts';
+var descriptorRowCount = 0;
+
+/* ── Render class list ────────────────────────────────────────── */
+function renderClassList(filter) {
+  filter = (filter||'').toLowerCase();
+  var filtered = CLASSES_DATA.filter(function(c){ return !filter || c.name.toLowerCase().indexOf(filter)>=0; });
+  var checked = filtered.filter(function(c){ return c.checked; });
+  var notChecked = filtered.filter(function(c){ return !c.checked; });
+
+  var html = '';
+  if (checked.length) {
+    html += '<div class="class-list-hdr"><span>Classes</span><span>Status</span></div>';
+    html += checked.map(function(c){ return classItemHTML(c); }).join('');
+  }
+  if (notChecked.length) {
+    if (checked.length) html += '<div style="height:1px;background:var(--bd2);margin:4px 0"></div>';
+    html += notChecked.map(function(c){ return classItemHTML(c); }).join('');
+  }
+
+  document.getElementById('class-list').innerHTML = html || '<div style="padding:24px 16px;text-align:center;color:var(--t4);font-size:13px">No classes found.</div>';
+}
+
+function classItemHTML(c) {
+  var isSelected = c.id === selectedClassId;
+  var pillCls = c.checked ? (c.semantics && c.semantics.length ? 'pill-included' : 'pill-included') : 'pill-not';
+  var pillText = c.checked ? 'Included' : 'Not included';
+  var needsMark = c.checked && (!c.semantics || !c.semantics.length) ? '<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:#c2410c;position:absolute;top:10px;right:14px"></span>' : '';
+  return '<div class="class-item'+(isSelected?' selected':'')+'" onclick="selectClass(\''+c.id+'\')">'
+    + '<div class="class-cb'+(c.checked?' checked':'')+'" onclick="toggleClassCheck(event,\''+c.id+'\')">'
+    +   (c.checked ? '<svg width="10" height="8" fill="none" stroke="#fff" stroke-width="2.2" viewBox="0 0 10 8"><path d="M1 4l3 3 5-6" stroke-linecap="round" stroke-linejoin="round"/></svg>' : '')
+    + '</div>'
+    + '<div style="flex:1;min-width:0">'
+    +   '<div class="class-item-name">'+c.name+'</div>'
+    +   '<div class="class-item-type">'+c.type+'</div>'
+    + '</div>'
+    + '<span class="class-status-pill '+pillCls+'">'+pillText+'</span>'
+    + needsMark
+    + '</div>';
+}
+
+/* ── Render semantics panel ───────────────────────────────────── */
+function renderSemanticsPanel() {
+  var c = CLASSES_DATA.find(function(x){ return x.id===selectedClassId; });
+  if (!c) { document.getElementById('semantics-panel').innerHTML = ''; return; }
+
+  var hasSemantics = c.semantics && c.semantics.length > 0;
+  var semRows = '';
+
+  if (hasSemantics) {
+    semRows = '<div class="desc-list">';
+    c.semantics.forEach(function(s, i) {
+      semRows += '<div class="desc-row" id="sem-row-'+i+'">'
+        + '<label class="tog" style="margin-top:2px"><input type="checkbox"'+(s.enabled?' checked':'')+' onchange="toggleSem('+i+',this)"><span class="tog-t"></span></label>'
+        + '<div style="flex:1;min-width:0">'
+        +   '<div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">'
+        +     '<span class="desc-name">'+s.name+'</span>'
+        +     '<span style="font-size:12px;color:var(--t4)">'+s.enhancedName+'</span>'
+        +   '</div>'
+        +   '<div class="desc-meta">'+s.desc+'</div>'
+        + '</div>'
+        + '<div class="desc-actions">'
+        +   '<button class="icon-btn" onclick="editSem('+i+')" title="Edit"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 13 13"><path d="M9.5 2.5l1 1-7 7H2.5v-1l7-7z" stroke-linejoin="round"/></svg></button>'
+        + '</div>'
+        + '</div>';
+    });
+    semRows += '</div>';
+  } else if (c.checked) {
+    semRows = '<div class="no-desc"><div class="no-desc-icon"><svg width="18" height="18" fill="none" stroke="var(--gray-400)" stroke-width="1.7" viewBox="0 0 18 18"><rect x="2" y="2" width="14" height="14" rx="2"/><path d="M6 7h6M6 10h6M6 13h3"/></svg></div><div class="no-desc-text">No descriptors available</div><div class="no-desc-sub">Add descriptors to improve search</div><button class="add-now-btn" onclick="openSemPanel()"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 13 13"><path d="M6.5 2v9M2 6.5h9" stroke-linecap="round"/></svg> Add now</button></div>';
+  } else {
+    semRows = '<div style="padding:40px 20px;text-align:center;color:var(--t4)"><div style="font-size:13px;margin-bottom:8px">Class not included</div><div style="font-size:12px">Check this class to add semantics</div></div>';
+  }
+
+  var html = '<div class="semantics-header">'
+    + '<div style="display:flex;align-items:center;gap:8px">'
+    +   '<span class="semantics-title">'+c.name+'</span>'
+    +   (c.checked ? '<span class="semantics-tag">Process Class</span>' : '')
+    + '</div>'
+    + '<div class="semantics-actions">'
+    +   (c.checked ? '<button class="icon-btn" onclick="openSemPanel()" title="Add semantic" style="background:var(--brand-700);border-color:var(--brand-700);color:#fff;width:30px;height:30px"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 13 13"><path d="M6.5 2v9M2 6.5h9" stroke-linecap="round"/></svg></button>' : '')
+    + '</div>'
+    + '</div>'
+    + '<div class="semantics-body">'
+    + '<div class="sem-section">'
+    +   '<div class="sem-section-title">Class description</div>'
+    +   '<div class="sem-section-sub">Describe what this class contains and which natural-language terms users are likely to use when searching for it.</div>'
+    +   '<textarea class="form-input form-textarea" placeholder="Add a description..." style="min-height:80px">'+c.desc+'</textarea>'
+    + '</div>'
+    + (c.checked ? '<div class="sem-section">'
+    +   '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">'
+    +     '<div><div class="sem-section-title">Descriptors</div></div>'
+    +     (c.semantics && c.semantics.length ? '<div style="display:flex;gap:6px">'
+    +       '<button class="icon-btn" title="Sort"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 13 13"><path d="M1 4h11M3 6.5h7M5.5 9h2" stroke-linecap="round"/></svg></button>'
+    +       '<button class="icon-btn" onclick="openSemPanel()" title="Add" style="background:var(--brand-700);border-color:var(--brand-700);color:#fff"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 13 13"><path d="M6.5 2v9M2 6.5h9" stroke-linecap="round"/></svg></button>'
+    +     '</div>' : '')
+    +   '</div>'
+    +   semRows
+    + '</div>' : '')
+    + '</div>';
+
+  document.getElementById('semantics-panel').innerHTML = html;
+}
+
+/* ── Select class ─────────────────────────────────────────────── */
+function selectClass(id) {
+  selectedClassId = id;
+  renderClassList();
+  renderSemanticsPanel();
+}
+
+/* ── Toggle class checkbox ────────────────────────────────────── */
+function toggleClassCheck(e, id) {
+  e.stopPropagation();
+  var c = CLASSES_DATA.find(function(x){ return x.id===id; });
+  if (c) {
+    c.checked = !c.checked;
+    c.status = c.checked ? 'included' : 'not';
+    if (!c.checked && selectedClassId === id) {
+      renderSemanticsPanel();
+    }
+    renderClassList();
+    updateNeedsBadge();
+  }
+}
+
+/* ── Update needs semantics badge ────────────────────────────── */
+function updateNeedsBadge() {
+  var needCount = CLASSES_DATA.filter(function(c){ return c.checked && (!c.semantics || !c.semantics.length); }).length;
+  var badge = document.getElementById('needs-badge');
+  var badgeText = document.getElementById('needs-badge-text');
+  if (needCount > 0) {
+    badge.style.display = '';
+    badgeText.textContent = needCount + ' need' + (needCount > 1 ? '' : '') + ' semantics';
+    badge.className = 'needs-semantics-badge';
+  } else {
+    badge.className = 'needs-semantics-badge green';
+    badgeText.textContent = 'All semantics added';
+  }
+}
+
+/* ── Sem panel ────────────────────────────────────────────────── */
+function openSemPanel() {
+  document.getElementById('sem-name').value = '';
+  document.getElementById('sem-filter').value = '';
+  document.getElementById('sem-desc').value = '';
+  document.getElementById('descriptor-rows').innerHTML = document.getElementById('no-desc-msg') ? '' : '';
+  // Reset to empty state
+  var dr = document.getElementById('descriptor-rows');
+  dr.innerHTML = '<div class="no-desc" id="no-desc-msg"><div class="no-desc-icon"><svg width="18" height="18" fill="none" stroke="var(--gray-400)" stroke-width="1.7" viewBox="0 0 18 18"><path d="M3 3h7l5 5v7H3z"/><path d="M10 3v6h5"/></svg></div><div class="no-desc-text">No descriptors available</div><div class="no-desc-sub">Add descriptors to improve search</div><button class="add-now-btn" onclick="addDescriptorRow()"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 13 13"><path d="M6.5 2v9M2 6.5h9" stroke-linecap="round"/></svg> Add now</button></div>';
+  descriptorRowCount = 0;
+  document.getElementById('sem-panel-overlay').classList.add('open');
+}
+
+function closeSemPanel() {
+  document.getElementById('sem-panel-overlay').classList.remove('open');
+}
+
+function addDescriptorRow() {
+  var dr = document.getElementById('descriptor-rows');
+  var noMsg = document.getElementById('no-desc-msg');
+  if (noMsg) noMsg.remove();
+  descriptorRowCount++;
+  var rowId = 'dr-' + descriptorRowCount;
+  var row = document.createElement('div');
+  row.className = 'sem-desc-row';
+  row.id = rowId;
+  row.innerHTML = '<label class="tog" style="margin-top:2px"><input type="checkbox" checked><span class="tog-t"></span></label>'
+    + '<div class="sem-desc-col">'
+    +   '<div class="form-row" style="margin-bottom:8px">'
+    +     '<div class="form-col"><label class="form-label">Descriptor</label><input class="form-input" type="text" placeholder="Choose a descriptor" style="font-size:12px;padding:6px 10px"></div>'
+    +     '<div class="form-col"><label class="form-label">Enhanced Name</label><input class="form-input" type="text" placeholder="Add a name" style="font-size:12px;padding:6px 10px"></div>'
+    +   '</div>'
+    +   '<div><label class="form-label">Description</label><textarea class="form-input form-textarea" style="min-height:56px;font-size:12px;padding:6px 10px" placeholder="Describe what this class contains and which natural-language terms users are likely to use when searching for it."></textarea></div>'
+    + '</div>'
+    + '<button onclick="removeDescRow(\''+rowId+'\')" style="align-self:flex-start;background:none;border:none;cursor:pointer;color:var(--t4);padding:2px;border-radius:4px" title="Remove"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 14 14"><path d="M3 3l8 8M11 3l-8 8" stroke-linecap="round"/></svg></button>';
+  dr.appendChild(row);
+}
+
+function removeDescRow(id) {
+  var el = document.getElementById(id);
+  if (el) el.remove();
+  descriptorRowCount = Math.max(0, descriptorRowCount - 1);
+  if (descriptorRowCount === 0) {
+    var dr = document.getElementById('descriptor-rows');
+    dr.innerHTML = '<div class="no-desc" id="no-desc-msg"><div class="no-desc-icon"><svg width="18" height="18" fill="none" stroke="var(--gray-400)" stroke-width="1.7" viewBox="0 0 18 18"><path d="M3 3h7l5 5v7H3z"/><path d="M10 3v6h5"/></svg></div><div class="no-desc-text">No descriptors available</div><div class="no-desc-sub">Add descriptors to improve search</div><button class="add-now-btn" onclick="addDescriptorRow()"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 13 13"><path d="M6.5 2v9M2 6.5h9" stroke-linecap="round"/></svg> Add now</button></div>';
+  }
+}
+
+function saveSemantic() {
+  var name = document.getElementById('sem-name').value.trim() || 'New Semantic';
+  var filter = document.getElementById('sem-filter').value.trim();
+  var desc = document.getElementById('sem-desc').value.trim();
+  var c = CLASSES_DATA.find(function(x){ return x.id===selectedClassId; });
+  if (c) {
+    c.semantics.push({ name: name, enhancedName: filter || 'Value', desc: desc || 'Semantic descriptor for '+c.name+'.', enabled: true });
+    updateNeedsBadge();
+    renderSemanticsPanel();
+    renderClassList();
+  }
+  closeSemPanel();
+}
+
+function toggleSem(idx, cb) {
+  var c = CLASSES_DATA.find(function(x){ return x.id===selectedClassId; });
+  if (c && c.semantics[idx]) c.semantics[idx].enabled = cb.checked;
+}
+
+function editSem(idx) {
+  var c = CLASSES_DATA.find(function(x){ return x.id===selectedClassId; });
+  if (!c || !c.semantics[idx]) return;
+  var s = c.semantics[idx];
+  document.getElementById('sem-name').value = s.name;
+  document.getElementById('sem-filter').value = s.enhancedName;
+  document.getElementById('sem-desc').value = s.desc;
+  document.getElementById('sem-panel-overlay').classList.add('open');
+}
+
+function filterClasses(val) {
+  renderClassList(val);
+}
+
+function saveSemantics() {
+  window.location.href = 'screen-8-superhuman-search.html';
+}
+
+/* ── Init ─────────────────────────────────────────────────────── */
+renderClassList();
+renderSemanticsPanel();
+updateNeedsBadge();
+</script>
+</body>
+</html>

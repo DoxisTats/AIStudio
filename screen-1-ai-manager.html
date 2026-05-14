@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI agent manager — Doxis Business Studio</title>
+<style>
+/* ─── Reset ─────────────────────────────────────────────────── */
+*{box-sizing:border-box;margin:0;padding:0}
+
+/* ─── Design Tokens ─────────────────────────────────────────── */
+:root{
+  /* Gray */
+  --gray-25:#fdfdfd;--gray-50:#fafafa;--gray-100:#f5f5f5;
+  --gray-200:#e9eaeb;--gray-300:#d5d7da;--gray-400:#a4a7ae;
+  --gray-500:#717680;--gray-600:#535862;--gray-700:#414651;
+  --gray-800:#252b37;--gray-900:#181d27;
+
+  /* Brand */
+  --brand-25:#f3f7f8;--brand-50:#e6eff1;--brand-100:#dae7ea;
+  --brand-300:#9bbfc7;--brand-400:#6aa0ac;--brand-500:#388090;
+  --brand-600:#1f7082;--brand-700:#066074;--brand-800:#075365;
+
+  /* Semantic */
+  --error-100:#fee4e2;--error-500:#f04438;--error-700:#b42318;
+  --warning-100:#fef0c7;--warning-500:#f79009;--warning-700:#b54708;
+  --success-100:#dcfae6;--success-500:#17b26a;--success-700:#067647;
+
+  /* Aliases used in components */
+  --brand:var(--brand-800);          /* primary action #075365 */
+  --brand-h:var(--brand-700);        /* hover #066074           */
+  --brand-bg:var(--brand-50);        /* light bg #e6eff1        */
+  --bg:#ffffff;
+  --bg-s:var(--gray-50);
+  --bg-t:var(--gray-100);
+  --bd:var(--gray-300);
+  --bd2:var(--gray-200);
+  --t1:var(--gray-900);
+  --t2:var(--gray-700);
+  --t3:var(--gray-600);
+  --t4:var(--gray-500);
+  --ok:var(--success-700);
+  --ok-bg:var(--success-100);
+  --warn:var(--warning-700);
+  --warn-bg:var(--warning-100);
+
+  /* Radii */
+  --r:6px;--r2:8px;--r3:10px;--r4:12px;--r-full:9999px;
+
+  /* Layout */
+  --sw:260px;--hh:64px;
+
+  /* Shadows */
+  --sh-xs:0 1px 2px 0 rgba(10,13,18,.05);
+  --sh-sm:0 1px 3px 0 rgba(10,13,18,.1),0 1px 2px -1px rgba(10,13,18,.1);
+  --sh-md:0 4px 6px -1px rgba(10,13,18,.1),0 2px 4px -2px rgba(10,13,18,.06);
+  --sh-lg:0 12px 16px -4px rgba(10,13,18,.08),0 4px 6px -2px rgba(10,13,18,.03),0 2px 2px -1px rgba(10,13,18,.04);
+  --focus-ring:0 0 0 4px rgba(56,128,144,.25),0 0 0 2px #fff;
+}
+
+/* ─── Page header ────────────────────────────────────────────── */
+.pg-hdr{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.pg-text{display:flex;flex-direction:column;gap:4px;flex:1;min-width:0}
+.pg-title{font-size:24px;font-weight:600;line-height:32px;color:#181d27}
+.pg-sub{font-size:14px;font-weight:400;line-height:20px;color:#535862;margin-top:2px}
+.pg-actions{display:flex;align-items:center;gap:12px;flex-shrink:0}
+
+/* ─── Base ───────────────────────────────────────────────────── */
+body{
+  font-family:'Inter var','Inter',system-ui,sans-serif;
+  background:var(--bg-s);color:var(--t1);font-size:14px;line-height:1.5;
+}
+
+/* ─── Layout ─────────────────────────────────────────────────── */
+.app{display:flex;padding-top:var(--hh);min-height:100vh}
+.main{margin-left:var(--sw);flex:1;min-width:0}
+
+
+/* ─── Breadcrumb ─────────────────────────────────────────────── */
+.bc{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--t4);margin-bottom:16px}
+.bc a{color:var(--t4);text-decoration:none}
+.bc a:hover{color:var(--brand)}
+.bc-sep{color:var(--bd)}
+.bc-cur{color:var(--t2);font-weight:500}
+
+/* ─── Buttons ────────────────────────────────────────────────── */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  gap:8px;padding:10px 16px;height:40px;
+  font-family:'Inter var','Inter',system-ui,sans-serif;
+  font-size:14px;font-weight:600;line-height:20px;
+  border-radius:var(--r2);border:1px solid transparent;
+  cursor:pointer;text-decoration:none;white-space:nowrap;
+  transition:background .12s,box-shadow .12s,color .12s;
+}
+.btn-sm{height:36px;padding:8px 14px;font-size:14px}
+.btn-md{height:40px;padding:10px 16px}
+.btn-lg{height:44px;padding:10px 18px}
+.btn-xl{height:48px;padding:12px 20px}
+
+/* Primary */
+.btn-primary,.btn-p{
+  background:var(--brand-700);color:#fff;
+  border-color:var(--brand-700);box-shadow:var(--sh-xs);
+}
+.btn-primary:hover,.btn-p:hover{background:var(--brand-800)}
+
+/* Large primary variant */
+.btn-p-lg{height:44px;padding:10px 18px}
+
+/* Secondary */
+.btn-secondary,.btn-s{
+  background:#fff;color:var(--t2);
+  border-color:var(--bd);box-shadow:var(--sh-xs);
+}
+.btn-secondary:hover,.btn-s:hover{background:var(--bg-s)}
+
+/* Tertiary / ghost */
+.btn-tertiary,.btn-g,.btn-ghost{
+  background:transparent;color:var(--t2);
+  border-color:transparent;
+}
+.btn-tertiary:hover,.btn-g:hover,.btn-ghost:hover{background:var(--bg-t)}
+
+/* Disabled state */
+.btn:disabled,.btn[disabled]{opacity:.5;cursor:not-allowed}
+
+/* ─── Card / Panel ────────────────────────────────────────────── */
+.card{
+  background:#fff;border:1px solid var(--bd2);
+  border-radius:var(--r4);box-shadow:var(--sh-xs);
+  padding:24px 16px;
+}
+.card-flush{padding:0;overflow:hidden}
+.panel{
+  background:#fff;border:1px solid var(--bd2);
+  border-radius:var(--r4);box-shadow:var(--sh-xs);
+  overflow:hidden;
+}
+.panel-hdr{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 20px;border-bottom:1px solid var(--bd2);
+}
+.panel-sub{font-size:13px;color:var(--t4);margin-top:2px}
+
+/* ─── Section ────────────────────────────────────────────────── */
+.section{margin-bottom:0}
+/* ─── Content wrapper ───────────────────────────────────────── */
+.cw{padding:32px 24px;display:flex;flex-direction:column;gap:24px;max-width:1600px;margin-left:auto;margin-right:auto}
+
+.section-title,.sec-title,.sec-lbl{
+  font-size:14px;font-weight:600;line-height:20px;
+  color:var(--t4);text-transform:uppercase;letter-spacing:.04em;
+  margin-bottom:12px;
+}
+.section-hdr{
+  display:flex;align-items:center;gap:10px;
+  padding:14px 20px;border-bottom:1px solid var(--bd2);
+  font-size:14px;font-weight:600;color:var(--t2);
+}
+.section-icon{
+  width:32px;height:32px;border-radius:var(--r2);
+  background:var(--brand-50);display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.section-body{
+  font-family:'Inter var','Inter',system-ui,sans-serif;
+  background:var(--bg-s);color:var(--t1);font-size:14px;line-height:1.5;
+}
+
+/* ─── Form — labels, inputs, helpers ─────────────────────────── */
+.label,.lbl{
+  display:block;font-size:14px;font-weight:600;line-height:20px;
+  color:var(--t2);margin-bottom:6px;
+}
+.lbl-opt{font-weight:400;color:var(--t4);font-size:12px;margin-left:4px}
+.hint,.inp-hint{
+  font-size:14px;line-height:20px;color:var(--t4);margin-top:6px;
+}
+.input-wrap,.field{margin-bottom:16px}
+.footer-hint{font-size:12px;color:var(--t4);margin-top:4px}
+.char-count{font-size:12px;color:var(--t4);text-align:right;margin-top:4px}
+
+.input,.inp,.inp-wrap input,.inp-wrap select{
+  display:block;width:100%;height:40px;
+  padding:10px 14px;
+  font-family:'Inter var','Inter',system-ui,sans-serif;
+  font-size:16px;line-height:24px;color:var(--t1);
+  background:#fff;border:1px solid var(--bd);border-radius:var(--r2);
+  box-shadow:var(--sh-xs);
+  transition:border-color .12s,box-shadow .12s;
+  appearance:none;outline:none;
+}
+.input::placeholder,.inp::placeholder{color:var(--gray-400)}
+.input:focus,.inp:focus{
+  border-color:var(--brand-500);
+  box-shadow:var(--focus-ring),var(--sh-xs);
+}
+.input-sm,.inp-sm{height:36px;padding:8px 12px;font-size:14px}
+.input.error,.inp.error{border-color:var(--error-500)}
+.input.error:focus,.inp.error:focus{
+  box-shadow:0 0 0 4px rgba(240,68,56,.2),0 0 0 2px #fff;
+}
+
+.textarea{
+  display:block;width:100%;min-height:128px;
+  padding:12px 14px;
+  font-family:'Inter var','Inter',system-ui,sans-serif;
+  font-size:16px;line-height:24px;color:var(--t1);
+  background:#fff;border:1px solid var(--bd);border-radius:var(--r2);
+  box-shadow:var(--sh-xs);resize:vertical;outline:none;
+  transition:border-color .12s,box-shadow .12s;
+}
+.textarea::placeholder{color:var(--gray-400)}
+.textarea:focus{
+  border-color:var(--brand-500);
+  box-shadow:var(--focus-ring),var(--sh-xs);
+}
+
+/* select arrow */
+select.input,select.inp{
+  background-image:url("data/icons/chevron-down.svg");
+  background-repeat:no-repeat;background-position:right 12px center;
+  padding-right:36px;cursor:pointer;
+}
+
+/* ─── Form card layout ──────────────────────────────────────── */
+.form-card{
+  background:#fff;border:1px solid var(--bd2);
+  border-radius:var(--r4);box-shadow:var(--sh-xs);
+  padding:28px 32px;margin-bottom:20px;
+}
+.form-title{font-size:16px;font-weight:600;color:var(--t1);margin-bottom:4px}
+.form-desc{font-size:14px;color:var(--t4);margin-bottom:20px}
+.form-divider{height:1px;background:var(--bd2);margin:20px 0}
+
+/* ─── Toggle ──────────────────────────────────────────────────── */
+.tog{
+  position:relative;display:inline-block;
+  width:36px;height:20px;cursor:pointer;flex-shrink:0;
+}
+.tog input{opacity:0;width:0;height:0;position:absolute}
+.tog-t{
+  position:absolute;inset:0;background:var(--gray-300);
+  border-radius:var(--r-full);transition:background .15s ease-in-out;
+}
+.tog-t::after{
+  content:'';position:absolute;
+  width:16px;height:16px;background:#fff;border-radius:50%;
+  top:2px;left:2px;
+  transition:transform .15s ease-in-out;
+  box-shadow:var(--sh-xs);
+}
+.tog input:checked + .tog-t{background:var(--brand-700)}
+.tog input:checked + .tog-t::after{transform:translateX(16px)}
+
+/* small toggle */
+.tog-sm{width:28px;height:16px}
+.tog-sm .tog-t::after{width:12px;height:12px}
+.tog-sm input:checked + .tog-t::after{transform:translateX(12px)}
+
+/* ─── Checkbox ────────────────────────────────────────────────── */
+.checkbox,.ck{
+  position:relative;display:inline-flex;align-items:center;
+  gap:8px;cursor:pointer;
+}
+.ck-box{
+  width:16px;height:16px;border-radius:4px;flex-shrink:0;
+  border:1px solid var(--gray-300);background:#fff;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .1s,border-color .1s;
+}
+.ck input{position:absolute;opacity:0;width:0;height:0}
+.ck input:checked ~ .ck-box{
+  background:var(--brand-700);border-color:var(--brand-700);
+}
+.ck input:checked ~ .ck-box::after{
+  content:'';
+  width:9px;height:6px;
+  border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;
+  transform:rotate(-45deg) translateY(-1px);display:block;
+}
+.ck input:disabled ~ .ck-box{background:var(--gray-100);border-color:var(--gray-200)}
+
+/* ─── Radio ───────────────────────────────────────────────────── */
+.radio{
+  position:relative;display:inline-flex;align-items:center;
+  gap:8px;cursor:pointer;
+}
+.radio-dot{
+  width:16px;height:16px;border-radius:50%;flex-shrink:0;
+  border:1px solid var(--gray-300);background:#fff;
+  display:flex;align-items:center;justify-content:center;
+  transition:border-color .1s;
+}
+.radio input{position:absolute;opacity:0;width:0;height:0}
+.radio input:checked ~ .radio-dot{border-color:var(--brand-700)}
+.radio input:checked ~ .radio-dot::after{
+  content:'';width:6px;height:6px;
+  border-radius:50%;background:var(--brand-700);display:block;
+}
+
+/* radio card variant */
+.radio-cards{display:flex;flex-direction:column;gap:12px}
+.radio-card{
+  border:1px solid var(--bd2);border-radius:var(--r3);
+  padding:16px 20px;cursor:pointer;
+  transition:border-color .12s,background .12s;
+  display:flex;align-items:flex-start;gap:14px;
+}
+.radio-card:hover{border-color:var(--brand-300);background:var(--brand-25)}
+.radio-card.sel,.radio-card.active{border-color:var(--brand-700);background:var(--brand-50)}
+.radio-card-lbl{font-size:14px;font-weight:600;color:var(--t2);line-height:20px}
+.radio-icon{width:36px;height:36px;border-radius:var(--r2);
+  background:var(--bg-t);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.radio-title{font-size:14px;font-weight:600;color:var(--t2)}
+.radio-desc{font-size:13px;color:var(--t4);margin-top:2px}
+
+/* ─── Badges ──────────────────────────────────────────────────── */
+.badge{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:2px 8px;height:22px;
+  border-radius:var(--r-full);
+  font-size:12px;font-weight:500;line-height:18px;
+  border:1px solid transparent;
+}
+.badge-sm{height:20px;padding:2px 8px;font-size:12px}
+.badge-lg{height:24px;padding:3px 10px;font-size:14px;line-height:20px}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0}
+
+/* Gray */
+.badge-gray,.badge-off{
+  background:var(--gray-50);color:var(--gray-700);border-color:var(--gray-200);
+}
+/* Brand */
+.badge-brand,.grp-tag,.tag-brand{
+  background:var(--brand-50);color:var(--brand-700);border-color:var(--brand-100);
+}
+/* Success / ok */
+.badge-success,.badge-ok,.ok{
+  background:var(--success-100);color:var(--success-700);border-color:#abefc6;
+}
+/* Error */
+.badge-error,.warn{
+  background:var(--error-100);color:var(--error-700);border-color:#fecdca;
+}
+/* Warning */
+.badge-warning{
+  background:var(--warning-100);color:var(--warning-700);border-color:#fedf89;
+}
+/* Neutral / info tag */
+.tag,.tag-neutral{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:2px 8px;border-radius:var(--r-full);
+  font-size:12px;font-weight:500;
+  background:var(--gray-100);color:var(--gray-700);border:1px solid var(--gray-200);
+}
+
+/* opt-badge / mcp-badge */
+.opt-badge,.mcp-badge{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:2px 8px;border-radius:var(--r-full);
+  font-size:11px;font-weight:500;
+  background:var(--brand-50);color:var(--brand-700);border:1px solid var(--brand-100);
+}
+
+/* ─── Table ──────────────────────────────────────────────────── */
+table{width:100%;border-collapse:collapse}
+thead th,th{text-align:left;font-size:12px;font-weight:600;line-height:18px;color:var(--t4);text-transform:uppercase;letter-spacing:.05em;padding:12px 24px;background:var(--gray-100);border-bottom:1px solid var(--bd2);}
+tbody tr{background:#fff;border-bottom:1px solid var(--bd2);transition:background .08s}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:var(--gray-50)}
+td{padding:16px 24px;font-size:14px;line-height:20px;color:var(--t2);vertical-align:middle}
+.tb-bar{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--bd2);}
+.tb-foot{padding:12px 16px;border-top:1px solid var(--bd2);display:flex;align-items:center;justify-content:space-between;color:var(--t4);font-size:13px;}
+.search{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--bd);border-radius:var(--r2);padding:8px 12px;font-size:14px;color:var(--t4);width:256px;box-shadow:var(--sh-xs);}
+.a-name{font-size:14px;font-weight:600;line-height:20px;color:var(--t1)}
+.a-desc{font-size:12px;color:var(--t4);margin-top:2px;max-width:320px}
+
+/* ─── Metrics cards ───────────────────────────────────────────── */
+.metrics{display:flex;align-items:center;gap:0;background:#fff;border:1px solid var(--bd2);border-radius:var(--r4);box-shadow:var(--sh-xs);overflow:hidden}
+.metric{display:flex;align-items:center;gap:10px;padding:14px 24px;border-right:1px solid var(--bd2);flex:1}
+.metric:last-child{border-right:none}
+.metric-lbl{font-size:13px;font-weight:400;color:var(--t4)}
+.metric-val{font-size:15px;font-weight:700;color:var(--t1)}
+.metric-sub{display:none}
+
+/* ─── Wizard stepper ──────────────────────────────────────────── */
+.stepper{
+  display:flex;align-items:center;
+  background:#fff;border:1px solid var(--bd2);border-radius:var(--r2);
+  padding:20px 28px;margin-bottom:28px;box-shadow:var(--sh-xs);
+}
+.step{display:flex;align-items:center;gap:10px;flex:1;position:relative}
+.step:not(:last-child)::after{
+  content:'';position:absolute;
+  left:calc(50% + 22px);right:0;top:50%;height:1px;background:var(--bd2);
+}
+.step-n{
+  width:28px;height:28px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:600;flex-shrink:0;
+  position:relative;z-index:1;
+  border:1.5px solid var(--bd);background:#fff;color:var(--t4);
+}
+.step.active .step-n,.step.ok .step-n{
+  background:var(--brand-700);border-color:var(--brand-700);color:#fff;
+}
+.step.done .step-n{
+  background:var(--brand-50);border-color:var(--brand-100);color:var(--brand-700);
+}
+.step-lbl,.step-name{font-size:13px;font-weight:500;color:var(--t4)}
+.step.active .step-lbl,.step.active .step-name{color:var(--t1);font-weight:600}
+.step.done .step-lbl,.step.done .step-name{color:var(--brand-700)}
+
+/* Wizard footer */
+.wiz-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 0;margin-top:8px;border-top:1px solid var(--bd2);
+}
+
+/* ─── MCP block ───────────────────────────────────────────────── */
+.mcp-block{
+  border:1px solid var(--bd2);border-radius:var(--r3);
+  overflow:hidden;margin-bottom:12px;
+}
+.mcp-block-hdr{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 18px;background:var(--gray-50);border-bottom:1px solid var(--bd2);
+}
+.mcp-block-title{font-size:14px;font-weight:600;color:var(--t1)}
+.mcp-body{
+  font-family:'Inter var','Inter',system-ui,sans-serif;
+  background:var(--bg-s);color:var(--t1);font-size:14px;line-height:1.5;
+}
+.mcp-label{font-size:12px;font-weight:600;color:var(--t4);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.mcp-code{
+  font-family:'JetBrains Mono','Fira Code','Courier New',monospace;
+  font-size:12px;color:var(--t2);background:var(--gray-100);
+  border:1px solid var(--bd2);border-radius:var(--r);
+  padding:8px 12px;white-space:pre-wrap;word-break:break-all;
+}
+
+/* ─── Skills block ────────────────────────────────────────────── */
+.skill-block{
+  border:1px solid var(--bd2);border-radius:var(--r3);
+  overflow:hidden;margin-bottom:12px;
+}
+.skill-hdr{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 18px;background:var(--gray-50);border-bottom:1px solid var(--bd2);
+}
+.skill-num{
+  width:24px;height:24px;border-radius:50%;background:var(--brand-50);
+  color:var(--brand-700);font-size:11px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.skill-body{
+  font-family:'Inter var','Inter',system-ui,sans-serif;
+  background:var(--bg-s);color:var(--t1);font-size:14px;line-height:1.5;
+}
+
+/* ─── Config row ──────────────────────────────────────────────── */
+.config-row{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:12px 0;border-bottom:1px solid var(--bd2);
+}
+.config-row:last-child{border-bottom:none}
+.config-lbl{font-size:13px;font-weight:600;color:var(--t2);min-width:180px;flex-shrink:0}
+.config-key{font-size:12px;color:var(--t4);margin-top:2px;font-family:monospace}
+.config-val{font-size:13px;color:var(--t2)}
+.config-preview{font-size:12px;color:var(--t4);margin-top:4px}
+
+/* ─── Permission / DB list items ─────────────────────────────── */
+.perm-section{margin-bottom:20px}
+.perm-list{list-style:none}
+.perm-item{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 0;border-bottom:1px solid var(--bd2);
+  font-size:14px;color:var(--t2);
+}
+.perm-item:last-child{border-bottom:none}
+.perm-table{width:100%;border-collapse:collapse}
+.perm-flags{display:flex;gap:8px;align-items:center}
+.perm-flag{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:12px;font-weight:500;color:var(--t4);
+}
+.perm-flag.ok{color:var(--ok)}
+
+.db-item{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 16px;border-bottom:1px solid var(--bd2);
+}
+.db-item:last-child{border-bottom:none}
+.db-check{flex-shrink:0}
+.db-name{font-size:14px;font-weight:500;color:var(--t1)}
+.db-meta{font-size:12px;color:var(--t4);margin-top:2px}
+
+/* ─── Info / warn box ─────────────────────────────────────────── */
+.info-box{
+  background:var(--brand-25);border:1px solid var(--brand-100);
+  border-radius:var(--r2);padding:14px 16px;
+  font-size:14px;color:var(--t2);
+  display:flex;align-items:flex-start;gap:10px;
+}
+.warn-box{
+  background:var(--warning-100);border:1px solid #fedf89;
+  border-radius:var(--r2);padding:14px 16px;
+  font-size:14px;color:var(--warning-700);
+  display:flex;align-items:flex-start;gap:10px;
+}
+
+/* ─── Add button ──────────────────────────────────────────────── */
+.add-btn{
+  display:flex;align-items:center;gap:8px;
+  padding:10px 16px;border-radius:var(--r2);
+  font-size:14px;font-weight:600;color:var(--brand-700);
+  background:transparent;border:1.5px dashed var(--brand-300);
+  cursor:pointer;transition:background .12s,border-color .12s;
+  width:100%;justify-content:center;
+}
+.add-btn:hover{background:var(--brand-50);border-color:var(--brand-700)}
+
+/* ─── Checklist card ──────────────────────────────────────────── */
+.checklist-card{
+  background:#fff;border:1px solid var(--bd2);border-radius:var(--r4);
+  box-shadow:var(--sh-xs);overflow:hidden;
+}
+.checklist-hdr{padding:20px 24px;border-bottom:1px solid var(--bd2)}
+.checklist-title{font-size:16px;font-weight:600;color:var(--t1)}
+.checklist-sub{font-size:13px;color:var(--t4);margin-top:4px}
+.checklist-items{padding:8px 0}
+.check-item{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:12px 24px;border-bottom:1px solid var(--bd2);
+}
+.check-item:last-child{border-bottom:none}
+.check-icon{flex-shrink:0;margin-top:1px}
+.check-text{font-size:14px;color:var(--t2)}
+.check-item.done .check-text{color:var(--t4)}
+.checklist-footer{
+  padding:16px 24px;border-top:1px solid var(--bd2);
+  display:flex;align-items:center;justify-content:flex-end;gap:8px;
+}
+.checklist-note{font-size:12px;color:var(--t4);margin-right:auto}
+
+/* ─── Summary / Review ────────────────────────────────────────── */
+.summary-card{
+  background:#fff;border:1px solid var(--bd2);border-radius:var(--r4);
+  box-shadow:var(--sh-xs);overflow:hidden;margin-bottom:16px;
+}
+.summary-hdr{
+  padding:16px 24px;border-bottom:1px solid var(--bd2);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.summary-hdr-title{font-size:14px;font-weight:600;color:var(--t1)}
+.summary-hdr-sub{font-size:13px;color:var(--t4);margin-top:2px}
+.review-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;padding:20px 24px}
+.detail-row{padding:12px 24px;border-bottom:1px solid var(--bd2);display:flex;align-items:flex-start;gap:16px}
+.detail-row:last-child{border-bottom:none}
+.detail-key{font-size:13px;font-weight:600;color:var(--t4);min-width:160px;flex-shrink:0}
+.detail-val{font-size:13px;color:var(--t2)}
+
+/* edit link */
+.edit-link{font-size:13px;color:var(--brand-700);text-decoration:none;font-weight:500}
+.edit-link:hover{text-decoration:underline}
+
+/* ─── Two-column layout ──────────────────────────────────────── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+/* ─── Class-name / type display in table ─────────────────────── */
+.cls-name{font-size:13px;font-weight:600;color:var(--t1)}
+.cls-type{font-size:12px;color:var(--t4);margin-top:2px}
+
+/* ===HEADER=== */
+.hdr{position:fixed;top:0;left:0;right:0;height:64px;background:url(data/header-bg.png) center/cover #075365;display:flex;align-items:center;justify-content:space-between;padding:0 22px;z-index:200}
+.hdr-brand{display:flex;flex-direction:column;align-items:flex-start;gap:3px;width:134px;flex-shrink:0}
+.hdr-logo-img{width:90px;height:22px;object-fit:contain;display:block}
+.hdr-bs{font-family:'Poppins','Inter',sans-serif;font-size:10px;font-weight:500;color:#fff;line-height:12px;white-space:nowrap}
+.hdr-search{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.2);border:1px solid #6aa0ac;border-radius:8px;padding:8px 12px;width:496px;flex-shrink:0}
+.hdr-search-text{font-family:'Inter var','Inter',sans-serif;font-size:16px;color:#fff;flex:1}
+.hdr-si{width:20px;height:20px;min-width:16px;min-height:16px;flex-shrink:0;display:block;filter:brightness(0) invert(1)}
+.hdr-right{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.hdr-actions{display:flex;gap:2px}
+.hdr-btn{width:40px;height:40px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:6px}
+.hdr-btn:hover{background:rgba(255,255,255,.1)}
+.hdr-avatar-wrap{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.7);overflow:hidden;cursor:pointer;flex-shrink:0}
+.hdr-avatar{width:100%;height:100%;object-fit:cover;display:block}
+/* ===SIDEBAR=== */
+.sidebar{width:260px;background:#fff;border-right:1px solid #e9eaeb;position:fixed;top:64px;bottom:0;left:0;display:flex;flex-direction:column;overflow:hidden}
+.sb-scroll{flex:1;overflow-y:auto}
+.sb-grp0{padding:8px}
+.sb-grp{padding:8px;display:flex;flex-direction:column;gap:16px}
+.sb-grp-inner{display:flex;flex-direction:column}
+.sb-sec-hdr{height:28px;padding:4px 8px;display:flex;align-items:center;font-family:'Inter var','Inter',sans-serif;font-size:12px;font-weight:600;color:#717680;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nw{padding:2px 0}
+.nc{display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:6px;background:#fff;font-family:'Inter var','Inter',sans-serif;font-size:14px;font-weight:500;color:#414651;cursor:pointer;text-decoration:none;transition:background .1s}
+.nc:hover{background:#f5f5f5}
+.ni{width:20px;height:20px;min-width:16px;min-height:16px;flex-shrink:0;display:block}
+.nchev{width:16px;height:16px;min-width:16px;min-height:16px;flex-shrink:0;display:block;margin-left:auto}
+svg{min-width:16px;min-height:16px}
+.step-icon svg{min-width:auto;min-height:auto}
+.nc-flex{flex:1;min-width:0}
+.nc-sub{padding-left:40px;padding-right:12px}
+.nc-sub-active{background:#e6eff1 !important;color:#066074 !important}
+.sb-bot{padding:8px;flex-shrink:0}
+
+
+
+
+/* ═══════════════════════════════════════════════════════════════
+   UX BEST PRACTICES
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Focus rings (keyboard accessibility) ───────────────────── */
+:focus-visible{
+  outline:2px solid var(--brand-400,#6aa0ac);
+  outline-offset:2px;border-radius:4px;
+}
+/* Remove default outline when :focus-visible is available */
+:focus:not(:focus-visible){outline:none}
+
+/* ── Required field asterisk ─────────────────────────────────── */
+.lbl.req::after{content:" *";color:var(--error-500,#f04438)}
+
+/* ── Sticky wizard footer ────────────────────────────────────── */
+.wiz-footer{
+  position:sticky;bottom:0;z-index:50;
+  background:#fff;
+  box-shadow:0 -1px 0 var(--bd2),0 -4px 12px rgba(16,24,40,.04);
+}
+
+/* ── Stepper: done step shows a checkmark ───────────────────── */
+.step.done .step-n{
+  background:var(--brand-700,#066074);
+  border-color:var(--brand-700,#066074);
+  color:#fff;
+}
+/* Connector line turns brand colour when step is done */
+.step.done::after{
+  background:var(--brand-300,#9bbfc7) !important;
+}
+/* Active step gets a glow ring */
+.step.active .step-n{
+  box-shadow:0 0 0 4px rgba(31,112,130,.14);
+}
+
+/* ── CSS-only tooltip ────────────────────────────────────────── */
+[data-tip]{position:relative}
+[data-tip]::after{
+  content:attr(data-tip);
+  position:absolute;bottom:calc(100% + 6px);left:50%;
+  transform:translateX(-50%);
+  white-space:nowrap;
+  background:#101828;color:#fff;
+  font-size:12px;font-weight:400;line-height:18px;
+  padding:5px 10px;border-radius:8px;
+  pointer-events:none;opacity:0;
+  transition:opacity .12s;z-index:300;
+  font-style:normal;text-transform:none;letter-spacing:0;
+}
+[data-tip]:hover::after{opacity:1}
+
+/* ── Sortable column headers ─────────────────────────────────── */
+.th-sort{cursor:pointer;user-select:none}
+.th-sort:hover{color:var(--gray-700,#414651) !important}
+.sort-ic{
+  opacity:.28;margin-left:4px;
+  font-style:normal;vertical-align:middle;font-size:10px;
+  display:inline-block;
+}
+.th-sort:hover .sort-ic{opacity:.65}
+.th-sort[aria-sort="ascending"] .sort-ic,
+.th-sort[aria-sort="descending"] .sort-ic{opacity:1;color:var(--brand-600,#1f7082)}
+
+/* ── Clickable table rows ────────────────────────────────────── */
+tbody tr.row-link{cursor:pointer}
+tbody tr.row-link:focus-within{outline:2px solid var(--brand-400);outline-offset:-2px}
+
+/* ── Drag handle ─────────────────────────────────────────────── */
+.drag-handle{
+  display:flex;align-items:center;justify-content:center;
+  width:20px;height:28px;
+  color:var(--gray-400,#a4a7ae);cursor:grab;
+  flex-shrink:0;border-radius:4px;margin-right:6px;
+}
+.drag-handle:hover{color:var(--t3);background:var(--gray-100)}
+.drag-handle:active{cursor:grabbing}
+
+/* ── Autosave indicator ──────────────────────────────────────── */
+.autosave-ind{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:12px;color:var(--t4);
+}
+.autosave-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:#17b26a;flex-shrink:0;
+  animation:ux-pulse 2.4s ease-in-out infinite;
+}
+@keyframes ux-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+/* ── Keyboard shortcut badge ─────────────────────────────────── */
+kbd{
+  display:inline-flex;align-items:center;
+  padding:1px 5px;border-radius:4px;
+  background:var(--gray-100);border:1px solid var(--bd2);
+  font-family:monospace;font-size:11px;
+  color:var(--t4);line-height:16px;vertical-align:middle;
+}
+
+/* ── Empty state ─────────────────────────────────────────────── */
+.empty-state{
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;padding:56px 24px;
+  text-align:center;gap:12px;
+}
+.empty-icon{
+  width:52px;height:52px;border-radius:12px;
+  background:var(--gray-100);border:1px solid var(--bd2);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--t4);margin-bottom:4px;
+}
+.empty-title{font-size:16px;font-weight:600;color:var(--t1);line-height:24px}
+.empty-sub{font-size:14px;color:var(--t4);max-width:300px;line-height:20px}
+
+/* ── Fix link (review checklist) ─────────────────────────────── */
+.fix-link{
+  font-size:13px;font-weight:600;color:var(--brand-700);
+  text-decoration:none;
+  padding:2px 10px;border-radius:6px;
+  background:var(--brand-50);border:1px solid var(--brand-100);
+  white-space:nowrap;flex-shrink:0;margin-left:auto;
+  display:inline-flex;align-items:center;gap:4px;
+}
+.fix-link:hover{background:var(--brand-100)}
+
+/* ── Check-item layout (review screen) ──────────────────────── */
+.check-item{display:flex;align-items:flex-start;gap:10px}
+
+/* ── Radio card :has() — CSS-only selection highlight ────────── */
+.radio-card:has(input[type="radio"]:checked){
+  border-color:var(--brand-700) !important;
+  background:var(--brand-50) !important;
+  box-shadow:0 0 0 3px rgba(31,112,130,.1);
+}
+
+/* ── Char-count near/at limit colour ─────────────────────────── */
+.char-count.near-limit{color:var(--warning-700,#b54708)}
+.char-count.at-limit{color:var(--error-700,#b42318)}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Hamburger toggle — hidden by default */
+.nav-toggle{position:absolute;opacity:0;width:0;height:0;pointer-events:none}
+.hdr-menu-btn{
+  display:none;align-items:center;justify-content:center;
+  width:40px;height:40px;border-radius:6px;background:none;
+  border:none;cursor:pointer;flex-shrink:0;
+}
+.hdr-menu-btn:hover{background:rgba(255,255,255,.1)}
+.hdr-menu-icon{display:block}
+.hdr-close-icon{display:none}
+.nav-toggle:checked ~ .app .sidebar{transform:translateX(0) !important;box-shadow:4px 0 24px rgba(0,0,0,.15)}
+.nav-toggle:checked ~ header .hdr-menu-icon{display:none}
+.nav-toggle:checked ~ header .hdr-close-icon{display:block}
+/* Overlay when sidebar is open */
+.nav-toggle:checked ~ .app::before{
+  content:'';position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:149;
+}
+
+/* ── 1024px — Tablet ────────────────────────────────────────── */
+@media (max-width:1023px){
+  .hdr-menu-btn{display:flex}
+  .hdr-search{width:auto;flex:1;max-width:360px}
+
+  /* Sidebar off-canvas */
+  .sidebar{transform:translateX(-260px);transition:transform .22s ease;z-index:150}
+
+  /* Content fills viewport */
+  .main{margin-left:0 !important}
+
+  /* Slightly tighter content padding */
+  .cw{padding:16px 20px}
+  .pg-hdr-inner{padding:16px 20px}
+
+  /* Table scrolls horizontally */
+  .card{overflow-x:auto}
+  .card table{min-width:680px}
+
+  /* Metrics 2-col */
+  .metrics{grid-template-columns:repeat(2,1fr)}
+
+  /* Wizard footer */
+  .wiz-footer{padding:12px 20px}
+}
+
+/* ── 767px — Mobile ─────────────────────────────────────────── */
+@media (max-width:767px){
+  /* Header: hide search */
+  .hdr-search{display:none !important}
+  .hdr-brand{width:auto}
+
+  /* Sidebar */
+  .sidebar{transform:translateX(-260px);transition:transform .22s ease;z-index:150}
+  .main{margin-left:0 !important}
+
+  /* Page header stacks */
+  .pg-hdr-inner{flex-direction:column;align-items:stretch;padding:16px;gap:12px}
+  .pg-title{font-size:20px;line-height:28px}
+  .pg-sub{font-size:14px;line-height:20px}
+  .pg-actions{display:flex;gap:8px}
+  .pg-actions .btn{flex:1;justify-content:center}
+
+  /* Content wrapper */
+  .cw{padding:12px 16px;gap:16px}
+
+  /* Metrics single column */
+  .metrics{grid-template-columns:1fr}
+  .metric{padding:16px}
+
+  /* Form cards */
+  .form-card{padding:16px 16px;margin-bottom:12px}
+  .form-grid,.form-row{flex-direction:column}
+
+  /* Stepper: show only current + next */
+  .stepper{gap:0;overflow:hidden}
+  .step:not(.active):not(:first-child){display:none}
+  .step.active{flex:none}
+  .step::after{display:none}
+
+  /* Table */
+  .card{overflow-x:auto}
+  .card table{min-width:580px}
+  thead th,td{padding:12px 14px}
+
+  /* Tbl toolbar stacks */
+  .tb-bar{flex-direction:column;align-items:flex-start;gap:10px;padding:12px 16px}
+  .search{width:100%;box-sizing:border-box}
+
+  /* Wizard nav footer */
+  .wiz-footer{flex-direction:column;gap:8px;padding:12px 16px}
+  .wiz-footer .btn{width:100%;justify-content:center}
+
+  /* Prevent iOS font zoom on inputs */
+  .input,.inp,.textarea,select{font-size:16px !important}
+}
+
+/* ── 480px — Small mobile ───────────────────────────────────── */
+@media (max-width:479px){
+  .pg-title{font-size:18px}
+  .btn{font-size:13px}
+  .tb-bar > div{width:100%}
+}
+
+</style>
+</head>
+<body>
+
+<input type="checkbox" id="nav-toggle" class="nav-toggle">
+<header class="hdr">
+  <label for="nav-toggle" class="hdr-menu-btn">
+    <span class="hdr-menu-icon"><svg width="20" height="20" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="1.8" stroke-linecap="round" viewBox="0 0 20 20"><line x1="3" y1="6" x2="17" y2="6"/><line x1="3" y1="10" x2="17" y2="10"/><line x1="3" y1="14" x2="17" y2="14"/></svg></span>
+    <span class="hdr-close-icon"><svg width="20" height="20" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="1.8" stroke-linecap="round" viewBox="0 0 20 20"><line x1="5" y1="5" x2="15" y2="15"/><line x1="15" y1="5" x2="5" y2="15"/></svg></span>
+  </label>
+  <div class="hdr-brand">
+    <img src="data/doxis-logo.svg" alt="DOXIS" class="hdr-logo-img">
+    <span class="hdr-bs">Business Studio</span>
+  </div>
+  <div class="hdr-search">
+    <img src="data/icons/search-lg.svg" class="hdr-si" alt="">
+    <span class="hdr-search-text">Search</span>
+  </div>
+  <div class="hdr-right">
+    <div class="hdr-actions">
+      <button class="hdr-btn"><img src="data/icons/bell-01.svg" class="hdr-si" alt=""></button>
+      <button class="hdr-btn"><img src="data/icons/help-circle.svg" class="hdr-si" alt=""></button>
+    </div>
+    <div class="hdr-avatar-wrap"><img src="data/avatar.png" class="hdr-avatar" alt="TS"></div>
+  </div>
+</header>
+
+<div class="app">
+  <nav class="sidebar">
+  <div class="sb-scroll">
+    <div class="sb-grp0">
+      <div class="nw"><a class="nc"><img src="data/icons/bar-chart-square-02.svg" class="ni" alt="Overview"><span class="nc-flex">Overview</span></a></div>
+      <div class="nw"><a class="nc"><img src="data/icons/book-open-01.svg" class="ni" alt="Library"><span class="nc-flex">Library</span></a></div>
+      <div class="nw"><a class="nc"><img src="data/icons/intersect-square.svg" class="ni" alt="Applications"><span class="nc-flex">Applications</span></a></div>
+      <div class="nw"><a class="nc"><img src="data/icons/link-04.svg" class="ni" alt="Integrations"><span class="nc-flex">Integrations</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+      <div class="nw"><a class="nc"><img src="data/icons/cpu-chip-01.svg" class="ni" alt="AI studio"><span class="nc-flex">AI studio</span><img src="data/icons/chevron-down.svg" class="nchev" alt="" style="transform:rotate(180deg)"></a></div>
+      <div class="nw"><a class="nc nc-sub nc-sub-active"><span class="nc-flex">AI agent manager</span></a></div>
+      <div class="nw"><a class="nc nc-sub" href="screen-8-superhuman-search.html"><span class="nc-flex">Superhuman search</span></a></div>
+
+    </div>
+    <div class="sb-grp">
+      <div class="sb-grp-inner">
+        <div class="sb-sec-hdr">Configuration</div>
+        <div class="nw"><a class="nc"><img src="data/icons/tool-02.svg" class="ni" alt="General"><span class="nc-flex">General</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/database-02.svg" class="ni" alt="Databases"><span class="nc-flex">Databases</span></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/data.svg" class="ni" alt="Metadata"><span class="nc-flex">Metadata</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/file-02.svg" class="ni" alt="Document management"><span class="nc-flex">Document management</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/search-sm.svg" class="ni" alt="Search"><span class="nc-flex">Search</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/layout-left.svg" class="ni" alt="Template designer"><span class="nc-flex">Template designer</span><img src="data/icons/link-external-02.svg" class="nchev" alt=""></a></div>
+      </div>
+      <div class="sb-grp-inner">
+        <div class="sb-sec-hdr">Access &amp; Security</div>
+        <div class="nw"><a class="nc"><img src="data/icons/building-07.svg" class="ni" alt="Organization"><span class="nc-flex">Organization</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/lock-unlocked-03.svg" class="ni" alt="Access control"><span class="nc-flex">Access control</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/scale-01.svg" class="ni" alt="Retention rules"><span class="nc-flex">Retention rules</span></a></div>
+      </div>
+      <div class="sb-grp-inner">
+        <div class="sb-sec-hdr">Operations</div>
+        <div class="nw"><a class="nc"><img src="data/icons/clock-fast-forward.svg" class="ni" alt="Timeslices"><span class="nc-flex">Timeslices</span></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/server-03.svg" class="ni" alt="Agents &amp; Webhooks"><span class="nc-flex">Agents &amp; Webhooks</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/search-sm.svg" class="ni" alt="Fulltext"><span class="nc-flex">Fulltext</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/file-download-01.svg" class="ni" alt="File import (FIPS)"><span class="nc-flex">File import (FIPS)</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/server-04.svg" class="ni" alt="Storage jobs"><span class="nc-flex">Storage jobs</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/bar-chart-square-02.svg" class="ni" alt="System status"><span class="nc-flex">System status</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+      </div>
+    </div>
+  </div>
+  <div class="sb-bot">
+    <div class="nw"><a class="nc"><img src="data/icons/layout-left.svg" class="ni" alt="Collapse menu"><span class="nc-flex">Collapse menu</span></a></div>
+  </div>
+</nav>
+
+  <main class="main">
+
+  <div class="cw">
+    <div class="pg-hdr">
+      <div class="pg-text">
+        <h1 class="pg-title">AI agent manager</h1>
+        <p class="pg-sub">Define, configure and govern AI agents that work with your Doxis documents and files.</p>
+      </div>
+      <div class="pg-actions"><a href="screen-2-identity.html" class="btn btn-p"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 16 16"><line x1="8" y1="2" x2="8" y2="14"/><line x1="2" y1="8" x2="14" y2="8"/></svg> New agent</a></div>
+    </div>
+    
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-lbl">Total agents</div>
+        <div class="metric-val">10</div>
+        <div class="metric-sub">across 6 groups</div>
+      </div>
+      <div class="metric">
+        <div class="metric-lbl">Active</div>
+        <div class="metric-val" style="color:var(--ok)">6</div>
+        <div class="metric-sub">currently enabled</div>
+      </div>
+      <div class="metric">
+        <div class="metric-lbl">Inactive</div>
+        <div class="metric-val" style="color:var(--t4)">4</div>
+        <div class="metric-sub">configuration pending</div>
+      </div>
+    </div>
+
+    <div class="card card-flush">
+      <!-- Toolbar -->
+      <div class="tb-bar">
+        <div class="search">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 20 20"><circle cx="9.167" cy="9.167" r="6.667"/><path d="M17.5 17.5l-3.625-3.625"/></svg>
+          Search agents…
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-s" style="font-size:13px;padding:7px 14px">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 20 20"><path d="M5 10h10M2.5 5h15M7.5 15h5"/></svg>
+            Filter
+          </button>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <table>
+        <thead>
+          <tr>
+            <th style="width:56px"></th>
+            <th class="th-sort" aria-sort="none" tabindex="0">Agent <i class="sort-ic" aria-hidden="true">⇅</i></th>
+            <th class="th-sort" aria-sort="none" tabindex="0">Group <i class="sort-ic" aria-hidden="true">⇅</i></th>
+            <th class="th-sort" aria-sort="none" tabindex="0">Databases <i class="sort-ic" aria-hidden="true">⇅</i></th>
+            <th class="th-sort" aria-sort="none" tabindex="0" style="width:120px">Status <i class="sort-ic" aria-hidden="true">⇅</i></th>
+            <th class="th-sort" aria-sort="none" tabindex="0">Last modified <i class="sort-ic" aria-hidden="true">⇅</i></th>
+            <th style="width:80px"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Contract Analyst -->
+          <tr class="row-link" tabindex="0" onclick="location.href='screen-2-identity.html'" onkeydown="if(event.key==='Enter'||event.key===' ')location.href='screen-2-identity.html'">
+            <td style="text-align:center">
+              <div style="width:36px;height:36px;border-radius:8px;background:var(--brand-50);border:1px solid var(--brand-100);display:flex;align-items:center;justify-content:center;margin:0 auto;color:var(--brand-600)">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"><path d="M11.665 9.166H6.665M8.332 12.5H6.665M13.332 5.833H6.665M16.665 5.666V14.333C16.665 15.733 16.665 16.433 16.393 16.968C16.153 17.438 15.77 17.82 15.3 18.06C14.765 18.333 14.065 18.333 12.665 18.333H7.332C5.932 18.333 5.232 18.333 4.697 18.06C4.226 17.82 3.844 17.438 3.604 16.968C3.332 16.433 3.332 15.733 3.332 14.333V5.666C3.332 4.266 3.332 3.566 3.604 3.031C3.844 2.56 4.226 2.178 4.697 1.938C5.232 1.666 5.932 1.666 7.332 1.666H12.665C14.065 1.666 14.765 1.666 15.3 1.938C15.77 2.178 16.153 2.56 16.393 3.031C16.665 3.566 16.665 4.266 16.665 5.666Z"/></svg>
+              </div>
+            </td>
+            <td>
+              <div class="a-name">Contract Analyst</div>
+              <div class="a-desc">Reviews and extracts key clauses</div>
+            </td>
+            <td>Legal Team</td>
+            <td>Legal Contracts, Customer Docs</td>
+            <td><span class="badge badge-success"><span class="badge-dot"></span>Active</span></td>
+            <td style="color:var(--t4)">Today 09:14</td>
+            <td>
+              <div style="display:flex;gap:4px;justify-content:flex-end">
+                <button class="btn btn-s" style="padding:0;width:32px;height:32px;flex-shrink:0" title="Edit"><img src="https://www.figma.com/api/mcp/asset/ea28731e-5cd8-41b4-abbc-c5263336fd1b" width="13" height="13" alt="Edit" style="filter:brightness(0) saturate(100%) invert(27%) sepia(7%) saturate(400%) hue-rotate(182deg) brightness(96%) contrast(90%)"></button>
+                <button class="btn btn-s" style="font-size:12px;padding:0;width:32px;height:32px;flex-shrink:0">···</button>
+              </div>
+            </td>
+          </tr>
+          <!-- Invoice Processor -->
+          <tr class="row-link" tabindex="0">
+            <td style="text-align:center">
+              <div style="width:36px;height:36px;border-radius:8px;background:#ecfdf3;border:1px solid #a9efc5;display:flex;align-items:center;justify-content:center;margin:0 auto;color:#079455">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"><path d="M16.665 10.416V5.666C16.665 4.266 16.665 3.566 16.393 3.031C16.153 2.56 15.77 2.178 15.3 1.938C14.765 1.666 14.065 1.666 12.665 1.666H7.332C5.932 1.666 5.232 1.666 4.697 1.938C4.226 2.178 3.844 2.56 3.604 3.031C3.332 3.566 3.332 4.266 3.332 5.666V14.333C3.332 15.733 3.332 16.433 3.604 16.968C3.844 17.438 4.226 17.82 4.697 18.06C5.232 18.333 5.932 18.333 7.332 18.333H9.999M11.665 9.166H6.665M8.332 12.5H6.665M13.332 5.833H6.665M12.082 15.833L13.749 17.5L17.499 13.75"/></svg>
+              </div>
+            </td>
+            <td>
+              <div class="a-name">Invoice Processor</div>
+              <div class="a-desc">Validates and routes invoices</div>
+            </td>
+            <td>Finance Ops</td>
+            <td>Finance Archive</td>
+            <td><span class="badge badge-success"><span class="badge-dot"></span>Active</span></td>
+            <td style="color:var(--t4)">Yesterday 16:42</td>
+            <td>
+              <div style="display:flex;gap:4px;justify-content:flex-end">
+                <button class="btn btn-s" style="padding:0;width:32px;height:32px;flex-shrink:0" title="Edit"><img src="https://www.figma.com/api/mcp/asset/ea28731e-5cd8-41b4-abbc-c5263336fd1b" width="13" height="13" alt="Edit" style="filter:brightness(0) saturate(100%) invert(27%) sepia(7%) saturate(400%) hue-rotate(182deg) brightness(96%) contrast(90%)"></button>
+                <button class="btn btn-s" style="font-size:12px;padding:0;width:32px;height:32px;flex-shrink:0">···</button>
+              </div>
+            </td>
+          </tr>
+          <!-- Onboarding Assistant -->
+          <tr class="row-link" tabindex="0">
+            <td style="text-align:center">
+              <div style="width:36px;height:36px;border-radius:8px;background:#eff8ff;border:1px solid #b2ddff;display:flex;align-items:center;justify-content:center;margin:0 auto;color:#1570ef">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"><path d="M16.667 17.5C16.667 16.337 16.667 15.756 16.523 15.282C16.2 14.217 15.366 13.383 14.301 13.06C13.828 12.917 13.246 12.917 12.083 12.917H7.917C6.754 12.917 6.172 12.917 5.699 13.06C4.634 13.383 3.8 14.217 3.477 15.282C3.333 15.756 3.333 16.337 3.333 17.5M13.75 6.25C13.75 8.321 12.071 10 10 10C7.929 10 6.25 8.321 6.25 6.25C6.25 4.179 7.929 2.5 10 2.5C12.071 2.5 13.75 4.179 13.75 6.25Z"/></svg>
+              </div>
+            </td>
+            <td>
+              <div class="a-name">Onboarding Assistant</div>
+              <div class="a-desc">Guides new employees through setup</div>
+            </td>
+            <td>HR Department</td>
+            <td>HR Records</td>
+            <td><span class="badge badge-success"><span class="badge-dot"></span>Active</span></td>
+            <td style="color:var(--t4)">3 days ago</td>
+            <td>
+              <div style="display:flex;gap:4px;justify-content:flex-end">
+                <button class="btn btn-s" style="padding:0;width:32px;height:32px;flex-shrink:0" title="Edit"><img src="https://www.figma.com/api/mcp/asset/ea28731e-5cd8-41b4-abbc-c5263336fd1b" width="13" height="13" alt="Edit" style="filter:brightness(0) saturate(100%) invert(27%) sepia(7%) saturate(400%) hue-rotate(182deg) brightness(96%) contrast(90%)"></button>
+                <button class="btn btn-s" style="font-size:12px;padding:0;width:32px;height:32px;flex-shrink:0">···</button>
+              </div>
+            </td>
+          </tr>
+          <!-- Compliance Monitor -->
+          <tr class="row-link" tabindex="0">
+            <td style="text-align:center">
+              <div style="width:36px;height:36px;border-radius:8px;background:var(--gray-100);border:1px solid var(--bd2);display:flex;align-items:center;justify-content:center;margin:0 auto;color:var(--t4)">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"><path d="M11.668 18.333H5.668M5.668 18.333C4.268 18.333 3.568 18.333 3.033 18.06C2.562 17.82 2.18 17.438 1.94 16.968C1.668 16.433 1.668 15.733 1.668 14.333M5.668 18.333H6.001C7.401 18.333 8.101 18.333 8.636 18.06C9.106 17.82 9.489 17.438 9.729 16.968C10.001 16.433 10.001 15.733 10.001 14.333V14C10.001 12.6 10.001 11.9 9.729 11.365C9.489 10.894 9.106 10.512 8.636 10.272C8.101 10 7.401 10 6.001 10H5.668C4.268 10 3.568 10 3.033 10.272C2.562 10.512 2.18 10.894 1.94 11.365C1.668 11.9 1.668 12.6 1.668 14V14.333M1.668 14.333V8.333M8.335 1.666H11.668M18.335 8.333V11.666M15.001 18.333C15.776 18.333 16.164 18.333 16.482 18.248C17.344 18.016 18.018 17.343 18.249 16.48C18.335 16.162 18.335 15.774 18.335 15M18.335 5C18.335 4.224 18.335 3.837 18.249 3.519C18.018 2.656 17.344 1.982 16.482 1.751C16.164 1.666 15.776 1.666 15.001 1.666M5.001 1.666C4.226 1.666 3.839 1.666 3.521 1.751C2.658 1.982 1.984 2.656 1.753 3.519C1.668 3.837 1.668 4.224 1.668 5"/></svg>
+              </div>
+            </td>
+            <td>
+              <div class="a-name">Compliance Monitor</div>
+              <div class="a-desc">Flags policy violations in documents</div>
+            </td>
+            <td>—</td>
+            <td>Finance Archive, Legal Contracts</td>
+            <td><span class="badge badge-gray"><span class="badge-dot"></span>Inactive</span></td>
+            <td style="color:var(--t4)">12 May 2025</td>
+            <td>
+              <div style="display:flex;gap:4px;justify-content:flex-end">
+                <button class="btn btn-s" style="padding:0;width:32px;height:32px;flex-shrink:0" title="Edit"><img src="https://www.figma.com/api/mcp/asset/ea28731e-5cd8-41b4-abbc-c5263336fd1b" width="13" height="13" alt="Edit" style="filter:brightness(0) saturate(100%) invert(27%) sepia(7%) saturate(400%) hue-rotate(182deg) brightness(96%) contrast(90%)"></button>
+                <button class="btn btn-s" style="font-size:12px;padding:0;width:32px;height:32px;flex-shrink:0">···</button>
+              </div>
+            </td>
+          </tr>
+          <!-- Document Classifier -->
+          <tr class="row-link" tabindex="0">
+            <td style="text-align:center">
+              <div style="width:36px;height:36px;border-radius:8px;background:#fdf4ff;border:1px solid #e9d7fe;display:flex;align-items:center;justify-content:center;margin:0 auto;color:#7f56d9">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="2.5" width="5.833" height="5.833" rx="1.333"/><rect x="11.667" y="2.5" width="5.833" height="5.833" rx="1.333"/><rect x="11.667" y="11.667" width="5.833" height="5.833" rx="1.333"/><rect x="2.5" y="11.667" width="5.833" height="5.833" rx="1.333"/></svg>
+              </div>
+            </td>
+            <td>
+              <div class="a-name">Document Classifier</div>
+              <div class="a-desc">Categorises incoming documents automatically</div>
+            </td>
+            <td>Operations</td>
+            <td>General Archive</td>
+            <td><span class="badge badge-success"><span class="badge-dot"></span>Active</span></td>
+            <td style="color:var(--t4)">Today 11:30</td>
+            <td>
+              <div style="display:flex;gap:4px;justify-content:flex-end">
+                <button class="btn btn-s" style="padding:0;width:32px;height:32px;flex-shrink:0" title="Edit"><img src="https://www.figma.com/api/mcp/asset/ea28731e-5cd8-41b4-abbc-c5263336fd1b" width="13" height="13" alt="Edit" style="filter:brightness(0) saturate(100%) invert(27%) sepia(7%) saturate(400%) hue-rotate(182deg) brightness(96%) contrast(90%)"></button>
+                <button class="btn btn-s" style="font-size:12px;padding:0;width:32px;height:32px;flex-shrink:0">···</button>
+              </div>
+            </td>
+          </tr>
+          <!-- Meeting Summariser -->
+          <tr class="row-link" tabindex="0">
+            <td style="text-align:center">
+              <div style="width:36px;height:36px;border-radius:8px;background:#fff7ed;border:1px solid #fed7aa;display:flex;align-items:center;justify-content:center;margin:0 auto;color:#c2410c">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"><path d="M17.668 18.333H9.001C8.768 18.333 8.651 18.333 8.562 18.287C8.484 18.247 8.42 18.184 8.38 18.105C8.335 18.016 8.335 17.9 8.335 17.666V15.666C8.335 15.433 8.335 15.316 8.38 15.227C8.42 15.148 8.484 15.085 8.562 15.045C8.651 15 8.768 15 9.001 15H11.001C11.235 15 11.351 15 11.44 14.954C11.519 14.914 11.583 14.85 11.623 14.772C11.668 14.683 11.668 14.566 11.668 14.333V12.333C11.668 12.099 11.668 11.983 11.713 11.894C11.753 11.815 11.816 11.751 11.895 11.711C11.984 11.666 12.101 11.666 12.335 11.666H14.335C14.568 11.666 14.685 11.666 14.774 11.621C14.852 11.581 14.916 11.517 14.956 11.438C15.001 11.349 15.001 11.233 15.001 11V9C15.001 8.766 15.001 8.649 15.046 8.56C15.086 8.482 15.15 8.418 15.228 8.378C15.318 8.333 15.434 8.333 15.668 8.333H17.668C17.901 8.333 18.018 8.333 18.107 8.378C18.186 8.418 18.249 8.482 18.289 8.56C18.335 8.649 18.335 8.766 18.335 9V17.666C18.335 17.9 18.335 18.016 18.289 18.105C18.249 18.184 18.186 18.247 18.107 18.287C18.018 18.333 17.901 18.333 17.668 18.333Z"/><path d="M8.335 5.666V7.666C8.335 7.9 8.335 8.016 8.38 8.105C8.42 8.184 8.484 8.247 8.562 8.287C8.651 8.333 8.768 8.333 9.001 8.333H11.001C11.235 8.333 11.351 8.333 11.44 8.287C11.519 8.247 11.583 8.184 11.623 8.105C11.668 8.016 11.668 7.9 11.668 7.666V5.666C11.668 5.433 11.668 5.316 11.623 5.227C11.583 5.148 11.519 5.085 11.44 5.045C11.351 5 11.235 5 11.001 5H9.001C8.768 5 8.651 5 8.562 5.045C8.484 5.085 8.42 5.148 8.38 5.227C8.335 5.316 8.335 5.433 8.335 5.666Z"/><path d="M1.668 2.333V4.333C1.668 4.566 1.668 4.683 1.713 4.772C1.753 4.85 1.817 4.914 1.895 4.954C1.984 5 2.101 5 2.335 5H4.335C4.568 5 4.685 5 4.774 4.954C4.852 4.914 4.916 4.85 4.956 4.772C5.001 4.683 5.001 4.566 5.001 4.333V2.333C5.001 2.099 5.001 1.983 4.956 1.894C4.916 1.815 4.852 1.751 4.774 1.711C4.685 1.666 4.568 1.666 4.335 1.666H2.335C2.101 1.666 1.984 1.666 1.895 1.711C1.817 1.751 1.753 1.815 1.713 1.894C1.668 1.983 1.668 2.099 1.668 2.333Z"/><path d="M2.501 10.666V12.666C2.501 12.9 2.501 13.016 2.547 13.105C2.587 13.184 2.65 13.247 2.729 13.287C2.818 13.333 2.934 13.333 3.168 13.333H5.168C5.401 13.333 5.518 13.333 5.607 13.287C5.686 13.247 5.749 13.184 5.789 13.105C5.835 13.016 5.835 12.9 5.835 12.666V10.666C5.835 10.433 5.835 10.316 5.789 10.227C5.749 10.148 5.686 10.085 5.607 10.045C5.518 10 5.401 10 5.168 10H3.168C2.934 10 2.818 10 2.729 10.045C2.65 10.085 2.587 10.148 2.547 10.227C2.501 10.316 2.501 10.433 2.501 10.666Z"/></svg>
+              </div>
+            </td>
+            <td>
+              <div class="a-name">Meeting Summariser</div>
+              <div class="a-desc">Generates summaries from meeting transcripts</div>
+            </td>
+            <td>Executive Office</td>
+            <td>Meeting Records</td>
+            <td><span class="badge badge-success"><span class="badge-dot"></span>Active</span></td>
+            <td style="color:var(--t4)">Yesterday 08:55</td>
+            <td>
+              <div style="display:flex;gap:4px;justify-content:flex-end">
+                <button class="btn btn-s" style="padding:0;width:32px;height:32px;flex-shrink:0" title="Edit"><img src="https://www.figma.com/api/mcp/asset/ea28731e-5cd8-41b4-abbc-c5263336fd1b" width="13" height="13" alt="Edit" style="filter:brightness(0) saturate(100%) invert(27%) sepia(7%) saturate(400%) hue-rotate(182deg) brightness(96%) contrast(90%)"></button>
+                <button class="btn btn-s" style="font-size:12px;padding:0;width:32px;height:32px;flex-shrink:0">···</button>
+              </div>
+            </td>
+          </tr>
+          <!-- Vendor Due Diligence -->
+          <tr class="row-link" tabindex="0">
+            <td style="text-align:center">
+              <div style="width:36px;height:36px;border-radius:8px;background:#f0fdf4;border:1px solid #bbf7d0;display:flex;align-items:center;justify-content:center;margin:0 auto;color:#15803d">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"><path d="M16.665 10.416V5.666C16.665 4.266 16.665 3.566 16.393 3.031C16.153 2.56 15.77 2.178 15.3 1.938C14.765 1.666 14.065 1.666 12.665 1.666H7.332C5.932 1.666 5.232 1.666 4.697 1.938C4.226 2.178 3.844 2.56 3.604 3.031C3.332 3.566 3.332 4.266 3.332 5.666V14.333C3.332 15.733 3.332 16.433 3.604 16.968C3.844 17.438 4.226 17.82 4.697 18.06C5.232 18.333 5.932 18.333 7.332 18.333H9.999M11.665 9.166H6.665M8.332 12.5H6.665M13.332 5.833H6.665M12.082 15.833L13.749 17.5L17.499 13.75"/></svg>
+              </div>
+            </td>
+            <td>
+              <div class="a-name">Vendor Due Diligence</div>
+              <div class="a-desc">Screens supplier documents for risk signals</div>
+            </td>
+            <td>Procurement</td>
+            <td>Vendor Contracts</td>
+            <td><span class="badge badge-gray"><span class="badge-dot"></span>Inactive</span></td>
+            <td style="color:var(--t4)">8 May 2025</td>
+            <td>
+              <div style="display:flex;gap:4px;justify-content:flex-end">
+                <button class="btn btn-s" style="padding:0;width:32px;height:32px;flex-shrink:0" title="Edit"><img src="https://www.figma.com/api/mcp/asset/ea28731e-5cd8-41b4-abbc-c5263336fd1b" width="13" height="13" alt="Edit" style="filter:brightness(0) saturate(100%) invert(27%) sepia(7%) saturate(400%) hue-rotate(182deg) brightness(96%) contrast(90%)"></button>
+                <button class="btn btn-s" style="font-size:12px;padding:0;width:32px;height:32px;flex-shrink:0">···</button>
+              </div>
+            </td>
+          </tr>
+          <!-- Policy Update Notifier -->
+          <tr class="row-link" tabindex="0">
+            <td style="text-align:center">
+              <div style="width:36px;height:36px;border-radius:8px;background:#eff8ff;border:1px solid #b2ddff;display:flex;align-items:center;justify-content:center;margin:0 auto;color:#1570ef">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"><path d="M7.796 17.5C8.384 18.018 9.156 18.333 10.001 18.333C10.847 18.333 11.619 18.018 12.206 17.5M15.001 6.666C15.001 5.34 14.474 4.068 13.537 3.13C12.599 2.193 11.327 1.666 10.001 1.666C8.675 1.666 7.403 2.193 6.466 3.13C5.528 4.068 5.001 5.34 5.001 6.666C5.001 9.241 4.352 11.004 3.626 12.17C3.014 13.154 2.708 13.646 2.719 13.783C2.731 13.935 2.764 13.993 2.886 14.084C2.997 14.166 3.495 14.166 4.492 14.166H15.511C16.507 14.166 17.006 14.166 17.116 14.084C17.239 13.993 17.271 13.935 17.284 13.783C17.295 13.646 16.989 13.154 16.377 12.17C15.651 11.004 15.001 9.241 15.001 6.666Z"/></svg>
+              </div>
+            </td>
+            <td>
+              <div class="a-name">Policy Update Notifier</div>
+              <div class="a-desc">Detects and flags regulatory changes</div>
+            </td>
+            <td>Compliance</td>
+            <td>Policy Library</td>
+            <td><span class="badge badge-gray"><span class="badge-dot"></span>Inactive</span></td>
+            <td style="color:var(--t4)">2 May 2025</td>
+            <td>
+              <div style="display:flex;gap:4px;justify-content:flex-end">
+                <button class="btn btn-s" style="padding:0;width:32px;height:32px;flex-shrink:0" title="Edit"><img src="https://www.figma.com/api/mcp/asset/ea28731e-5cd8-41b4-abbc-c5263336fd1b" width="13" height="13" alt="Edit" style="filter:brightness(0) saturate(100%) invert(27%) sepia(7%) saturate(400%) hue-rotate(182deg) brightness(96%) contrast(90%)"></button>
+                <button class="btn btn-s" style="font-size:12px;padding:0;width:32px;height:32px;flex-shrink:0">···</button>
+              </div>
+            </td>
+          </tr>
+          <!-- Report Generator -->
+          <tr class="row-link" tabindex="0">
+            <td style="text-align:center">
+              <div style="width:36px;height:36px;border-radius:8px;background:#fef3f2;border:1px solid #fecdca;display:flex;align-items:center;justify-content:center;margin:0 auto;color:#d92d20">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"><path d="M6.667 12.5V14.167M10 9.167V14.167M13.333 5.833V14.167M6.5 17.5H13.5C14.9 17.5 15.6 17.5 16.135 17.228C16.605 16.988 16.988 16.605 17.228 16.135C17.5 15.6 17.5 14.9 17.5 13.5V6.5C17.5 5.1 17.5 4.4 17.228 3.865C16.988 3.395 16.605 3.012 16.135 2.772C15.6 2.5 14.9 2.5 13.5 2.5H6.5C5.1 2.5 4.4 2.5 3.865 2.772C3.395 3.012 3.012 3.395 2.772 3.865C2.5 4.4 2.5 5.1 2.5 6.5V13.5C2.5 14.9 2.5 15.6 2.772 16.135C3.012 16.605 3.395 16.988 3.865 17.228C4.4 17.5 5.1 17.5 6.5 17.5Z"/></svg>
+              </div>
+            </td>
+            <td>
+              <div class="a-name">Report Generator</div>
+              <div class="a-desc">Compiles data into formatted reports</div>
+            </td>
+            <td>Analytics</td>
+            <td>Reports Archive</td>
+            <td><span class="badge badge-success"><span class="badge-dot"></span>Active</span></td>
+            <td style="color:var(--t4)">Today 14:22</td>
+            <td>
+              <div style="display:flex;gap:4px;justify-content:flex-end">
+                <button class="btn btn-s" style="padding:0;width:32px;height:32px;flex-shrink:0" title="Edit"><img src="https://www.figma.com/api/mcp/asset/ea28731e-5cd8-41b4-abbc-c5263336fd1b" width="13" height="13" alt="Edit" style="filter:brightness(0) saturate(100%) invert(27%) sepia(7%) saturate(400%) hue-rotate(182deg) brightness(96%) contrast(90%)"></button>
+                <button class="btn btn-s" style="font-size:12px;padding:0;width:32px;height:32px;flex-shrink:0">···</button>
+              </div>
+            </td>
+          </tr>
+          <!-- Knowledge Base Builder -->
+          <tr class="row-link" tabindex="0">
+            <td style="text-align:center">
+              <div style="width:36px;height:36px;border-radius:8px;background:#f0fdf4;border:1px solid #bbf7d0;display:flex;align-items:center;justify-content:center;margin:0 auto;color:#15803d">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"><path d="M10.001 17.5L9.918 17.375C9.339 16.507 9.05 16.073 8.667 15.758C8.329 15.48 7.939 15.271 7.519 15.144C7.046 15 6.524 15 5.48 15H4.335C3.401 15 2.935 15 2.578 14.818C2.264 14.659 2.009 14.404 1.85 14.09C1.668 13.734 1.668 13.267 1.668 12.333V5.167C1.668 4.233 1.668 3.767 1.85 3.41C2.009 3.096 2.264 2.841 2.578 2.682C2.935 2.5 3.401 2.5 4.335 2.5H4.668C6.535 2.5 7.468 2.5 8.181 2.863C8.808 3.183 9.318 3.693 9.638 4.32C10.001 5.033 10.001 5.967 10.001 7.833M10.001 17.5V7.833M10.001 17.5L10.085 17.375C10.664 16.507 10.953 16.073 11.335 15.758C11.674 15.48 12.064 15.271 12.483 15.144C12.957 15 13.479 15 14.522 15H15.668C16.601 15 17.068 15 17.425 14.818C17.738 14.659 17.993 14.404 18.153 14.09C18.335 13.734 18.335 13.267 18.335 12.333V5.167C18.335 4.233 18.335 3.767 18.153 3.41C17.993 3.096 17.738 2.841 17.425 2.682C17.068 2.5 16.601 2.5 15.668 2.5H15.335C13.468 2.5 12.534 2.5 11.821 2.863C11.194 3.183 10.684 3.693 10.365 4.32C10.001 5.033 10.001 5.967 10.001 7.833"/></svg>
+              </div>
+            </td>
+            <td>
+              <div class="a-name">Knowledge Base Builder</div>
+              <div class="a-desc">Extracts and indexes key information</div>
+            </td>
+            <td>IT Department</td>
+            <td>Technical Docs</td>
+            <td><span class="badge badge-gray"><span class="badge-dot"></span>Inactive</span></td>
+            <td style="color:var(--t4)">28 Apr 2025</td>
+            <td>
+              <div style="display:flex;gap:4px;justify-content:flex-end">
+                <button class="btn btn-s" style="padding:0;width:32px;height:32px;flex-shrink:0" title="Edit"><img src="https://www.figma.com/api/mcp/asset/ea28731e-5cd8-41b4-abbc-c5263336fd1b" width="13" height="13" alt="Edit" style="filter:brightness(0) saturate(100%) invert(27%) sepia(7%) saturate(400%) hue-rotate(182deg) brightness(96%) contrast(90%)"></button>
+                <button class="btn btn-s" style="font-size:12px;padding:0;width:32px;height:32px;flex-shrink:0">···</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Empty state (shown when no results match filters) -->
+      <div class="empty-state" style="display:none">
+        <div class="empty-icon">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 22 22"><circle cx="11" cy="11" r="8.5"/><path d="M8 11h6M11 8v6"/></svg>
+        </div>
+        <div class="empty-title">No agents found</div>
+        <p class="empty-sub">Try adjusting your search or filters, or create your first agent.</p>
+        <a href="screen-2-identity.html" class="btn btn-p" style="margin-top:4px">New agent</a>
+      </div>
+      <div class="tb-foot">
+        <span>Showing 10 of 10 agents</span>
+      </div>
+    </div>
+  </div>
+</main>
+</div>
+</body>
+</html>

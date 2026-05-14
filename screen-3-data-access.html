@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New Agent — Permissions — Doxis Business Studio</title>
+<style>
+/* ─── Reset ─────────────────────────────────────────────────── */
+*{box-sizing:border-box;margin:0;padding:0}
+
+/* ─── Design Tokens ─────────────────────────────────────────── */
+:root{
+  /* Gray */
+  --gray-25:#fdfdfd;--gray-50:#fafafa;--gray-100:#f5f5f5;
+  --gray-200:#e9eaeb;--gray-300:#d5d7da;--gray-400:#a4a7ae;
+  --gray-500:#717680;--gray-600:#535862;--gray-700:#414651;
+  --gray-800:#252b37;--gray-900:#181d27;
+
+  /* Brand */
+  --brand-25:#f3f7f8;--brand-50:#e6eff1;--brand-100:#dae7ea;
+  --brand-300:#9bbfc7;--brand-400:#6aa0ac;--brand-500:#388090;
+  --brand-600:#1f7082;--brand-700:#066074;--brand-800:#075365;
+
+  /* Semantic */
+  --error-100:#fee4e2;--error-500:#f04438;--error-700:#b42318;
+  --warning-100:#fef0c7;--warning-500:#f79009;--warning-700:#b54708;
+  --success-100:#dcfae6;--success-500:#17b26a;--success-700:#067647;
+
+  /* Aliases used in components */
+  --brand:var(--brand-800);          /* primary action #075365 */
+  --brand-h:var(--brand-700);        /* hover #066074           */
+  --brand-bg:var(--brand-50);        /* light bg #e6eff1        */
+  --bg:#ffffff;
+  --bg-s:var(--gray-50);
+  --bg-t:var(--gray-100);
+  --bd:var(--gray-300);
+  --bd2:var(--gray-200);
+  --t1:var(--gray-900);
+  --t2:var(--gray-700);
+  --t3:var(--gray-600);
+  --t4:var(--gray-500);
+  --ok:var(--success-700);
+  --ok-bg:var(--success-100);
+  --warn:var(--warning-700);
+  --warn-bg:var(--warning-100);
+
+  /* Radii */
+  --r:6px;--r2:8px;--r3:10px;--r4:12px;--r-full:9999px;
+
+  /* Layout */
+  --sw:260px;--hh:64px;
+
+  /* Shadows */
+  --sh-xs:0 1px 2px 0 rgba(10,13,18,.05);
+  --sh-sm:0 1px 3px 0 rgba(10,13,18,.1),0 1px 2px -1px rgba(10,13,18,.1);
+  --sh-md:0 4px 6px -1px rgba(10,13,18,.1),0 2px 4px -2px rgba(10,13,18,.06);
+  --sh-lg:0 12px 16px -4px rgba(10,13,18,.08),0 4px 6px -2px rgba(10,13,18,.03),0 2px 2px -1px rgba(10,13,18,.04);
+  --focus-ring:0 0 0 4px rgba(56,128,144,.25),0 0 0 2px #fff;
+}
+
+/* ─── Agent context header ───────────────────────────────────── */
+.agent-hdr{background:#fff;border-bottom:1px solid var(--bd2);flex-shrink:0;min-height:80px}
+.agent-hdr-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1600px;margin:0 auto;padding:16px 24px}
+.agent-hdr-left{display:flex;align-items:center;gap:12px;min-width:0}
+.agent-hdr-name{font-size:24px;font-weight:600;color:var(--t1);line-height:32px}
+.agent-hdr-meta{font-size:14px;color:var(--t3);margin-top:2px}
+.agent-hdr-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+/* ─── Step tab strip ─────────────────────────────────────────── */
+.step-tabs{background:#fff;border-bottom:1px solid var(--bd2);flex-shrink:0}
+.step-tabs-inner{display:flex;max-width:1600px;margin:0 auto;padding:0 24px}
+.step-tab{flex:1;padding:12px 20px;border-top:3px solid transparent;cursor:pointer;transition:background .1s;text-decoration:none;display:block}
+.step-tab:hover{background:var(--gray-50)}
+.step-tab.done{border-top-color:var(--brand-600)}
+.step-tab.active{border-top-color:var(--brand-600)}
+.step-tab-label{font-size:13px;font-weight:600;color:var(--gray-700);line-height:18px}
+.step-tab.active .step-tab-label{color:var(--brand-700)}
+.step-tab-sub{font-size:11px;color:var(--gray-600);margin-top:2px;line-height:16px}
+.step-tab.active .step-tab-sub{color:var(--brand-600)}
+
+/* ─── Page header ────────────────────────────────────────────── */
+.pg-hdr{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:24px 24px 16px;max-width:1600px;margin-left:auto;margin-right:auto}
+.pg-text{display:flex;flex-direction:column;gap:4px;flex:1;min-width:0}
+.pg-title{font-size:24px;font-weight:600;line-height:32px;color:#181d27}
+.pg-sub{font-size:16px;font-weight:400;line-height:24px;color:#535862}
+.pg-actions{display:flex;align-items:center;gap:12px;flex-shrink:0}
+
+/* ─── Base ───────────────────────────────────────────────────── */
+body{
+  font-family:'Inter var','Inter',system-ui,sans-serif;
+  background:var(--bg-s);color:var(--t1);font-size:14px;line-height:1.5;
+}
+
+/* ─── Layout ─────────────────────────────────────────────────── */
+.app{display:flex;padding-top:var(--hh);min-height:100vh}
+.main{margin-left:var(--sw);flex:1;min-width:0}
+
+
+/* ─── Breadcrumb ─────────────────────────────────────────────── */
+.bc{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--t4);margin-bottom:16px}
+.bc a{color:var(--t4);text-decoration:none}
+.bc a:hover{color:var(--brand)}
+.bc-sep{color:var(--bd)}
+.bc-cur{color:var(--t2);font-weight:500}
+
+/* ─── Buttons ────────────────────────────────────────────────── */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  gap:8px;padding:10px 16px;height:40px;
+  font-family:'Inter var','Inter',system-ui,sans-serif;
+  font-size:14px;font-weight:600;line-height:20px;
+  border-radius:var(--r2);border:1px solid transparent;
+  cursor:pointer;text-decoration:none;white-space:nowrap;
+  transition:background .12s,box-shadow .12s,color .12s;
+}
+.btn-sm{height:36px;padding:8px 14px;font-size:14px}
+.btn-md{height:40px;padding:10px 16px}
+.btn-lg{height:44px;padding:10px 18px}
+.btn-xl{height:48px;padding:12px 20px}
+
+/* Primary */
+.btn-primary,.btn-p{
+  background:var(--brand-700);color:#fff;
+  border-color:var(--brand-700);box-shadow:var(--sh-xs);
+}
+.btn-primary:hover,.btn-p:hover{background:var(--brand-800)}
+
+/* Large primary variant */
+.btn-p-lg{height:44px;padding:10px 18px}
+
+/* Secondary */
+.btn-secondary,.btn-s{
+  background:#fff;color:var(--t2);
+  border-color:var(--bd);box-shadow:var(--sh-xs);
+}
+.btn-secondary:hover,.btn-s:hover{background:var(--bg-s)}
+
+/* Tertiary / ghost */
+.btn-tertiary,.btn-g,.btn-ghost{
+  background:transparent;color:var(--t2);
+  border-color:transparent;
+}
+.btn-tertiary:hover,.btn-g:hover,.btn-ghost:hover{background:var(--bg-t)}
+
+/* Disabled state */
+.btn:disabled,.btn[disabled]{opacity:.5;cursor:not-allowed}
+
+/* ─── Card / Panel ────────────────────────────────────────────── */
+.card{
+  background:#fff;border:1px solid var(--bd2);
+  border-radius:var(--r4);box-shadow:var(--sh-xs);
+  padding:24px 16px;
+}
+.card-flush{padding:0;overflow:hidden}
+.panel{
+  background:#fff;border:1px solid var(--bd2);
+  border-radius:var(--r4);box-shadow:var(--sh-xs);
+  overflow:hidden;
+}
+.panel-hdr{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 20px;border-bottom:1px solid var(--bd2);
+}
+.panel-sub{font-size:13px;color:var(--t4);margin-top:2px}
+
+/* ─── Section ────────────────────────────────────────────────── */
+.section{margin-bottom:0}
+/* ─── Content wrapper ───────────────────────────────────────── */
+.cw{padding:32px 24px;display:flex;flex-direction:column;gap:24px;max-width:1600px;margin-left:auto;margin-right:auto}
+
+.section-title,.sec-title,.sec-lbl{
+  font-size:14px;font-weight:600;line-height:20px;
+  color:var(--t4);text-transform:uppercase;letter-spacing:.04em;
+  margin-bottom:12px;max-width:900px;
+}
+.section-hdr{
+  display:flex;align-items:center;gap:10px;
+  padding:14px 20px;border-bottom:1px solid var(--bd2);
+  font-size:14px;font-weight:600;color:var(--t2);
+}
+.section-icon{
+  width:32px;height:32px;border-radius:var(--r2);
+  background:var(--brand-50);display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.section-body{
+  font-family:'Inter var','Inter',system-ui,sans-serif;
+  background:var(--bg-s);color:var(--t1);font-size:14px;line-height:1.5;
+}
+
+/* ─── Form — labels, inputs, helpers ─────────────────────────── */
+.label,.lbl{
+  display:block;font-size:14px;font-weight:600;line-height:20px;
+  color:var(--t2);margin-bottom:6px;
+}
+.lbl-opt{font-weight:400;color:var(--t4);font-size:12px;margin-left:4px}
+.hint,.inp-hint{
+  font-size:14px;line-height:20px;color:var(--t4);margin-top:6px;
+}
+.input-wrap,.field{margin-bottom:16px;max-width:900px}
+.footer-hint{font-size:12px;color:var(--t4);margin-top:4px}
+.char-count{font-size:12px;color:var(--t4);text-align:right;margin-top:4px}
+
+.input,.inp,.inp-wrap input,.inp-wrap select{
+  display:block;width:100%;max-width:900px;height:40px;
+  padding:10px 14px;
+  font-family:'Inter var','Inter',system-ui,sans-serif;
+  font-size:16px;line-height:24px;color:var(--t1);
+  background:#fff;border:1px solid var(--bd);border-radius:var(--r2);
+  box-shadow:var(--sh-xs);
+  transition:border-color .12s,box-shadow .12s;
+  appearance:none;outline:none;
+}
+.input::placeholder,.inp::placeholder{color:var(--gray-400)}
+.input:focus,.inp:focus{
+  border-color:var(--brand-500);
+  box-shadow:var(--focus-ring),var(--sh-xs);
+}
+.input-sm,.inp-sm{height:36px;padding:8px 12px;font-size:14px}
+.input.error,.inp.error{border-color:var(--error-500)}
+.input.error:focus,.inp.error:focus{
+  box-shadow:0 0 0 4px rgba(240,68,56,.2),0 0 0 2px #fff;
+}
+
+.textarea{
+  display:block;width:100%;min-height:128px;
+  padding:12px 14px;
+  font-family:'Inter var','Inter',system-ui,sans-serif;
+  font-size:16px;line-height:24px;color:var(--t1);
+  background:#fff;border:1px solid var(--bd);border-radius:var(--r2);
+  box-shadow:var(--sh-xs);resize:vertical;outline:none;
+  transition:border-color .12s,box-shadow .12s;
+}
+.textarea::placeholder{color:var(--gray-400)}
+.textarea:focus{
+  border-color:var(--brand-500);
+  box-shadow:var(--focus-ring),var(--sh-xs);
+}
+
+/* select arrow */
+select.input,select.inp{
+  background-image:url("data/icons/chevron-down.svg");
+  background-repeat:no-repeat;background-position:right 12px center;
+  padding-right:36px;cursor:pointer;
+}
+
+/* ─── Form card layout ──────────────────────────────────────── */
+.form-card{
+  background:#fff;border:1px solid var(--bd2);
+  border-radius:var(--r4);box-shadow:var(--sh-xs);
+  padding:28px 32px;margin-bottom:20px;
+}
+.form-title{font-size:16px;font-weight:600;color:var(--t1);margin-bottom:4px}
+.form-desc{font-size:14px;color:var(--t4);margin-bottom:20px}
+.form-divider{height:1px;background:var(--bd2);margin:20px 0;max-width:900px}
+
+/* ─── Toggle ──────────────────────────────────────────────────── */
+.tog{
+  position:relative;display:inline-block;
+  width:36px;height:20px;cursor:pointer;flex-shrink:0;
+}
+.tog input{opacity:0;width:0;height:0;position:absolute}
+.tog-t{
+  position:absolute;inset:0;background:var(--gray-300);
+  border-radius:var(--r-full);transition:background .15s ease-in-out;
+}
+.tog-t::after{
+  content:'';position:absolute;
+  width:16px;height:16px;background:#fff;border-radius:50%;
+  top:2px;left:2px;
+  transition:transform .15s ease-in-out;
+  box-shadow:var(--sh-xs);
+}
+.tog input:checked + .tog-t{background:var(--brand-700)}
+.tog input:checked + .tog-t::after{transform:translateX(16px)}
+
+/* small toggle */
+.tog-sm{width:28px;height:16px}
+.tog-sm .tog-t::after{width:12px;height:12px}
+.tog-sm input:checked + .tog-t::after{transform:translateX(12px)}
+
+/* ─── Checkbox ────────────────────────────────────────────────── */
+.checkbox,.ck{
+  position:relative;display:inline-flex;align-items:center;
+  gap:8px;cursor:pointer;
+}
+.ck-box{
+  width:16px;height:16px;border-radius:4px;flex-shrink:0;
+  border:1px solid var(--gray-300);background:#fff;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .1s,border-color .1s;
+}
+.ck input{position:absolute;opacity:0;width:0;height:0}
+.ck input:checked ~ .ck-box{
+  background:var(--brand-700);border-color:var(--brand-700);
+  background-image:url("data:image/svg+xml,%3Csvg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4l2.5 2.5L9 1' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:center;
+}
+.ck input:checked ~ .ck-box::after{display:none}
+.ck input:disabled ~ .ck-box{background:var(--gray-100);border-color:var(--gray-200)}
+
+/* ─── Radio ───────────────────────────────────────────────────── */
+.radio{
+  position:relative;display:inline-flex;align-items:center;
+  gap:8px;cursor:pointer;
+}
+.radio-dot{
+  width:16px;height:16px;border-radius:50%;flex-shrink:0;
+  border:1px solid var(--gray-300);background:#fff;
+  display:flex;align-items:center;justify-content:center;
+  transition:border-color .1s;
+}
+.radio input{position:absolute;opacity:0;width:0;height:0}
+.radio input:checked ~ .radio-dot{border-color:var(--brand-700)}
+.radio input:checked ~ .radio-dot::after{
+  content:'';width:6px;height:6px;
+  border-radius:50%;background:var(--brand-700);display:block;
+}
+
+/* radio card variant */
+.radio-cards{display:flex;flex-direction:column;gap:12px}
+.radio-card{
+  border:1px solid var(--bd2);border-radius:var(--r3);
+  padding:16px 20px;cursor:pointer;
+  transition:border-color .12s,background .12s;
+  display:flex;align-items:flex-start;gap:14px;
+}
+.radio-card:hover{border-color:var(--brand-300);background:var(--brand-25)}
+.radio-card.sel,.radio-card.active{border-color:var(--brand-700);background:var(--brand-50)}
+.radio-card-lbl{font-size:14px;font-weight:600;color:var(--t2);line-height:20px}
+.radio-icon{width:36px;height:36px;border-radius:var(--r2);
+  background:var(--bg-t);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.radio-title{font-size:14px;font-weight:600;color:var(--t2)}
+.radio-desc{font-size:13px;color:var(--t4);margin-top:2px}
+
+/* ─── Badges ──────────────────────────────────────────────────── */
+.badge{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:2px 8px;height:22px;
+  border-radius:var(--r-full);
+  font-size:12px;font-weight:500;line-height:18px;
+  border:1px solid transparent;
+}
+.badge-sm{height:20px;padding:2px 8px;font-size:12px}
+.badge-lg{height:24px;padding:3px 10px;font-size:14px;line-height:20px}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0}
+
+/* Gray */
+.badge-gray,.badge-off{
+  background:var(--gray-50);color:var(--gray-700);border-color:var(--gray-200);
+}
+/* Brand */
+.badge-brand,.grp-tag,.tag-brand{
+  background:var(--brand-50);color:var(--brand-700);border-color:var(--brand-100);
+}
+/* Success / ok */
+.badge-success,.badge-ok,.ok{
+  background:var(--success-100);color:var(--success-700);border-color:#abefc6;
+}
+/* Error */
+.badge-error,.warn{
+  background:var(--error-100);color:var(--error-700);border-color:#fecdca;
+}
+/* Warning */
+.badge-warning{
+  background:var(--warning-100);color:var(--warning-700);border-color:#fedf89;
+}
+/* Neutral / info tag */
+.tag,.tag-neutral{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:2px 8px;border-radius:var(--r-full);
+  font-size:12px;font-weight:500;
+  background:var(--gray-100);color:var(--gray-700);border:1px solid var(--gray-200);
+}
+
+/* opt-badge / mcp-badge */
+.opt-badge,.mcp-badge{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:2px 8px;border-radius:var(--r-full);
+  font-size:11px;font-weight:500;
+  background:var(--brand-50);color:var(--brand-700);border:1px solid var(--brand-100);
+}
+
+/* ─── Table ───────────────────────────────────────────────────── */
+.table{
+  width:100%;border-collapse:collapse;
+  border:1px solid var(--bd2);border-radius:var(--r4);
+  overflow:hidden;box-shadow:var(--sh-xs);
+}
+table{width:100%;border-collapse:collapse}
+thead th,th{
+  text-align:left;
+  font-size:12px;font-weight:600;line-height:18px;
+  color:var(--t4);text-transform:uppercase;letter-spacing:.05em;
+  padding:12px 24px;background:var(--gray-100);
+  border-bottom:1px solid var(--bd2);
+}
+tbody tr{background:#fff;border-bottom:1px solid var(--bd2);transition:background .08s}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:var(--gray-50)}
+td{padding:16px 24px;font-size:14px;line-height:20px;color:var(--t2);vertical-align:middle}
+
+/* Table toolbar */
+.tb-bar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 16px;border-bottom:1px solid var(--bd2);
+}
+.tb-foot{
+  padding:12px 16px;border-top:1px solid var(--bd2);
+  display:flex;align-items:center;justify-content:space-between;
+  color:var(--t4);font-size:13px;
+}
+.search{
+  display:flex;align-items:center;gap:8px;
+  background:#fff;border:1px solid var(--bd);border-radius:var(--r2);
+  padding:8px 12px;font-size:14px;color:var(--t4);
+  width:256px;box-shadow:var(--sh-xs);
+}
+
+/* Agent / row cell helpers */
+.a-avatar{
+  width:32px;height:32px;background:var(--bg-t);border-radius:var(--r2);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.a-name{font-weight:600;color:var(--t1);font-size:14px}
+.a-desc{font-size:12px;color:var(--t4);margin-top:2px;max-width:320px}
+
+/* ─── Metrics cards ───────────────────────────────────────────── */
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px}
+.metric{
+  background:#fff;border:1px solid var(--bd2);
+  border-radius:var(--r4);padding:20px 24px;box-shadow:var(--sh-xs);
+}
+.metric-lbl{font-size:12px;font-weight:500;color:var(--t4);margin-bottom:8px}
+.metric-val{font-size:28px;font-weight:600;letter-spacing:-.5px;color:var(--t1);line-height:1}
+.metric-sub{font-size:12px;color:var(--t4);margin-top:4px}
+
+/* ─── Wizard stepper ──────────────────────────────────────────── */
+.stepper{
+  display:flex;align-items:flex-start;
+  background:#fff;border:1px solid var(--bd2);border-radius:var(--r2);
+  padding:24px 28px;margin-bottom:28px;box-shadow:var(--sh-xs);
+  gap:0;
+}
+.step{
+  display:flex;flex-direction:column;align-items:center;
+  gap:8px;flex:1;position:relative;text-align:center;
+}
+/* Dashed connector between steps (grey by default) */
+.step:not(:last-child)::after{
+  content:'';position:absolute;
+  top:15px;                        /* half of 32px icon */
+  left:calc(50% + 20px);           /* right of icon */
+  right:calc(-50% + 20px);         /* left of next icon */
+  height:2px;
+  background:repeating-linear-gradient(
+    90deg,
+    var(--gray-300,#d5d7da) 0,
+    var(--gray-300,#d5d7da) 5px,
+    transparent 5px,
+    transparent 9px
+  );
+}
+/* Done step → brand-coloured dashed connector */
+.step.done:not(:last-child)::after{
+  background:repeating-linear-gradient(
+    90deg,
+    var(--brand-300,#9bbfc7) 0,
+    var(--brand-300,#9bbfc7) 5px,
+    transparent 5px,
+    transparent 9px
+  );
+}
+/* Step icon circle */
+.step-icon{
+  width:32px;height:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:600;
+  position:relative;z-index:1;
+  border:2px solid var(--gray-200,#e9eaeb);
+  background:#fff;color:var(--gray-400,#a4a7ae);
+  flex-shrink:0;
+  transition:background .15s,border-color .15s,box-shadow .15s;
+}
+.step.active .step-icon{
+  border-color:var(--brand-700,#066074);
+  color:var(--brand-700,#066074);
+  box-shadow:0 0 0 4px rgba(6,96,116,.14);
+}
+.step.done .step-icon{
+  background:#079455;
+  border-color:#079455;
+  color:#fff;
+}
+/* Step text */
+.step-content{display:flex;flex-direction:column;align-items:center;gap:2px}
+.step-label{font-size:13px;font-weight:600;line-height:18px;color:var(--gray-400,#a4a7ae)}
+.step-sub  {font-size:11px;font-weight:400;line-height:16px;color:var(--gray-400,#a4a7ae)}
+.step.active .step-label{color:var(--t1,#181d27)}
+.step.active .step-sub  {color:var(--t3,#535862)}
+.step.done   .step-label{color:var(--brand-700,#066074)}
+.step.done   .step-sub  {color:var(--brand-500,#388090)}
+
+/* Wizard footer */
+.wiz-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 0;margin-top:8px;border-top:1px solid var(--bd2);
+}
+
+/* ─── MCP block ───────────────────────────────────────────────── */
+.mcp-block{
+  border:1px solid var(--bd2);border-radius:var(--r3);
+  overflow:hidden;margin-bottom:12px;
+}
+.mcp-block-hdr{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 18px;background:var(--gray-50);border-bottom:1px solid var(--bd2);
+}
+.mcp-block-title{font-size:14px;font-weight:600;color:var(--t1)}
+.mcp-body{
+  font-family:'Inter var','Inter',system-ui,sans-serif;
+  background:var(--bg-s);color:var(--t1);font-size:14px;line-height:1.5;
+}
+.mcp-label{font-size:12px;font-weight:600;color:var(--t4);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.mcp-code{
+  font-family:'JetBrains Mono','Fira Code','Courier New',monospace;
+  font-size:12px;color:var(--t2);background:var(--gray-100);
+  border:1px solid var(--bd2);border-radius:var(--r);
+  padding:8px 12px;white-space:pre-wrap;word-break:break-all;
+}
+
+/* ─── Skills block ────────────────────────────────────────────── */
+.skill-block{
+  border:1px solid var(--bd2);border-radius:var(--r3);
+  overflow:hidden;margin-bottom:12px;
+}
+.skill-hdr{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 18px;background:var(--gray-50);border-bottom:1px solid var(--bd2);
+}
+.skill-num{
+  width:24px;height:24px;border-radius:50%;background:var(--brand-50);
+  color:var(--brand-700);font-size:11px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.skill-body{
+  font-family:'Inter var','Inter',system-ui,sans-serif;
+  background:var(--bg-s);color:var(--t1);font-size:14px;line-height:1.5;
+}
+
+/* ─── Config row ──────────────────────────────────────────────── */
+.config-row{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:12px 0;border-bottom:1px solid var(--bd2);
+}
+.config-row:last-child{border-bottom:none}
+.config-lbl{font-size:13px;font-weight:600;color:var(--t2);min-width:180px;flex-shrink:0}
+.config-key{font-size:12px;color:var(--t4);margin-top:2px;font-family:monospace}
+.config-val{font-size:13px;color:var(--t2)}
+.config-preview{font-size:12px;color:var(--t4);margin-top:4px}
+
+/* ─── Permission / DB list items ─────────────────────────────── */
+.perm-section{margin:16px 0}
+.perm-section:first-child{margin-top:0}
+.perm-section:last-child{margin-bottom:0}
+.perm-section .sec-title{
+  padding-left:16px;margin-bottom:8px;
+  font-size:16px;font-weight:600;line-height:24px;
+  color:var(--t1,#181d27);
+  text-transform:none;letter-spacing:0;
+}
+.perm-list{list-style:none}
+.perm-item{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 0;border-bottom:1px solid var(--bd2);
+  font-size:14px;color:var(--t2);
+}
+.perm-item:last-child{border-bottom:none}
+.perm-table{width:100%;border-collapse:separate;border-spacing:0;table-layout:fixed}
+
+/* Override global th/td padding & alignment for permission tables */
+.perm-table th,
+.perm-table td{padding:10px 12px;vertical-align:middle}
+.perm-table th:first-child,
+.perm-table td:first-child{padding-left:16px;width:auto}
+
+/* Rounded top corners on the grey header row */
+.perm-table thead th:first-child{border-radius:6px 0 0 0}
+.perm-table thead th:last-child{border-radius:0 6px 0 0}
+
+/* R / W / D columns: fixed width, centred */
+.perm-th{width:72px;text-align:center !important;padding:10px 8px}
+.perm-table td:not(:first-child){width:72px;text-align:center}
+.perm-table td:not(:first-child) .ck{justify-content:center;width:100%}
+.perm-flags{display:flex;gap:8px;align-items:center}
+.perm-flag{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:12px;font-weight:500;color:var(--t4);
+}
+.perm-flag.ok{color:var(--ok)}
+
+/* ─── DB list ──────────────────────────────────────────────────── */
+.db-list{list-style:none}
+.db-item{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 16px;border-bottom:1px solid var(--bd2);
+  cursor:pointer;transition:background .1s;
+  position:relative;
+}
+.db-item:last-child{border-bottom:none}
+.db-item:hover{background:var(--gray-50)}
+.db-item.active{background:var(--brand-50);}
+.db-item.active::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;
+  width:3px;background:var(--brand-700);border-radius:0 2px 2px 0;
+}
+.db-avatar{
+  width:32px;height:32px;border-radius:6px;
+  background:#f5f5f5;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;overflow:hidden;
+}
+.db-avatar .db-item.active .db-avatar{background:var(--brand-100)}
+.db-info{flex:1;min-width:0}
+.db-name{font-size:14px;font-weight:600;color:var(--t1);text-transform:none}
+.db-meta{font-size:12px;color:var(--t4);margin-top:1px}
+.db-item.active .db-name{color:var(--brand-700)}
+.db-badge{
+  font-size:11px;font-weight:500;color:var(--t4);
+  background:var(--gray-100);border-radius:var(--r-full);
+  padding:2px 8px;flex-shrink:0;
+}
+.db-item.active .db-badge{background:var(--brand-100);color:var(--brand-700)}
+
+/* ─── App panels ──────────────────────────────────────────────── */
+.app-panel{display:none}
+.app-panel.active{display:block}
+/* ─── Right panel states ───────────────────────────────────────── */
+.perm-panel{display:none}
+.perm-panel.active{display:block}
+
+/* ─── App selector bar ─────────────────────────────────────────── */
+.app-selector{
+  display:flex;gap:8px;align-items:center;flex-wrap:wrap;
+  padding:16px 20px;background:#fff;border:1px solid var(--bd2);
+  border-radius:var(--r2);box-shadow:var(--sh-xs);margin-bottom:20px;
+}
+.app-selector-label{font-size:13px;font-weight:500;color:var(--t3);margin-right:4px;white-space:nowrap}
+.app-chip{
+  display:flex;align-items:center;gap:8px;
+  padding:6px 12px;border-radius:var(--r-full);
+  border:1.5px solid var(--bd);background:#fff;
+  font-size:13px;font-weight:500;color:var(--t2);
+  cursor:pointer;transition:border-color .12s,background .12s;
+}
+.app-chip .app-chip:hover{border-color:var(--brand-300);background:var(--brand-25)}
+.app-chip.active{border-color:var(--brand-700);background:var(--brand-50);color:var(--brand-700)}
+.app-chip.active 
+/* ─── Class tabs ───────────────────────────────────────────────── */
+.tab-hdr{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:16px 24px;border-bottom:1px solid var(--bd2);
+}
+.class-tabs{
+  display:flex;gap:4px;
+  background:var(--gray-50);border:1px solid var(--bd2);
+  border-radius:10px;padding:4px;flex-shrink:0;
+}
+.class-tab{
+  display:flex;align-items:center;gap:8px;
+  height:36px;padding:8px 12px;
+  font-size:14px;font-weight:600;color:var(--t4);
+  border-radius:6px;cursor:pointer;
+  transition:background .12s,color .12s,box-shadow .12s;
+  white-space:nowrap;
+}
+.class-tab:hover{color:var(--t2)}
+.class-tab.active{
+  background:#fff;color:var(--t2);
+  box-shadow:var(--sh-sm);
+}
+.class-tab-count{
+  font-size:12px;font-weight:500;padding:2px 8px;border-radius:var(--r-full);
+  background:var(--gray-200);color:var(--t4);
+}
+.class-tab.active .class-tab-count{background:var(--brand-100);color:var(--brand-700)}
+
+/* ─── Tab panels ───────────────────────────────────────────────── */
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* ─── Class accordion rows ─────────────────────────────────────── */
+.class-group{
+  border:1px solid var(--bd2);border-radius:var(--r2);
+  margin-top:16px;overflow:hidden;
+}
+.class-group-hdr{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 16px;background:var(--gray-50);
+  cursor:pointer;user-select:none;border-bottom:1px solid var(--bd2);
+}
+.class-group-hdr:hover{background:var(--gray-100)}
+.class-group-name{font-size:14px;font-weight:600;color:var(--t1);flex:1}
+.class-group-meta{font-size:12px;color:var(--t4)}
+.class-group-chev{width:16px;height:16px;transition:transform .18s;flex-shrink:0}
+.class-group.open .class-group-chev{transform:rotate(180deg)}
+.class-group-body{
+  font-family:'Inter var','Inter',system-ui,sans-serif;
+  background:var(--bg-s);color:var(--t1);font-size:14px;line-height:1.5;
+}
+.class-group.open .class-group-body{
+  font-family:'Inter var','Inter',system-ui,sans-serif;
+  background:var(--bg-s);color:var(--t1);font-size:14px;line-height:1.5;
+}
+.perm-empty{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:60px 24px;color:var(--t4);text-align:center;gap:12px;
+}
+.perm-empty .perm-empty-title{font-size:14px;font-weight:600;color:var(--t3)}
+.perm-empty-sub{font-size:13px;color:var(--t4)}
+
+/* ─── Info / warn box ─────────────────────────────────────────── */
+.info-box{
+  background:var(--brand-25);border:1px solid var(--brand-100);
+  border-radius:var(--r2);max-width:900px;padding:14px 16px;
+  font-size:14px;color:var(--t2);
+  display:flex;align-items:flex-start;gap:10px;
+}
+.warn-box{
+  background:var(--warning-100);border:1px solid #fedf89;
+  border-radius:var(--r2);padding:14px 16px;
+  font-size:14px;color:var(--warning-700);
+  display:flex;align-items:flex-start;gap:10px;
+}
+
+/* ─── Add button ──────────────────────────────────────────────── */
+.add-btn{
+  display:flex;align-items:center;gap:8px;
+  padding:10px 16px;border-radius:var(--r2);
+  font-size:14px;font-weight:600;color:var(--brand-700);
+  background:transparent;border:1.5px dashed var(--brand-300);
+  cursor:pointer;transition:background .12s,border-color .12s;
+  width:100%;justify-content:center;
+}
+.add-btn:hover{background:var(--brand-50);border-color:var(--brand-700)}
+
+/* ─── Checklist card ──────────────────────────────────────────── */
+.checklist-card{
+  background:#fff;border:1px solid var(--bd2);border-radius:var(--r4);
+  box-shadow:var(--sh-xs);overflow:hidden;
+}
+.checklist-hdr{padding:20px 24px;border-bottom:1px solid var(--bd2)}
+.checklist-title{font-size:16px;font-weight:600;color:var(--t1)}
+.checklist-sub{font-size:13px;color:var(--t4);margin-top:4px}
+.checklist-items{padding:8px 0}
+.check-item{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:12px 24px;border-bottom:1px solid var(--bd2);
+}
+.check-item:last-child{border-bottom:none}
+.check-icon{flex-shrink:0;margin-top:1px}
+.check-text{font-size:14px;color:var(--t2)}
+.check-item.done .check-text{color:var(--t4)}
+.checklist-footer{
+  padding:16px 24px;border-top:1px solid var(--bd2);
+  display:flex;align-items:center;justify-content:flex-end;gap:8px;
+}
+.checklist-note{font-size:12px;color:var(--t4);margin-right:auto}
+
+/* ─── Summary / Review ────────────────────────────────────────── */
+.summary-card{
+  background:#fff;border:1px solid var(--bd2);border-radius:var(--r4);
+  box-shadow:var(--sh-xs);overflow:hidden;margin-bottom:16px;
+}
+.summary-hdr{
+  padding:16px 24px;border-bottom:1px solid var(--bd2);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.summary-hdr-title{font-size:14px;font-weight:600;color:var(--t1)}
+.summary-hdr-sub{font-size:13px;color:var(--t4);margin-top:2px}
+.review-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;padding:20px 24px}
+.detail-row{padding:12px 24px;border-bottom:1px solid var(--bd2);display:flex;align-items:flex-start;gap:16px}
+.detail-row:last-child{border-bottom:none}
+.detail-key{font-size:13px;font-weight:600;color:var(--t4);min-width:160px;flex-shrink:0}
+.detail-val{font-size:13px;color:var(--t2)}
+
+/* edit link */
+.edit-link{font-size:13px;color:var(--brand-700);text-decoration:none;font-weight:500}
+.edit-link:hover{text-decoration:underline}
+
+/* ─── Two-column layout ──────────────────────────────────────── */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+/* ─── Class-name / type display in table ─────────────────────── */
+.cls-name{font-size:13px;font-weight:600;color:var(--t1)}
+.cls-type{font-size:12px;color:var(--t4);margin-top:2px}
+
+/* ===HEADER=== */
+.hdr{position:fixed;top:0;left:0;right:0;height:64px;background:url(data/header-bg.png) center/cover #075365;display:flex;align-items:center;justify-content:space-between;padding:0 22px;z-index:200}
+.hdr-brand{display:flex;flex-direction:column;align-items:flex-start;gap:3px;width:134px;flex-shrink:0}
+.hdr-logo-img{width:90px;height:22px;object-fit:contain;display:block}
+.hdr-bs{font-family:'Poppins','Inter',sans-serif;font-size:10px;font-weight:500;color:#fff;line-height:12px;white-space:nowrap}
+.hdr-search{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.2);border:1px solid #6aa0ac;border-radius:8px;padding:8px 12px;width:496px;flex-shrink:0}
+.hdr-search-text{font-family:'Inter var','Inter',sans-serif;font-size:16px;color:#fff;flex:1}
+.hdr-si{width:20px;height:20px;min-width:16px;min-height:16px;flex-shrink:0;display:block;filter:brightness(0) invert(1)}
+.hdr-right{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.hdr-actions{display:flex;gap:2px}
+.hdr-btn{width:40px;height:40px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:6px}
+.hdr-btn:hover{background:rgba(255,255,255,.1)}
+.hdr-avatar-wrap{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.7);overflow:hidden;cursor:pointer;flex-shrink:0}
+.hdr-avatar{width:100%;height:100%;object-fit:cover;display:block}
+/* ===SIDEBAR=== */
+.sidebar{width:260px;background:#fff;border-right:1px solid #e9eaeb;position:fixed;top:64px;bottom:0;left:0;display:flex;flex-direction:column;overflow:hidden}
+.sb-scroll{flex:1;overflow-y:auto}
+.sb-grp0{padding:8px}
+.sb-grp{padding:8px;display:flex;flex-direction:column;gap:16px}
+.sb-grp-inner{display:flex;flex-direction:column}
+.sb-sec-hdr{height:28px;padding:4px 8px;display:flex;align-items:center;font-family:'Inter var','Inter',sans-serif;font-size:12px;font-weight:600;color:#717680;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nw{padding:2px 0}
+.nc{display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:6px;background:#fff;font-family:'Inter var','Inter',sans-serif;font-size:14px;font-weight:500;color:#414651;cursor:pointer;text-decoration:none;transition:background .1s}
+.nc:hover{background:#f5f5f5}
+.ni{width:20px;height:20px;min-width:16px;min-height:16px;flex-shrink:0;display:block}
+.nchev{width:16px;height:16px;min-width:16px;min-height:16px;flex-shrink:0;display:block;margin-left:auto}
+svg{min-width:16px;min-height:16px}
+.step-icon svg{min-width:auto;min-height:auto}
+.nc-flex{flex:1;min-width:0}
+.nc-sub{padding-left:40px;padding-right:12px}
+.nc-sub-active{background:#e6eff1 !important;color:#066074 !important}
+.sb-bot{padding:8px;flex-shrink:0}
+
+
+
+
+/* ═══════════════════════════════════════════════════════════════
+   UX BEST PRACTICES
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Focus rings (keyboard accessibility) ───────────────────── */
+:focus-visible{
+  outline:2px solid var(--brand-400,#6aa0ac);
+  outline-offset:2px;border-radius:4px;
+}
+/* Remove default outline when :focus-visible is available */
+:focus:not(:focus-visible){outline:none}
+
+/* ── Required field asterisk ─────────────────────────────────── */
+.lbl.req::after{content:" *";color:var(--error-500,#f04438)}
+
+/* ── Sticky wizard footer ────────────────────────────────────── */
+.wiz-footer{
+  position:sticky;bottom:0;z-index:50;
+  background:#fff;
+  box-shadow:0 -1px 0 var(--bd2),0 -4px 12px rgba(16,24,40,.04);
+  margin-left:var(--sw);   /* stay clear of the sidebar */
+  padding:16px 32px;
+}
+
+/* ── CSS-only tooltip ────────────────────────────────────────── */
+[data-tip]{position:relative}
+[data-tip]::after{
+  content:attr(data-tip);
+  position:absolute;bottom:calc(100% + 6px);left:50%;
+  transform:translateX(-50%);
+  white-space:nowrap;
+  background:#101828;color:#fff;
+  font-size:12px;font-weight:400;line-height:18px;
+  padding:5px 10px;border-radius:8px;
+  pointer-events:none;opacity:0;
+  transition:opacity .12s;z-index:300;
+  font-style:normal;text-transform:none;letter-spacing:0;
+}
+[data-tip]:hover::after{opacity:1}
+
+/* ── Sortable column headers ─────────────────────────────────── */
+.th-sort{cursor:pointer;user-select:none}
+.th-sort:hover{color:var(--gray-700,#414651) !important}
+.sort-ic{
+  opacity:.28;margin-left:4px;
+  font-style:normal;vertical-align:middle;font-size:10px;
+  display:inline-block;
+}
+.th-sort:hover .sort-ic{opacity:.65}
+.th-sort[aria-sort="ascending"] .sort-ic,
+.th-sort[aria-sort="descending"] .sort-ic{opacity:1;color:var(--brand-600,#1f7082)}
+
+/* ── Clickable table rows ────────────────────────────────────── */
+tbody tr.row-link{cursor:pointer}
+tbody tr.row-link:focus-within{outline:2px solid var(--brand-400);outline-offset:-2px}
+
+/* ── Drag handle ─────────────────────────────────────────────── */
+.drag-handle{
+  display:flex;align-items:center;justify-content:center;
+  width:20px;height:28px;
+  color:var(--gray-400,#a4a7ae);cursor:grab;
+  flex-shrink:0;border-radius:4px;margin-right:6px;
+}
+.drag-handle:hover{color:var(--t3);background:var(--gray-100)}
+.drag-handle:active{cursor:grabbing}
+
+/* ── Autosave indicator ──────────────────────────────────────── */
+.autosave-ind{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:12px;color:var(--t4);
+}
+.autosave-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:#17b26a;flex-shrink:0;
+  animation:ux-pulse 2.4s ease-in-out infinite;
+}
+@keyframes ux-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+/* ── Keyboard shortcut badge ─────────────────────────────────── */
+kbd{
+  display:inline-flex;align-items:center;
+  padding:1px 5px;border-radius:4px;
+  background:var(--gray-100);border:1px solid var(--bd2);
+  font-family:monospace;font-size:11px;
+  color:var(--t4);line-height:16px;vertical-align:middle;
+}
+
+/* ── Empty state ─────────────────────────────────────────────── */
+.empty-state{
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;padding:56px 24px;
+  text-align:center;gap:12px;
+}
+.empty-icon{
+  width:52px;height:52px;border-radius:12px;
+  background:var(--gray-100);border:1px solid var(--bd2);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--t4);margin-bottom:4px;
+}
+.empty-title{font-size:16px;font-weight:600;color:var(--t1);line-height:24px}
+.empty-sub{font-size:14px;color:var(--t4);max-width:300px;line-height:20px}
+
+/* ── Fix link (review checklist) ─────────────────────────────── */
+.fix-link{
+  font-size:13px;font-weight:600;color:var(--brand-700);
+  text-decoration:none;
+  padding:2px 10px;border-radius:6px;
+  background:var(--brand-50);border:1px solid var(--brand-100);
+  white-space:nowrap;flex-shrink:0;margin-left:auto;
+  display:inline-flex;align-items:center;gap:4px;
+}
+.fix-link:hover{background:var(--brand-100)}
+
+/* ── Check-item layout (review screen) ──────────────────────── */
+.check-item{display:flex;align-items:flex-start;gap:10px}
+
+/* ── Radio card :has() — CSS-only selection highlight ────────── */
+.radio-card:has(input[type="radio"]:checked){
+  border-color:var(--brand-700) !important;
+  background:var(--brand-50) !important;
+  box-shadow:0 0 0 3px rgba(31,112,130,.1);
+}
+
+/* ── Char-count near/at limit colour ─────────────────────────── */
+.char-count.near-limit{color:var(--warning-700,#b54708)}
+.char-count.at-limit{color:var(--error-700,#b42318)}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Hamburger toggle — hidden by default */
+.nav-toggle{position:absolute;opacity:0;width:0;height:0;pointer-events:none}
+.hdr-menu-btn{
+  display:none;align-items:center;justify-content:center;
+  width:40px;height:40px;border-radius:6px;background:none;
+  border:none;cursor:pointer;flex-shrink:0;
+}
+.hdr-menu-btn:hover{background:rgba(255,255,255,.1)}
+.hdr-menu-icon{display:block}
+.hdr-close-icon{display:none}
+.nav-toggle:checked ~ .app .sidebar{transform:translateX(0) !important;box-shadow:4px 0 24px rgba(0,0,0,.15)}
+.nav-toggle:checked ~ header .hdr-menu-icon{display:none}
+.nav-toggle:checked ~ header .hdr-close-icon{display:block}
+/* Overlay when sidebar is open */
+.nav-toggle:checked ~ .app::before{
+  content:'';position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:149;
+}
+
+/* ── 1024px — Tablet ────────────────────────────────────────── */
+@media (max-width:1023px){
+  .hdr-menu-btn{display:flex}
+  .hdr-search{width:auto;flex:1;max-width:360px}
+
+  /* Sidebar off-canvas */
+  .sidebar{transform:translateX(-260px);transition:transform .22s ease;z-index:150}
+
+  /* Content fills viewport */
+  .main{margin-left:0 !important}
+
+  /* Slightly tighter content padding */
+  .cw{padding:16px 20px;max-width:1600px;margin-left:auto;margin-right:auto}
+  .pg-hdr{padding:20px 20px 14px;max-width:1600px;margin-left:auto;margin-right:auto}
+
+  /* Table scrolls horizontally */
+  .tbl-card{overflow-x:auto}
+  .tbl-card table{min-width:680px}
+
+  /* Metrics 2-col */
+  .metrics{grid-template-columns:repeat(2,1fr)}
+
+  
+/* Wizard footer */
+  .wiz-footer{padding:12px 20px;margin-left:0}
+}
+
+/* ── 767px — Mobile ─────────────────────────────────────────── */
+@media (max-width:767px){
+  /* Header: hide search */
+  .hdr-search{display:none !important}
+  .hdr-brand{width:auto}
+
+  /* Sidebar */
+  .sidebar{transform:translateX(-260px);transition:transform .22s ease;z-index:150}
+  .main{margin-left:0 !important}
+
+  /* Page header stacks */
+  .pg-hdr{flex-direction:column;align-items:stretch;padding:16px 16px 12px;gap:12px;max-width:1600px;margin-left:auto;margin-right:auto}
+  .pg-title{font-size:20px;line-height:28px}
+  .pg-sub{font-size:14px;line-height:20px}
+  .pg-actions{display:flex;gap:8px}
+  .pg-actions .btn{flex:1;justify-content:center}
+
+  /* Content wrapper */
+  .cw{padding:12px 16px;gap:16px;max-width:1600px;margin-left:auto;margin-right:auto}
+
+  /* Metrics single column */
+  .metrics{grid-template-columns:1fr}
+  .metric{padding:16px}
+
+  /* Form cards */
+  .form-card{padding:16px 16px;margin-bottom:12px}
+  .form-grid,.form-row{flex-direction:column}
+
+  /* Stepper: mobile — show only active step */
+  .stepper{padding:16px;gap:0}
+  .step:not(.active):not(.done):not(:first-child){display:none}
+  .step:not(.active):not(.done){display:none}
+  .step.active{flex:none;min-width:120px}
+  .step::after{display:none}
+
+  /* Table */
+  .tbl-card{overflow-x:auto}
+  .tbl-card table{min-width:580px}
+  thead th,td{padding:12px 14px}
+
+  /* Tbl toolbar stacks */
+  .tbl-hdr{flex-direction:column;align-items:flex-start;gap:10px;padding:12px 16px}
+  .tbl-search{width:100%;box-sizing:border-box}
+
+  /* Wizard nav footer */
+  .wiz-footer{flex-direction:column;gap:8px;padding:12px 16px;margin-left:0}
+  .wiz-footer .btn{width:100%;justify-content:center}
+
+  /* Prevent iOS font zoom on inputs */
+  .input,.inp,.textarea,select{font-size:16px !important}
+}
+
+/* ── 480px — Small mobile ───────────────────────────────────── */
+@media (max-width:479px){
+  .pg-title{font-size:18px}
+  .btn{font-size:13px}
+  .seg-ctrl{width:100%;justify-content:stretch}
+  .seg-btn{flex:1;text-align:center}
+}
+
+/* ── Fixed wiz-footer ──────────────────────────────────── */
+.wiz-footer{position:fixed;bottom:0;left:var(--sw);right:0;margin-left:0;padding:16px max(24px,calc((100vw - var(--sw) - 1600px) / 2 + 24px))}
+
+</style>
+</head>
+<body>
+
+<input type="checkbox" id="nav-toggle" class="nav-toggle">
+<header class="hdr">
+  <label for="nav-toggle" class="hdr-menu-btn">
+    <span class="hdr-menu-icon"><svg width="20" height="20" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="1.8" stroke-linecap="round" viewBox="0 0 20 20"><line x1="3" y1="6" x2="17" y2="6"/><line x1="3" y1="10" x2="17" y2="10"/><line x1="3" y1="14" x2="17" y2="14"/></svg></span>
+    <span class="hdr-close-icon"><svg width="20" height="20" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="1.8" stroke-linecap="round" viewBox="0 0 20 20"><line x1="5" y1="5" x2="15" y2="15"/><line x1="15" y1="5" x2="5" y2="15"/></svg></span>
+  </label>
+  <div class="hdr-brand">
+    <img src="data/doxis-logo.svg" alt="DOXIS" class="hdr-logo-img">
+    <span class="hdr-bs">Business Studio</span>
+  </div>
+  <div class="hdr-search">
+    <img src="data/icons/search-lg.svg" class="hdr-si" alt="">
+    <span class="hdr-search-text">Search</span>
+  </div>
+  <div class="hdr-right">
+    <div class="hdr-actions">
+      <button class="hdr-btn"><img src="data/icons/bell-01.svg" class="hdr-si" alt=""></button>
+      <button class="hdr-btn"><img src="data/icons/help-circle.svg" class="hdr-si" alt=""></button>
+    </div>
+    <div class="hdr-avatar-wrap"><img src="data/avatar.png" class="hdr-avatar" alt="TS"></div>
+  </div>
+</header>
+
+<div class="app">
+  <nav class="sidebar">
+  <div class="sb-scroll">
+    <div class="sb-grp0">
+      <div class="nw"><a class="nc"><img src="data/icons/bar-chart-square-02.svg" class="ni" alt="Overview"><span class="nc-flex">Overview</span></a></div>
+      <div class="nw"><a class="nc"><img src="data/icons/book-open-01.svg" class="ni" alt="Library"><span class="nc-flex">Library</span></a></div>
+      <div class="nw"><a class="nc"><img src="data/icons/intersect-square.svg" class="ni" alt="Applications"><span class="nc-flex">Applications</span></a></div>
+      <div class="nw"><a class="nc"><img src="data/icons/link-04.svg" class="ni" alt="Integrations"><span class="nc-flex">Integrations</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+      <div class="nw"><a class="nc"><img src="data/icons/cpu-chip-01.svg" class="ni" alt="AI studio"><span class="nc-flex">AI studio</span><img src="data/icons/chevron-down.svg" class="nchev" alt="" style="transform:rotate(180deg)"></a></div>
+      <div class="nw"><a class="nc nc-sub nc-sub-active"><span class="nc-flex">AI agent manager</span></a></div>
+      <div class="nw"><a class="nc nc-sub" href="screen-8-superhuman-search.html"><span class="nc-flex">Superhuman search</span></a></div>
+
+    </div>
+    <div class="sb-grp">
+      <div class="sb-grp-inner">
+        <div class="sb-sec-hdr">Configuration</div>
+        <div class="nw"><a class="nc"><img src="data/icons/tool-02.svg" class="ni" alt="General"><span class="nc-flex">General</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/database-02.svg" class="ni" alt="Databases"><span class="nc-flex">Databases</span></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/data.svg" class="ni" alt="Metadata"><span class="nc-flex">Metadata</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/file-02.svg" class="ni" alt="Document management"><span class="nc-flex">Document management</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/search-sm.svg" class="ni" alt="Search"><span class="nc-flex">Search</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/layout-left.svg" class="ni" alt="Template designer"><span class="nc-flex">Template designer</span><img src="data/icons/link-external-02.svg" class="nchev" alt=""></a></div>
+      </div>
+      <div class="sb-grp-inner">
+        <div class="sb-sec-hdr">Access &amp; Security</div>
+        <div class="nw"><a class="nc"><img src="data/icons/building-07.svg" class="ni" alt="Organization"><span class="nc-flex">Organization</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/lock-unlocked-03.svg" class="ni" alt="Access control"><span class="nc-flex">Access control</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/scale-01.svg" class="ni" alt="Retention rules"><span class="nc-flex">Retention rules</span></a></div>
+      </div>
+      <div class="sb-grp-inner">
+        <div class="sb-sec-hdr">Operations</div>
+        <div class="nw"><a class="nc"><img src="data/icons/clock-fast-forward.svg" class="ni" alt="Timeslices"><span class="nc-flex">Timeslices</span></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/server-03.svg" class="ni" alt="Agents &amp; Webhooks"><span class="nc-flex">Agents &amp; Webhooks</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/search-sm.svg" class="ni" alt="Fulltext"><span class="nc-flex">Fulltext</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/file-download-01.svg" class="ni" alt="File import (FIPS)"><span class="nc-flex">File import (FIPS)</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/server-04.svg" class="ni" alt="Storage jobs"><span class="nc-flex">Storage jobs</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/bar-chart-square-02.svg" class="ni" alt="System status"><span class="nc-flex">System status</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+      </div>
+    </div>
+  </div>
+  <div class="sb-bot">
+    <div class="nw"><a class="nc"><img src="data/icons/layout-left.svg" class="ni" alt="Collapse menu"><span class="nc-flex">Collapse menu</span></a></div>
+  </div>
+</nav>
+
+  <main class="main">
+
+  <!-- Agent context header -->
+  <div class="agent-hdr">
+    <div class="agent-hdr-inner">
+      <div class="agent-hdr-left">
+        <div>
+          <div class="agent-hdr-name">Employee Document Monitor</div>
+          <div class="agent-hdr-meta">Select an application and configure read, write and delete permissions per class.</div>
+        </div>
+      </div>
+      <div class="agent-hdr-right">
+        <a href="screen-2-identity.html" class="btn btn-ghost">Cancel</a><button class="btn btn-s">Save draft</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step tab strip -->
+  <div class="step-tabs">
+    <div class="step-tabs-inner">
+      <a href="screen-2-identity.html" class="step-tab done">
+        <div class="step-tab-label">Identity</div>
+        <div class="step-tab-sub">Name and provider</div>
+      </a>
+      <a href="screen-5-context.html" class="step-tab done">
+        <div class="step-tab-label">Context</div>
+        <div class="step-tab-sub">Knowledge and documents</div>
+      </a>
+      <a href="screen-3-data-access.html" class="step-tab active">
+        <div class="step-tab-label">Permissions</div>
+        <div class="step-tab-sub">Applications and access</div>
+      </a>
+      <a href="screen-4-mcp-tools.html" class="step-tab">
+        <div class="step-tab-label">Integrations</div>
+        <div class="step-tab-sub">External integrations</div>
+      </a>
+      <a href="screen-6-activation.html" class="step-tab">
+        <div class="step-tab-label">Activation</div>
+        <div class="step-tab-sub">Triggers and limits</div>
+      <a href="screen-7-review.html" class="step-tab">
+        <div class="step-tab-label">Review</div>
+        <div class="step-tab-sub">Summary and launch</div>
+      </a>
+    </div>
+  </div>
+
+    <div class="cw">
+
+
+    <div>
+      <h2 style="font-size:18px;font-weight:600;color:var(--t1);margin-bottom:4px">Permissions</h2>
+      <p style="font-size:14px;color:var(--t3)">Select an application and configure which document, e-file and process classes this agent can read, write or delete.</p>
+    </div>
+
+    <!-- Application context banner -->
+    <div style="display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--brand-25);border:1px solid var(--brand-100);border-radius:var(--r3)">
+      <div style="width:28px;height:28px;border-radius:6px;background:var(--brand-50);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <img src="data/icons/intersect-square.svg" width="14" height="14" alt="" style="filter:brightness(0) saturate(100%) invert(27%) sepia(50%) saturate(600%) hue-rotate(155deg)">
+      </div>
+      <div style="flex:1;min-width:0">
+        <span style="font-size:13px;color:var(--t4);font-weight:500">Application: </span>
+        <span style="font-size:13px;font-weight:600;color:var(--brand-700)">HR · Employee e-files</span>
+      </div>
+      <a href="screen-2-identity.html" style="font-size:13px;color:var(--brand-700);text-decoration:none;font-weight:500;display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:6px;border:1px solid var(--brand-100);background:#fff;white-space:nowrap">
+        Change
+      </a>
+    </div>
+
+    <!-- Per-application panels -->
+    <div class="panel" style="overflow:hidden">
+
+      <!-- ── CUSTDOC ─────────────────────────────────────────── -->
+      <div class="app-panel active" id="app-custdoc">
+        <!-- Tabs -->
+        <div class="tab-hdr">
+          <div class="class-tabs">
+            <div class="class-tab active" onclick="selectTab(this,'custdoc','doc')">
+              <img src="data/icons/file-02.svg" width="16" height="16" alt="">
+              Document classes<span class="class-tab-count">4</span>
+            </div>
+            <div class="class-tab" onclick="selectTab(this,'custdoc','efile')">
+              <img src="data/icons/file-check-02.svg" width="16" height="16" alt="">
+              E-file classes<span class="class-tab-count">2</span>
+            </div>
+            <div class="class-tab" onclick="selectTab(this,'custdoc','proc')">
+              <img src="data/icons/clock-fast-forward.svg" width="16" height="16" alt="">
+              Process classes<span class="class-tab-count">1</span>
+            </div>
+          </div>
+        </div>
+        <div style="padding:20px 24px">
+          <!-- Document classes tab -->
+          <div class="tab-panel active" id="tab-custdoc-doc">
+            <div class="class-group open">
+              <div class="class-group-hdr" onclick="toggleGroup(this)">
+                <span class="class-group-name">HR · Employee e-files</span>
+                <span class="class-group-meta">4 classes · 3 selected</span>
+                <img src="data/icons/chevron-down.svg" class="class-group-chev" alt="">
+              </div>
+              <div class="class-group-body">
+                <table class="perm-table">
+                  <thead><tr><th>Class name</th><th class="perm-th">Read</th><th class="perm-th">Write</th><th class="perm-th">Delete</th></tr></thead>
+                  <tbody>
+                    <tr><td><div class="cls-name">Employee e-file</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                    <tr><td><div class="cls-name">Document metadata</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                    <tr><td><div class="cls-name">Approved folders</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                    <tr><td><div class="cls-name">Salary documents</div></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                    <tr><td><div class="cls-name">Appraisal documents</div></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- E-file classes tab -->
+          <div class="tab-panel" id="tab-custdoc-efile">
+            <div class="class-group open">
+              <div class="class-group-hdr" onclick="toggleGroup(this)">
+                <span class="class-group-name">Customer E-files</span>
+                <span class="class-group-meta">2 classes · 1 selected</span>
+                <img src="data/icons/chevron-down.svg" class="class-group-chev" alt="">
+              </div>
+              <div class="class-group-body">
+                <table class="perm-table">
+                  <thead><tr><th>Class name</th><th class="perm-th">Read</th><th class="perm-th">Write</th><th class="perm-th">Delete</th></tr></thead>
+                  <tbody>
+                    <tr><td><div class="cls-name">Customer File</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                    <tr><td><div class="cls-name">Project Dossier</div></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- Process classes tab -->
+          <div class="tab-panel" id="tab-custdoc-proc">
+            <div class="class-group open">
+              <div class="class-group-hdr" onclick="toggleGroup(this)">
+                <span class="class-group-name">Approval Workflows</span>
+                <span class="class-group-meta">1 class · 1 selected</span>
+                <img src="data/icons/chevron-down.svg" class="class-group-chev" alt="">
+              </div>
+              <div class="class-group-body">
+                <table class="perm-table">
+                  <thead><tr><th>Class name</th><th class="perm-th">Read</th><th class="perm-th">Write</th><th class="perm-th">Delete</th></tr></thead>
+                  <tbody>
+                    <tr><td><div class="cls-name">Approval Workflow</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── HR RECORDS ─────────────────────────────────────── -->
+      <div class="app-panel" id="app-hrdata">
+        <div class="tab-hdr">
+          <div class="class-tabs">
+            <div class="class-tab active" onclick="selectTab(this,'hrdata','doc')">
+              <img src="data/icons/file-02.svg" width="16" height="16" alt="">
+              Document classes<span class="class-tab-count">4</span>
+            </div>
+            <div class="class-tab" onclick="selectTab(this,'hrdata','proc')">
+              <img src="data/icons/clock-fast-forward.svg" width="16" height="16" alt="">
+              Process classes<span class="class-tab-count">1</span>
+            </div>
+          </div>
+        </div>
+        <div style="padding:20px 24px">
+          <div class="tab-panel active" id="tab-hrdata-doc">
+            <div class="class-group open">
+              <div class="class-group-hdr" onclick="toggleGroup(this)">
+                <span class="class-group-name">HR Documents</span>
+                <span class="class-group-meta">4 classes · 3 selected</span>
+                <img src="data/icons/chevron-down.svg" class="class-group-chev" alt="">
+              </div>
+              <div class="class-group-body">
+                <table class="perm-table">
+                  <thead><tr><th>Class name</th><th class="perm-th">Read</th><th class="perm-th">Write</th><th class="perm-th">Delete</th></tr></thead>
+                  <tbody>
+                    <tr><td><div class="cls-name">Employee Record</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                    <tr><td><div class="cls-name">Leave Request</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                    <tr><td><div class="cls-name">Performance Review</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                    <tr><td><div class="cls-name">Payroll</div></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="tab-panel" id="tab-hrdata-proc">
+            <div class="class-group open">
+              <div class="class-group-hdr" onclick="toggleGroup(this)">
+                <span class="class-group-name">HR Processes</span>
+                <span class="class-group-meta">1 class · 1 selected</span>
+                <img src="data/icons/chevron-down.svg" class="class-group-chev" alt="">
+              </div>
+              <div class="class-group-body">
+                <table class="perm-table">
+                  <thead><tr><th>Class name</th><th class="perm-th">Read</th><th class="perm-th">Write</th><th class="perm-th">Delete</th></tr></thead>
+                  <tbody>
+                    <tr><td><div class="cls-name">Onboarding Workflow</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── FINANCE ARCHIVE ────────────────────────────────── -->
+      <div class="app-panel" id="app-finrec">
+        <div style="padding:0 24px;border-bottom:1px solid var(--bd2)">
+          <div class="class-tabs">
+            <div class="class-tab active" onclick="selectTab(this,'finrec','doc')">
+              <img src="data/icons/file-02.svg" width="16" height="16" alt="">
+              Document classes<span class="class-tab-count">4</span>
+            </div>
+            <div class="class-tab" onclick="selectTab(this,'finrec','efile')">
+              <img src="data/icons/file-check-02.svg" width="16" height="16" alt="">
+              E-file classes<span class="class-tab-count">2</span>
+            </div>
+            <div class="class-tab" onclick="selectTab(this,'finrec','proc')">
+              <img src="data/icons/clock-fast-forward.svg" width="16" height="16" alt="">
+              Process classes<span class="class-tab-count">2</span>
+            </div>
+          </div>
+        </div>
+        <div style="padding:20px 24px">
+          <div class="tab-panel active" id="tab-finrec-doc">
+            <div class="class-group open">
+              <div class="class-group-hdr" onclick="toggleGroup(this)">
+                <span class="class-group-name">Finance Documents</span>
+                <span class="class-group-meta">4 classes · 4 selected</span>
+                <img src="data/icons/chevron-down.svg" class="class-group-chev" alt="">
+              </div>
+              <div class="class-group-body">
+                <table class="perm-table">
+                  <thead><tr><th>Class name</th><th class="perm-th">Read</th><th class="perm-th">Write</th><th class="perm-th">Delete</th></tr></thead>
+                  <tbody>
+                    <tr><td><div class="cls-name">Invoice</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                    <tr><td><div class="cls-name">Purchase Order</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                    <tr><td><div class="cls-name">Budget Report</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                    <tr><td><div class="cls-name">Financial Statement</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="tab-panel" id="tab-finrec-efile">
+            <div class="class-group open">
+              <div class="class-group-hdr" onclick="toggleGroup(this)">
+                <span class="class-group-name">Finance E-files</span>
+                <span class="class-group-meta">2 classes · 1 selected</span>
+                <img src="data/icons/chevron-down.svg" class="class-group-chev" alt="">
+              </div>
+              <div class="class-group-body">
+                <table class="perm-table">
+                  <thead><tr><th>Class name</th><th class="perm-th">Read</th><th class="perm-th">Write</th><th class="perm-th">Delete</th></tr></thead>
+                  <tbody>
+                    <tr><td><div class="cls-name">Client Account</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                    <tr><td><div class="cls-name">Vendor File</div></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="tab-panel" id="tab-finrec-proc">
+            <div class="class-group open">
+              <div class="class-group-hdr" onclick="toggleGroup(this)">
+                <span class="class-group-name">Finance Processes</span>
+                <span class="class-group-meta">2 classes · 2 selected</span>
+                <img src="data/icons/chevron-down.svg" class="class-group-chev" alt="">
+              </div>
+              <div class="class-group-body">
+                <table class="perm-table">
+                  <thead><tr><th>Class name</th><th class="perm-th">Read</th><th class="perm-th">Write</th><th class="perm-th">Delete</th></tr></thead>
+                  <tbody>
+                    <tr><td><div class="cls-name">Payment Workflow</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                    <tr><td><div class="cls-name">Audit Trail</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── LEGAL ARCHIVE ──────────────────────────────────── -->
+      <div class="app-panel" id="app-legarch">
+        <div style="padding:0 24px;border-bottom:1px solid var(--bd2)">
+          <div class="class-tabs">
+            <div class="class-tab active" onclick="selectTab(this,'legarch','doc')">
+              <img src="data/icons/file-02.svg" width="16" height="16" alt="">
+              Document classes<span class="class-tab-count">6</span>
+            </div>
+          </div>
+        </div>
+        <div style="padding:20px 24px">
+          <div class="tab-panel active" id="tab-legarch-doc">
+            <div class="class-group open">
+              <div class="class-group-hdr" onclick="toggleGroup(this)">
+                <span class="class-group-name">Legal Documents</span>
+                <span class="class-group-meta">6 classes · 4 selected</span>
+                <img src="data/icons/chevron-down.svg" class="class-group-chev" alt="">
+              </div>
+              <div class="class-group-body">
+                <table class="perm-table">
+                  <thead><tr><th>Class name</th><th class="perm-th">Read</th><th class="perm-th">Write</th><th class="perm-th">Delete</th></tr></thead>
+                  <tbody>
+                    <tr><td><div class="cls-name">Legal Brief</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                    <tr><td><div class="cls-name">Court Order</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                    <tr><td><div class="cls-name">Settlement</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                    <tr><td><div class="cls-name">NDA</div></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                    <tr><td><div class="cls-name">Compliance Report</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                    <tr><td><div class="cls-name">Regulatory Filing</div></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── PROJECT MANAGEMENT ─────────────────────────────── -->
+      <div class="app-panel" id="app-projmgmt">
+        <div style="padding:0 24px;border-bottom:1px solid var(--bd2)">
+          <div class="class-tabs">
+            <div class="class-tab active" onclick="selectTab(this,'projmgmt','doc')">
+              <img src="data/icons/file-02.svg" width="16" height="16" alt="">
+              Document classes<span class="class-tab-count">3</span>
+            </div>
+          </div>
+        </div>
+        <div style="padding:20px 24px">
+          <div class="tab-panel active" id="tab-projmgmt-doc">
+            <div class="class-group open">
+              <div class="class-group-hdr" onclick="toggleGroup(this)">
+                <span class="class-group-name">Project Documents</span>
+                <span class="class-group-meta">3 classes · 2 selected</span>
+                <img src="data/icons/chevron-down.svg" class="class-group-chev" alt="">
+              </div>
+              <div class="class-group-body">
+                <table class="perm-table">
+                  <thead><tr><th>Class name</th><th class="perm-th">Read</th><th class="perm-th">Write</th><th class="perm-th">Delete</th></tr></thead>
+                  <tbody>
+                    <tr><td><div class="cls-name">Project Plan</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                    <tr><td><div class="cls-name">Milestone Report</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                    <tr><td><div class="cls-name">Risk Register</div></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /panel -->
+  </div>
+</main>
+</div>
+
+        <!-- CUSTDOC -->
+        <div class="perm-panel active" id="perm-CUSTDOC">
+          <div class="panel-hdr">
+            <div>
+              <div style="font-size:14px;font-weight:600;color:var(--t1)">CustDoc — Permissions</div>
+              <div class="panel-sub">Customer Documents · 3 of 4 classes configured</div>
+            </div>
+          </div>
+          <div style="padding:20px 24px">
+            <div class="perm-section">
+              <div class="sec-title">Document classes</div>
+              <table class="perm-table">
+                <thead><tr><th>Class name</th><th class="perm-th" data-tip="Allow reading">Read</th><th class="perm-th" data-tip="Allow creating &amp; editing">Write</th><th class="perm-th" data-tip="Allow deletion">Delete</th></tr></thead>
+                <tbody>
+                  <tr><td><div class="cls-name">Contract</div><div class="cls-type">Document class</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                  <tr><td><div class="cls-name">Invoice</div><div class="cls-type">Document class</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                  <tr><td><div class="cls-name">Correspondence</div><div class="cls-type">Document class</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                  <tr><td><div class="cls-name">Internal Memo</div><div class="cls-type">Document class</div></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="perm-section">
+              <div class="sec-title">E-file classes</div>
+              <table class="perm-table">
+                <thead><tr><th>Class name</th><th class="perm-th" data-tip="Allow reading">Read</th><th class="perm-th" data-tip="Allow creating &amp; editing">Write</th><th class="perm-th" data-tip="Allow deletion">Delete</th></tr></thead>
+                <tbody>
+                  <tr><td><div class="cls-name">Customer File</div><div class="cls-type">E-file class</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                  <tr><td><div class="cls-name">Project Dossier</div><div class="cls-type">E-file class</div></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="perm-section">
+              <div class="sec-title">Process classes</div>
+              <table class="perm-table">
+                <thead><tr><th>Class name</th><th class="perm-th" data-tip="Allow reading">Read</th><th class="perm-th" data-tip="Allow creating &amp; editing">Write</th><th class="perm-th" data-tip="Allow deletion">Delete</th></tr></thead>
+                <tbody>
+                  <tr><td><div class="cls-name">Approval Workflow</div><div class="cls-type">Process class</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- LEGARCH -->
+        <div class="perm-panel" id="perm-LEGARCH">
+          <div class="panel-hdr">
+            <div>
+              <div style="font-size:14px;font-weight:600;color:var(--t1)">LegArch — Permissions</div>
+              <div class="panel-sub">Legal Archive · 4 of 6 classes configured</div>
+            </div>
+          </div>
+          <div style="padding:20px 24px">
+            <div class="perm-section">
+              <div class="sec-title">Document classes</div>
+              <table class="perm-table">
+                <thead><tr><th>Class name</th><th class="perm-th" data-tip="Allow reading">Read</th><th class="perm-th" data-tip="Allow creating &amp; editing">Write</th><th class="perm-th" data-tip="Allow deletion">Delete</th></tr></thead>
+                <tbody>
+                  <tr><td><div class="cls-name">Legal Brief</div><div class="cls-type">Document class</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                  <tr><td><div class="cls-name">Court Order</div><div class="cls-type">Document class</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                  <tr><td><div class="cls-name">Settlement</div><div class="cls-type">Document class</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                  <tr><td><div class="cls-name">NDA</div><div class="cls-type">Document class</div></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                  <tr><td><div class="cls-name">Compliance Report</div><div class="cls-type">Document class</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                  <tr><td><div class="cls-name">Regulatory Filing</div><div class="cls-type">Document class</div></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- FINREC -->
+        <div class="perm-panel" id="perm-FINREC">
+          <div class="panel-hdr">
+            <div>
+              <div style="font-size:14px;font-weight:600;color:var(--t1)">FinRec — Permissions</div>
+              <div class="panel-sub">Finance Records · 5 of 8 classes configured</div>
+            </div>
+          </div>
+          <div style="padding:20px 24px">
+            <div class="perm-section">
+              <div class="sec-title">Document classes</div>
+              <table class="perm-table">
+                <thead><tr><th>Class name</th><th class="perm-th" data-tip="Allow reading">Read</th><th class="perm-th" data-tip="Allow creating &amp; editing">Write</th><th class="perm-th" data-tip="Allow deletion">Delete</th></tr></thead>
+                <tbody>
+                  <tr><td><div class="cls-name">Invoice</div><div class="cls-type">Document class</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                  <tr><td><div class="cls-name">Purchase Order</div><div class="cls-type">Document class</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                  <tr><td><div class="cls-name">Budget Report</div><div class="cls-type">Document class</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                  <tr><td><div class="cls-name">Financial Statement</div><div class="cls-type">Document class</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="perm-section">
+              <div class="sec-title">E-file classes</div>
+              <table class="perm-table">
+                <thead><tr><th>Class name</th><th class="perm-th" data-tip="Allow reading">Read</th><th class="perm-th" data-tip="Allow creating &amp; editing">Write</th><th class="perm-th" data-tip="Allow deletion">Delete</th></tr></thead>
+                <tbody>
+                  <tr><td><div class="cls-name">Client Account</div><div class="cls-type">E-file class</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                  <tr><td><div class="cls-name">Vendor File</div><div class="cls-type">E-file class</div></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="perm-section">
+              <div class="sec-title">Process classes</div>
+              <table class="perm-table">
+                <thead><tr><th>Class name</th><th class="perm-th" data-tip="Allow reading">Read</th><th class="perm-th" data-tip="Allow creating &amp; editing">Write</th><th class="perm-th" data-tip="Allow deletion">Delete</th></tr></thead>
+                <tbody>
+                  <tr><td><div class="cls-name">Payment Workflow</div><div class="cls-type">Process class</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                  <tr><td><div class="cls-name">Audit Trail</div><div class="cls-type">Process class</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- HRDATA -->
+        <div class="perm-panel" id="perm-HRDATA">
+          <div class="panel-hdr">
+            <div>
+              <div style="font-size:14px;font-weight:600;color:var(--t1)">HrData — Permissions</div>
+              <div class="panel-sub">HR Data · 3 of 5 classes configured</div>
+            </div>
+          </div>
+          <div style="padding:20px 24px">
+            <div class="perm-section">
+              <div class="sec-title">Document classes</div>
+              <table class="perm-table">
+                <thead><tr><th>Class name</th><th class="perm-th" data-tip="Allow reading">Read</th><th class="perm-th" data-tip="Allow creating &amp; editing">Write</th><th class="perm-th" data-tip="Allow deletion">Delete</th></tr></thead>
+                <tbody>
+                  <tr><td><div class="cls-name">Employee Record</div><div class="cls-type">Document class</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                  <tr><td><div class="cls-name">Leave Request</div><div class="cls-type">Document class</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                  <tr><td><div class="cls-name">Performance Review</div><div class="cls-type">Document class</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                  <tr><td><div class="cls-name">Payroll</div><div class="cls-type">Document class</div></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="perm-section">
+              <div class="sec-title">Process classes</div>
+              <table class="perm-table">
+                <thead><tr><th>Class name</th><th class="perm-th" data-tip="Allow reading">Read</th><th class="perm-th" data-tip="Allow creating &amp; editing">Write</th><th class="perm-th" data-tip="Allow deletion">Delete</th></tr></thead>
+                <tbody>
+                  <tr><td><div class="cls-name">Onboarding Workflow</div><div class="cls-type">Process class</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROJMGMT -->
+        <div class="perm-panel" id="perm-PROJMGMT">
+          <div class="panel-hdr">
+            <div>
+              <div style="font-size:14px;font-weight:600;color:var(--t1)">ProjMgmt — Permissions</div>
+              <div class="panel-sub">Project Management · 2 of 3 classes configured</div>
+            </div>
+          </div>
+          <div style="padding:20px 24px">
+            <div class="perm-section">
+              <div class="sec-title">Document classes</div>
+              <table class="perm-table">
+                <thead><tr><th>Class name</th><th class="perm-th" data-tip="Allow reading">Read</th><th class="perm-th" data-tip="Allow creating &amp; editing">Write</th><th class="perm-th" data-tip="Allow deletion">Delete</th></tr></thead>
+                <tbody>
+                  <tr><td><div class="cls-name">Project Plan</div><div class="cls-type">Document class</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                  <tr><td><div class="cls-name">Milestone Report</div><div class="cls-type">Document class</div></td><td><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                  <tr><td><div class="cls-name">Risk Register</div><div class="cls-type">Document class</div></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td><td><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /right panel -->
+    </div><!-- /two-col -->
+  </div>
+</main>
+</div>
+
+<div class="wiz-footer">
+  <a href="screen-5-context.html" class="btn btn-s">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 14 14"><path d="M8 2L3 7l5 5"/></svg>
+    Back
+  </a>
+  <div style="display:flex;align-items:center;gap:12px">
+    <a href="screen-4-mcp-tools.html" class="btn btn-p">
+      Continue
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 14 14"><path d="M6 2l5 5-5 5"/></svg>
+    </a>
+  </div>
+</div>
+
+<script>
+function selectApp(btn, appId) {
+  document.querySelectorAll('.app-chip').forEach(function(c){ c.classList.remove('active'); });
+  document.querySelectorAll('.app-panel').forEach(function(p){ p.classList.remove('active'); });
+  btn.classList.add('active');
+  var panel = document.getElementById('app-' + appId);
+  if (panel) panel.classList.add('active');
+}
+function selectTab(tab, appId, tabId) {
+  var appPanel = document.getElementById('app-' + appId);
+  appPanel.querySelectorAll('.class-tab').forEach(function(t){ t.classList.remove('active'); });
+  appPanel.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.remove('active'); });
+  tab.classList.add('active');
+  var tp = document.getElementById('tab-' + appId + '-' + tabId);
+  if (tp) tp.classList.add('active');
+}
+function toggleGroup(hdr) {
+  hdr.parentElement.classList.toggle('open');
+}
+</script>
+</body>
+</html>
