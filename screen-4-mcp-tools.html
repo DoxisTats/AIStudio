@@ -1200,14 +1200,14 @@ kbd{
             <span class="results-sec-count">1</span>
           </div>
 
-          <!-- DOCSIS MCP Server -->
-          <div id="row-doxis-mcp" class="int-item int-active" onclick="selectIntegration('doxis-mcp')">
+          <!-- Doxis MCP Server -->
+          <div id="row-doxis-mcp" class="int-item" onclick="selectIntegration('doxis-mcp')">
             <div class="int-icon" style="background:var(--brand-700);border-radius:var(--r2)">D</div>
             <div class="int-body">
-              <div class="int-name">DOCSIS MCP Server</div>
+              <div class="int-name">Doxis MCP Server</div>
               <div class="int-sub">Built-in MCP server</div>
             </div>
-            <span class="int-status-ok" id="status-doxis-mcp">Connected</span>
+            <span class="int-status-ok" id="status-doxis-mcp" style="display:none">Connected</span>
           </div>
 
           <!-- Add MCP server -->
@@ -1287,15 +1287,15 @@ kbd{
             <div style="width:40px;height:40px;border-radius:10px;background:var(--brand-700);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;font-weight:700;color:#fff">D</div>
             <div style="flex:1;min-width:0">
               <div style="display:flex;align-items:center;gap:7px;margin-bottom:2px">
-                <span style="font-size:17px;font-weight:700;color:var(--t1);line-height:24px">DOXIS AI Gateway</span>
+                <span style="font-size:17px;font-weight:700;color:var(--t1);line-height:24px">Doxis MCP Server</span>
               </div>
-              <div style="font-size:13px;color:var(--t4);line-height:18px">Built-in MCP server · Provides access to DOXIS document and metadata tools</div>
+              <div style="font-size:13px;color:var(--t4);line-height:18px">Built-in MCP server · Provides access to Doxis document and metadata tools</div>
             </div>
-            <span id="mcp-status-disconnected" style="display:none;align-items:center;gap:4px;font-size:12px;font-weight:500;color:var(--t4);background:var(--gray-100);border:1px solid var(--gray-200);border-radius:9999px;padding:2px 9px;flex-shrink:0;white-space:nowrap">Not connected</span>
-            <span id="mcp-status-connected" style="display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:500;color:var(--success-700);background:var(--success-100);border:1px solid #abefc6;border-radius:9999px;padding:2px 9px;flex-shrink:0;white-space:nowrap"><span style="width:6px;height:6px;border-radius:50%;background:var(--success-500);display:inline-block"></span>Connected</span>
+            <span id="mcp-status-disconnected" style="display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:500;color:var(--t4);background:var(--gray-100);border:1px solid var(--gray-200);border-radius:9999px;padding:2px 9px;flex-shrink:0;white-space:nowrap">Not connected</span>
+            <span id="mcp-status-connected" style="display:none;align-items:center;gap:4px;font-size:12px;font-weight:500;color:var(--success-700);background:var(--success-100);border:1px solid #abefc6;border-radius:9999px;padding:2px 9px;flex-shrink:0;white-space:nowrap"><span style="width:6px;height:6px;border-radius:50%;background:var(--success-500);display:inline-block"></span>Connected</span>
             <button id="mcp-btn-test" onclick="handleMcpTestConnection()" style="display:none;height:32px;padding:0 12px;border:1px solid var(--bd);background:#fff;border-radius:var(--r2);font-size:13px;font-weight:600;color:var(--t2);cursor:pointer;display:none;align-items:center;box-shadow:var(--sh-xs);flex-shrink:0">Test connection</button>
-            <button id="mcp-btn-connect" onclick="handleMcpConnect()" style="display:none;height:32px;padding:0 12px;background:var(--brand-700);color:#fff;border:1px solid var(--brand-700);border-radius:var(--r2);font-size:13px;font-weight:600;cursor:pointer;display:none;align-items:center;box-shadow:var(--sh-xs);flex-shrink:0">Connect</button>
-            <button id="mcp-btn-disconnect" onclick="handleMcpDisconnect()" style="height:32px;padding:0 12px;border:1px solid var(--bd);background:#fff;border-radius:var(--r2);font-size:13px;font-weight:600;color:var(--t2);cursor:pointer;display:flex;align-items:center;box-shadow:var(--sh-xs);flex-shrink:0">Disconnect</button>
+            <button id="mcp-btn-connect" onclick="handleMcpConnect()" style="display:flex;height:32px;padding:0 12px;background:var(--brand-700);color:#fff;border:1px solid var(--brand-700);border-radius:var(--r2);font-size:13px;font-weight:600;cursor:pointer;align-items:center;box-shadow:var(--sh-xs);flex-shrink:0">Connect</button>
+            <button id="mcp-btn-disconnect" onclick="handleMcpDisconnect()" style="height:32px;padding:0 12px;border:1px solid var(--bd);background:#fff;border-radius:var(--r2);font-size:13px;font-weight:600;color:var(--t2);cursor:pointer;display:none;align-items:center;box-shadow:var(--sh-xs);flex-shrink:0">Disconnect</button>
           </div>
 
           <!-- Scrollable MCP body -->
@@ -1712,7 +1712,7 @@ function handleMcpConnect() {
   document.getElementById('mcp-btn-connect').style.display = 'none';
   document.getElementById('mcp-btn-disconnect').style.display = 'flex';
   document.getElementById('status-doxis-mcp').style.display = 'inline-flex';
-  showToast('DOXIS AI Gateway connected.');
+  showToast('Doxis MCP Server connected.');
 }
 
 function handleMcpDisconnect() {
@@ -1723,7 +1723,7 @@ function handleMcpDisconnect() {
   document.getElementById('mcp-btn-connect').style.display = 'flex';
   document.getElementById('mcp-btn-disconnect').style.display = 'none';
   document.getElementById('status-doxis-mcp').style.display = 'none';
-  showToast('DOXIS AI Gateway disconnected.');
+  showToast('Doxis MCP Server disconnected.');
 }
 
 function handleMcpTestConnection() {
