@@ -1235,7 +1235,7 @@ kbd{
           <div id="row-sharepoint" class="int-item" onclick="selectIntegration('sharepoint')">
             <div class="int-icon" style="background:#038387;border-radius:50%">SP</div>
             <div class="int-body">
-              <div class="int-name">SharePoint</div>
+              <div class="int-name">SmartBridge for SharePoint</div>
               <div class="int-sub">Document library</div>
             </div>
             <span class="int-status-ok" id="status-sharepoint" style="display:none">Connected</span>
@@ -1255,7 +1255,7 @@ kbd{
           <div id="row-m365" class="int-item" onclick="selectIntegration('m365')">
             <div class="int-icon" style="background:#0078d4;border-radius:50%">M</div>
             <div class="int-body">
-              <div class="int-name">Microsoft 365</div>
+              <div class="int-name">SmartBridge for Microsoft 365</div>
               <div class="int-sub">Mail, calendar &amp; files</div>
             </div>
             <span class="int-status-ok" id="status-m365" style="display:none">Connected</span>
@@ -1523,10 +1523,10 @@ kbd{
         <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border:1px solid var(--bd2);border-radius:var(--r3);background:#fff">
           <div style="width:40px;height:40px;border-radius:10px;background:#0078d4;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;font-weight:700;color:#fff">M</div>
           <div style="flex:1;min-width:0">
-            <div style="font-size:14px;font-weight:600;color:var(--t1)">Microsoft 365</div>
+            <div style="font-size:14px;font-weight:600;color:var(--t1)">SmartBridge for Microsoft 365</div>
             <div style="font-size:13px;color:var(--t4);margin-top:1px">Mail, calendar &amp; files</div>
           </div>
-          <button onclick="addConnector('Microsoft 365');closeDirectory()" style="width:28px;height:28px;border:1px solid var(--bd);background:#fff;border-radius:var(--r);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--t4);flex-shrink:0">
+          <button onclick="addConnector('SmartBridge for Microsoft 365');closeDirectory()" style="width:28px;height:28px;border:1px solid var(--bd);background:#fff;border-radius:var(--r);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--t4);flex-shrink:0">
             <img src="data/icons/plus.svg" width="14" height="14" alt="">
           </button>
         </div>
@@ -1535,10 +1535,10 @@ kbd{
         <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border:1px solid var(--bd2);border-radius:var(--r3);background:#fff">
           <div style="width:40px;height:40px;border-radius:10px;background:#038387;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;font-weight:700;color:#fff">SP</div>
           <div style="flex:1;min-width:0">
-            <div style="font-size:14px;font-weight:600;color:var(--t1)">SharePoint</div>
+            <div style="font-size:14px;font-weight:600;color:var(--t1)">SmartBridge for SharePoint</div>
             <div style="font-size:13px;color:var(--t4);margin-top:1px">Document library</div>
           </div>
-          <button onclick="addConnector('SharePoint');closeDirectory()" style="width:28px;height:28px;border:1px solid var(--bd);background:#fff;border-radius:var(--r);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--t4);flex-shrink:0">
+          <button onclick="addConnector('SmartBridge for SharePoint');closeDirectory()" style="width:28px;height:28px;border:1px solid var(--bd);background:#fff;border-radius:var(--r);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--t4);flex-shrink:0">
             <img src="data/icons/plus.svg" width="14" height="14" alt="">
           </button>
         </div>
@@ -1622,7 +1622,7 @@ var integrationData = {
     f1l:'Instance URL', f1p:'https://yourcompany.successfactors.com', f1t:'text',
     f2l:'Client ID', f2p:'Enter OAuth client ID', f2t:'text',
     f3l:'Client Secret', f3p:'••••••••••••', f3t:'password' },
-  'sharepoint': { name:'SharePoint', desc:'Document library', color:'#038387', initials:'SP', round:true,
+  'sharepoint': { name:'SmartBridge for SharePoint', desc:'Document library', color:'#038387', initials:'SP', round:true,
     f1l:'Tenant ID', f1p:'your-tenant.onmicrosoft.com', f1t:'text',
     f2l:'Client ID', f2p:'Azure App registration ID', f2t:'text',
     f3l:'Client Secret', f3p:'••••••••••••', f3t:'password' },
@@ -1634,7 +1634,7 @@ var integrationData = {
     f1l:'Tenant ID', f1p:'your-tenant.onmicrosoft.com', f1t:'text',
     f2l:'Client ID', f2p:'Azure App registration ID', f2t:'text',
     f3l:'Client Secret', f3p:'••••••••••••', f3t:'password' },
-  'm365': { name:'Microsoft 365', desc:'Mail, calendar &amp; files', color:'#0078d4', initials:'M', round:true,
+  'm365': { name:'SmartBridge for Microsoft 365', desc:'Mail, calendar &amp; files', color:'#0078d4', initials:'M', round:true,
     f1l:'Tenant ID', f1p:'your-tenant.onmicrosoft.com', f1t:'text',
     f2l:'Client ID', f2p:'Azure App registration ID', f2t:'text',
     f3l:'Client Secret', f3p:'••••••••••••', f3t:'password' }
@@ -1784,7 +1784,7 @@ function setDirTab(btn) {
 }
 function addConnector(name) {
   closeDirectory();
-  var map = { 'Microsoft 365':'m365', 'SharePoint':'sharepoint', 'ServiceNow':null,
+  var map = { 'SmartBridge for Microsoft 365':'m365', 'SmartBridge for SharePoint':'sharepoint', 'ServiceNow':null,
     'Workday':null, 'Microsoft Teams':'smartbridge', 'Generic REST API':null, 'Sage People':'salesforce' };
   var id = map[name];
   if (id && integrationData[id]) { selectIntegration(id); }
