@@ -297,13 +297,10 @@ select.input,select.inp{
 .ck input{position:absolute;opacity:0;width:0;height:0}
 .ck input:checked ~ .ck-box{
   background:var(--brand-700);border-color:var(--brand-700);
+  background-image:url("data:image/svg+xml,%3Csvg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4l2.5 2.5L9 1' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:center;
 }
-.ck input:checked ~ .ck-box::after{
-  content:'';
-  width:9px;height:6px;
-  border-left:1.5px solid #fff;border-bottom:1.5px solid #fff;
-  transform:rotate(-45deg) translateY(-1px);display:block;
-}
+.ck input:checked ~ .ck-box::after{display:none}
 .ck input:disabled ~ .ck-box{background:var(--gray-100);border-color:var(--gray-200)}
 
 /* ─── Radio ───────────────────────────────────────────────────── */
