@@ -77,7 +77,7 @@ body{
 /* ── Content area ────────────────────────────────────────────── */
 .cw{padding:0 32px 48px;display:flex;flex-direction:column;gap:16px;max-width:1600px;margin-left:auto;margin-right:auto}
 
-/* ── Main toggle (44×24 per Figma) ──────────────────────────── */
+/* ── Main toggle (44×24) ──────────────────────────────────────── */
 .tog{position:relative;display:inline-block;width:44px;height:24px;cursor:pointer;flex-shrink:0}
 .tog input{opacity:0;width:0;height:0;position:absolute}
 .tog-t{position:absolute;inset:0;background:var(--gray-300);border-radius:var(--r-full);transition:background .18s}
@@ -89,7 +89,7 @@ body{
 .tog-sm .tog-t::after{width:16px;height:16px}
 .tog-sm input:checked+.tog-t::after{transform:translateX(16px)}
 
-/* ── Capabilities card (includes metrics) ───────────────────── */
+/* ── Capabilities card ───────────────────────────────────────── */
 .cap-card{
   background:#fff;border:1px solid var(--bd2);
   border-radius:var(--r4);box-shadow:var(--sh-xs);overflow:hidden;
@@ -99,9 +99,9 @@ body{
 .cap-title{font-size:15px;font-weight:700;color:var(--t1);display:flex;align-items:center;gap:8px;line-height:24px;margin-bottom:4px;flex-wrap:wrap}
 .cap-desc{font-size:13px;color:var(--t3);line-height:1.55;max-width:620px}
 
-/* Status pill — matches Figma exactly */
+/* Status pill */
 .cap-badge{display:inline-flex;align-items:center;gap:5px;padding:2px 8px;border-radius:var(--r-full);font-size:12px;font-weight:600;line-height:18px;white-space:nowrap}
-.cap-badge.disabled{background:#fff3cd;color:#92400e;border:1px solid #fcd34d}
+.cap-badge.disabled{background:var(--warning-100);color:var(--warning-700);border:1px solid #fcd34d}
 .cap-badge.enabled {background:var(--success-100);color:var(--success-700);border:1px solid #6ee7b7}
 .cap-dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0}
 
@@ -109,7 +109,7 @@ body{
 .settings-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:var(--r2);font-size:13px;font-weight:500;color:var(--t3);background:#fff;border:1px solid var(--bd2);cursor:pointer;white-space:nowrap;transition:background .1s,border-color .1s;flex-shrink:0}
 .settings-btn:hover{background:var(--bg-s);border-color:var(--bd);color:var(--t2)}
 
-/* Metrics row (inside cap-card, below divider) */
+/* Metrics row */
 .cap-metrics{display:flex;gap:8px;padding:0 24px 24px}
 .metric-cell{flex:1;padding:12px 16px;background:var(--gray-50);border:1px solid #f5f5f5;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:16px;white-space:nowrap}
 .metric-lbl{font-size:14px;font-weight:600;color:var(--t3)}
@@ -143,6 +143,13 @@ tbody tr:hover{background:var(--gray-25)}
 td{padding:12px 14px;font-size:14px;color:var(--t2);vertical-align:middle}
 td:first-child{padding-left:20px;width:52px}
 
+/* Column widths */
+.col-toggle{width:52px}
+.col-app{min-width:160px}
+.col-classes{width:40%}
+.col-status{width:140px}
+.col-action{width:100px}
+
 /* App / class row cells */
 .app-icon{width:28px;height:28px;border-radius:6px;background:var(--gray-100);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .app-name{font-size:14px;font-weight:600;color:var(--t1);line-height:20px}
@@ -163,18 +170,15 @@ td:first-child{padding-left:20px;width:52px}
 /* Status badges */
 .sbadge{display:inline-flex;align-items:center;gap:5px;padding:2px 10px;border-radius:var(--r-full);font-size:12px;font-weight:600;white-space:nowrap;line-height:18px;border:1px solid transparent}
 .sbadge-dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0}
-.sb-working {background:#f0fdf4;color:#15803d;border-color:#bbf7d0}
-.sb-review  {background:#fff7ed;color:#c2410c;border-color:#fed7aa}
-.sb-disabled{background:var(--gray-100);color:var(--gray-500);border-color:var(--gray-200)}
+.sb-enabled  {background:var(--success-100);color:var(--success-700);border-color:#bbf7d0}
+.sb-review   {background:var(--warning-100);color:var(--warning-700);border-color:#fcd34d}
+.sb-disabled {background:var(--gray-100);color:var(--gray-500);border-color:var(--gray-200)}
 
-/* Review / action links */
-.review-link{font-size:13px;font-weight:600;color:var(--brand-700);cursor:pointer;text-decoration:none;white-space:nowrap;background:none;border:none;padding:0;font-family:inherit}
-.review-link:hover{text-decoration:underline}
-.review-link.muted{color:var(--t4);font-weight:500}
-
-/* Add descriptors button */
-.add-desc-btn{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:var(--r-full);font-size:12px;font-weight:500;background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;cursor:pointer;white-space:nowrap}
-.add-desc-btn:hover{background:#fff0dc}
+/* Action links */
+.action-link{font-size:13px;font-weight:600;color:var(--brand-700);cursor:pointer;text-decoration:none;white-space:nowrap;background:none;border:none;padding:0;font-family:inherit}
+.action-link:hover{text-decoration:underline}
+.action-link.muted{color:var(--t4);font-weight:500}
+.action-link.muted:hover{text-decoration:none;cursor:default}
 
 /* ── Toast notification ──────────────────────────────────────── */
 .toast{position:fixed;top:80px;right:24px;z-index:400;background:#fff;border:1px solid var(--bd2);border-radius:var(--r3);box-shadow:var(--sh-md);padding:14px 16px;display:flex;align-items:flex-start;gap:10px;width:340px;transform:translateX(400px);transition:transform .32s cubic-bezier(.34,1.26,.64,1)}
@@ -260,7 +264,6 @@ td:first-child{padding-left:20px;width:52px}
       <div class="nw"><a class="nc"><img src="data/icons/cpu-chip-01.svg" class="ni" alt="AI studio"><span class="nc-flex">AI studio</span><img src="data/icons/chevron-down.svg" class="nchev" alt="" style="transform:rotate(180deg)"></a></div>
       <div class="nw"><a class="nc nc-sub" href="screen-1-ai-manager.html"><span class="nc-flex">AI agent manager</span></a></div>
       <div class="nw"><a class="nc nc-sub nc-sub-active" href="screen-8-superhuman-search.html"><span class="nc-flex">Superhuman search</span></a></div>
-
     </div>
     <div class="sb-grp">
       <div class="sb-grp-inner">
@@ -303,7 +306,7 @@ td:first-child{padding-left:20px;width:52px}
 
     <div class="cw">
 
-      <!-- ── AI Capabilities card (toggle + metrics in one card) ── -->
+      <!-- ── AI Capabilities card ─────────────────────────────── -->
       <div class="cap-card">
         <div class="cap-top">
           <div class="cap-left">
@@ -354,11 +357,11 @@ td:first-child{padding-left:20px;width:52px}
           </div>
           <div class="toolbar-right">
             <div class="search-wrap">
-              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 14 14" style="opacity:.4;flex-shrink:0"><circle cx="6" cy="6" r="4"/><path d="M9.5 9.5L13 13" stroke-linecap="round"/></svg>
+              <svg width="14" height="14" fill="none" stroke="#717680" stroke-width="1.8" viewBox="0 0 14 14" style="opacity:.5;flex-shrink:0"><circle cx="6" cy="6" r="4"/><path d="M9.5 9.5L13 13" stroke-linecap="round"/></svg>
               <input type="text" placeholder="Search…" id="search-input" oninput="filterRows(this.value)">
             </div>
             <button class="filter-btn" title="Filter">
-              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 14 14"><path d="M1 3h12M3.5 7h7M6 11h2" stroke-linecap="round"/></svg>
+              <svg width="14" height="14" fill="none" stroke="#717680" stroke-width="1.8" viewBox="0 0 14 14"><path d="M1 3h12M3.5 7h7M6 11h2" stroke-linecap="round"/></svg>
             </button>
           </div>
         </div>
@@ -366,11 +369,20 @@ td:first-child{padding-left:20px;width:52px}
         <!-- Applications panel -->
         <div id="panel-apps">
           <table>
+            <colgroup>
+              <col class="col-toggle">
+              <col class="col-app">
+              <col class="col-classes">
+              <col class="col-status">
+              <col class="col-action">
+            </colgroup>
             <thead>
               <tr>
                 <th></th>
-                <th>Applications</th>
+                <th>Application</th>
                 <th>Included classes</th>
+                <th>Status</th>
+                <th></th>
               </tr>
             </thead>
             <tbody id="apps-tbody"></tbody>
@@ -380,11 +392,18 @@ td:first-child{padding-left:20px;width:52px}
         <!-- Classes panel -->
         <div id="panel-classes" style="display:none">
           <table>
+            <colgroup>
+              <col class="col-toggle">
+              <col class="col-app">
+              <col class="col-status">
+              <col class="col-action">
+            </colgroup>
             <thead>
               <tr>
                 <th></th>
-                <th>Classes</th>
-                <th>Descriptors</th>
+                <th>Class</th>
+                <th>Status</th>
+                <th></th>
               </tr>
             </thead>
             <tbody id="classes-tbody"></tbody>
@@ -396,25 +415,25 @@ td:first-child{padding-left:20px;width:52px}
   </main>
 </div>
 
-<!-- Toast notification (AI capabilities enabled) -->
+<!-- Toast notification -->
 <div class="toast" id="toast">
   <div class="toast-icon-wrap">
-    <svg width="16" height="13" fill="none" viewBox="0 0 16 13"><path d="M1.5 6.5L6 11 14.5 2" stroke="var(--success-700)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <svg width="16" height="13" fill="none" viewBox="0 0 16 13"><path d="M1.5 6.5L6 11 14.5 2" stroke="#067647" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </div>
   <div style="flex:1;min-width:0">
     <div class="toast-title">AI capabilities enabled</div>
     <div class="toast-desc">You can now configure Superhuman Search across your classes and applications.</div>
   </div>
   <button class="toast-close" onclick="closeToast()">
-    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 14 14"><path d="M3 3l8 8M11 3l-8 8" stroke-linecap="round"/></svg>
+    <svg width="14" height="14" fill="none" stroke="#717680" stroke-width="2" viewBox="0 0 14 14"><path d="M3 3l8 8M11 3l-8 8" stroke-linecap="round"/></svg>
   </button>
 </div>
 
-<!-- "Enable AI Capabilities?" modal (triggered by row toggle when AI is off) -->
+<!-- "Enable AI Capabilities?" modal -->
 <div class="modal-overlay" id="enable-modal">
   <div class="modal">
     <div class="modal-icon">
-      <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="var(--brand-100)"/><path d="M8 12l3 3 5-5" stroke="var(--brand-700)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#dae7ea"/><path d="M8 12l3 3 5-5" stroke="#066074" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
     <div class="modal-title">Enable AI Capabilities?</div>
     <div class="modal-desc" id="modal-desc">To activate the <strong id="modal-item-name">HR Onboarding</strong> application, please confirm that you want to enable AI capabilities.</div>
@@ -428,64 +447,69 @@ td:first-child{padding-left:20px;width:52px}
 <script>
 /* ── Data ─────────────────────────────────────────────────────── */
 var APPS = [
-  { id:'hr',  name:'HR Onboarding',       type:'Custom',   enabled:true,
-    tags:[{l:'Data',c:'dt-blue'},{l:'Code',c:'dt-dark'},{l:'Recruitment',c:'dt-orange'},{l:'Recruitment',c:'dt-orange'},{l:'Recruitment',c:'dt-orange'},{l:'Recruitment',c:'dt-orange'}], more:11, status:'review' },
-  { id:'fin', name:'Finance Automation',  type:'Standard', enabled:false,
-    tags:[{l:'Contracts',c:'dt-gray'},{l:'Contracts',c:'dt-gray'},{l:'Contracts',c:'dt-gray'},{l:'Contracts',c:'dt-gray'},{l:'Invoices',c:'dt-gray'},{l:'Invoices',c:'dt-gray'}], more:11, status:'disabled' },
-  { id:'pol', name:'Policy Hub',          type:'Standard', enabled:true,
-    tags:[{l:'Capital',c:'dt-green'},{l:'Policies',c:'dt-blue'},{l:'Policies',c:'dt-blue'},{l:'Policies',c:'dt-blue'},{l:'Policies',c:'dt-blue'},{l:'Policies',c:'dt-blue'},{l:'Policies',c:'dt-blue'}], more:3, status:'working' },
-  { id:'con', name:'Contract Repository', type:'Standard', enabled:false,
-    tags:[{l:'Resources',c:'dt-gray'},{l:'Management',c:'dt-gray'},{l:'Management',c:'dt-gray'},{l:'Management',c:'dt-gray'},{l:'Management',c:'dt-gray'},{l:'Management',c:'dt-gray'}], more:10, status:'disabled' }
+  {
+    id:'hr', name:'HR Onboarding', type:'Custom', enabled:true,
+    tags:[{l:'Data',c:'dt-blue'},{l:'Code',c:'dt-dark'},{l:'Recruitment',c:'dt-orange'},{l:'Recruitment',c:'dt-orange'},{l:'Recruitment',c:'dt-orange'},{l:'Recruitment',c:'dt-orange'}],
+    more:11, status:'review'
+  },
+  {
+    id:'fin', name:'Finance Automation', type:'Standard', enabled:false,
+    tags:[{l:'Contracts',c:'dt-gray'},{l:'Contracts',c:'dt-gray'},{l:'Contracts',c:'dt-gray'},{l:'Contracts',c:'dt-gray'},{l:'Invoices',c:'dt-gray'},{l:'Invoices',c:'dt-gray'}],
+    more:11, status:'disabled'
+  },
+  {
+    id:'pol', name:'Policy Hub', type:'Standard', enabled:true,
+    tags:[{l:'Capital',c:'dt-green'},{l:'Policies',c:'dt-blue'},{l:'Policies',c:'dt-blue'},{l:'Policies',c:'dt-blue'},{l:'Policies',c:'dt-blue'},{l:'Policies',c:'dt-blue'}],
+    more:3, status:'enabled'
+  },
+  {
+    id:'con', name:'Contract Repository', type:'Standard', enabled:false,
+    tags:[{l:'Resources',c:'dt-gray'},{l:'Resources',c:'dt-gray'},{l:'Resources',c:'dt-gray'},{l:'Resources',c:'dt-gray'},{l:'Resources',c:'dt-gray'}],
+    more:10, status:'disabled'
+  }
 ];
 
 var CLASSES = [
-  { id:'docs',    name:'Documents',             type:'E-file class',   enabled:false, tags:[], more:0, status:'disabled', action:'add' },
-  { id:'contr',   name:'Contracts',             type:'BPM class',      enabled:true,
-    tags:[{l:'Capital',c:'dt-green'},{l:'Policies',c:'dt-blue'},{l:'Policies',c:'dt-blue'},{l:'Policies',c:'dt-blue'},{l:'Policies',c:'dt-blue'},{l:'Policies',c:'dt-blue'},{l:'Policies',c:'dt-blue'}], more:3, status:'working', action:'review' },
-  { id:'hr',      name:'HR',                    type:'Document class', enabled:true,
-    tags:[{l:'Data',c:'dt-blue'},{l:'Code',c:'dt-dark'},{l:'Recruitment',c:'dt-orange'},{l:'Recruitment',c:'dt-orange'},{l:'Recruitment',c:'dt-orange'},{l:'Recruitment',c:'dt-orange'}], more:11, status:'review', action:'review' },
-  { id:'docmgmt', name:'Document Management',   type:'E-file class',   enabled:true, tags:[], more:0, status:'working', action:'add-desc' },
-  { id:'docmg2',  name:'Document Management II',type:'E-file class',   enabled:false,
-    tags:[{l:'Contracts',c:'dt-gray'},{l:'Contracts',c:'dt-gray'},{l:'Contracts',c:'dt-gray'},{l:'Contracts',c:'dt-gray'},{l:'Invoices',c:'dt-gray'},{l:'Invoices',c:'dt-gray'}], more:11, status:'disabled', action:'review' }
+  { id:'docs',   name:'Documents',              type:'E-file class',   enabled:false, status:'disabled' },
+  { id:'contr',  name:'Contracts',              type:'BPM class',      enabled:false, status:'disabled' },
+  { id:'hr',     name:'HR',                     type:'Document class', enabled:false, status:'disabled' },
+  { id:'docmgt', name:'Document Management',    type:'E-file class',   enabled:false, status:'disabled' },
+  { id:'docmg2', name:'Document Management II', type:'E-file class',   enabled:false, status:'disabled' }
 ];
 
 var aiEnabled = true;
 var currentTab = 'apps';
 var toastTimer = null;
-var pendingToggle = null; // {type:'app'|'class', id, cb}
+var pendingToggle = null;
 
 /* ── SVG Icons ────────────────────────────────────────────────── */
 var APP_ICONS = {
-  hr:  '<svg width="14" height="14" fill="none" stroke="var(--brand-600)" stroke-width="1.7" viewBox="0 0 14 14"><circle cx="7" cy="4.5" r="2.5"/><path d="M1.5 13c0-3.03 2.46-5.5 5.5-5.5s5.5 2.47 5.5 5.5" stroke-linecap="round"/></svg>',
-  fin: '<svg width="14" height="14" fill="none" stroke="var(--brand-600)" stroke-width="1.7" viewBox="0 0 14 14"><rect x="1.5" y="3.5" width="11" height="7.5" rx="1.5"/><path d="M1.5 6.5h11M5 9h1.5" stroke-linecap="round"/></svg>',
-  pol: '<svg width="14" height="14" fill="none" stroke="var(--brand-600)" stroke-width="1.7" viewBox="0 0 14 14"><path d="M3 1.5h5.5L11 4.5v8H3z"/><path d="M8 1.5v3.5h3M5 7h4M5 9.5h2.5" stroke-linecap="round"/></svg>',
-  con: '<svg width="14" height="14" fill="none" stroke="var(--brand-600)" stroke-width="1.7" viewBox="0 0 14 14"><path d="M3 1.5h5L11 5v7.5H3z"/><path d="M7.5 1.5V5.5H11M5 7h4M5 9.5h4M5 11.5h2" stroke-linecap="round"/></svg>'
+  hr:  '<svg width="14" height="14" fill="none" stroke="#1f7082" stroke-width="1.7" viewBox="0 0 14 14"><circle cx="7" cy="4.5" r="2.5"/><path d="M1.5 13c0-3.03 2.46-5.5 5.5-5.5s5.5 2.47 5.5 5.5" stroke-linecap="round"/></svg>',
+  fin: '<svg width="14" height="14" fill="none" stroke="#1f7082" stroke-width="1.7" viewBox="0 0 14 14"><rect x="1.5" y="3.5" width="11" height="7.5" rx="1.5"/><path d="M1.5 6.5h11M5 9h1.5" stroke-linecap="round"/></svg>',
+  pol: '<svg width="14" height="14" fill="none" stroke="#1f7082" stroke-width="1.7" viewBox="0 0 14 14"><path d="M3 1.5h5.5L11 4.5v8H3z"/><path d="M8 1.5v3.5h3M5 7h4M5 9.5h2.5" stroke-linecap="round"/></svg>',
+  con: '<svg width="14" height="14" fill="none" stroke="#1f7082" stroke-width="1.7" viewBox="0 0 14 14"><path d="M3 1.5h5L11 5v7.5H3z"/><path d="M7.5 1.5V5.5H11M5 7h4M5 9.5h4M5 11.5h2" stroke-linecap="round"/></svg>'
 };
 var CLASS_ICONS = {
-  docs:    '<svg width="14" height="14" fill="none" stroke="var(--brand-600)" stroke-width="1.7" viewBox="0 0 14 14"><path d="M3 1.5h5L11 5v7.5H3z"/><path d="M7.5 1.5V5.5H11" stroke-linecap="round"/></svg>',
-  contr:   '<svg width="14" height="14" fill="none" stroke="var(--brand-600)" stroke-width="1.7" viewBox="0 0 14 14"><path d="M3 1.5h5L11 5v7.5H3z"/><path d="M5 7.5h4M5 9.5h2.5" stroke-linecap="round"/></svg>',
-  hr:      '<svg width="14" height="14" fill="none" stroke="var(--brand-600)" stroke-width="1.7" viewBox="0 0 14 14"><circle cx="7" cy="4.5" r="2.5"/><path d="M1.5 13c0-3.03 2.46-5.5 5.5-5.5s5.5 2.47 5.5 5.5" stroke-linecap="round"/></svg>',
-  docmgmt: '<svg width="14" height="14" fill="none" stroke="var(--brand-600)" stroke-width="1.7" viewBox="0 0 14 14"><rect x="2" y="2" width="10" height="10" rx="1.5"/><path d="M4.5 5h5M4.5 7.5h5M4.5 10h2.5" stroke-linecap="round"/></svg>',
-  docmg2:  '<svg width="14" height="14" fill="none" stroke="var(--brand-600)" stroke-width="1.7" viewBox="0 0 14 14"><rect x="2" y="2" width="10" height="10" rx="1.5"/><path d="M4.5 5h5M4.5 7.5h3" stroke-linecap="round"/></svg>'
+  docs:   '<svg width="14" height="14" fill="none" stroke="#1f7082" stroke-width="1.7" viewBox="0 0 14 14"><path d="M3 1.5h5L11 5v7.5H3z"/><path d="M7.5 1.5V5.5H11" stroke-linecap="round"/></svg>',
+  contr:  '<svg width="14" height="14" fill="none" stroke="#1f7082" stroke-width="1.7" viewBox="0 0 14 14"><path d="M3 1.5h5L11 5v7.5H3z"/><path d="M5 7.5h4M5 9.5h2.5" stroke-linecap="round"/></svg>',
+  hr:     '<svg width="14" height="14" fill="none" stroke="#1f7082" stroke-width="1.7" viewBox="0 0 14 14"><circle cx="7" cy="4.5" r="2.5"/><path d="M1.5 13c0-3.03 2.46-5.5 5.5-5.5s5.5 2.47 5.5 5.5" stroke-linecap="round"/></svg>',
+  docmgt: '<svg width="14" height="14" fill="none" stroke="#1f7082" stroke-width="1.7" viewBox="0 0 14 14"><rect x="2" y="2" width="10" height="10" rx="1.5"/><path d="M4.5 5h5M4.5 7.5h5M4.5 10h2.5" stroke-linecap="round"/></svg>',
+  docmg2: '<svg width="14" height="14" fill="none" stroke="#1f7082" stroke-width="1.7" viewBox="0 0 14 14"><rect x="2" y="2" width="10" height="10" rx="1.5"/><path d="M4.5 5h5M4.5 7.5h3" stroke-linecap="round"/></svg>'
 };
 
 /* ── Helpers ──────────────────────────────────────────────────── */
 function tagsHTML(tags, more) {
   if (!tags || !tags.length) return '<span style="color:var(--t4);font-size:13px">—</span>';
   var h = tags.map(function(t){ return '<span class="dt '+t.c+'">'+t.l+'</span>'; }).join('');
-  if (more > 0) h += '<span class="dt dt-more">+'+more+'</span>';
+  if (more > 0) h += '<span class="dt dt-more">+'+more+' more</span>';
   return '<div class="dtags">'+h+'</div>';
-}
-
-function emptyTags() {
-  return '<span style="color:var(--t4);font-size:13px">—</span>';
 }
 
 function statusBadge(s) {
   var map = {
-    working : ['sb-working', 'Working'],
-    review  : ['sb-review',  'Needs review'],
-    disabled: ['sb-disabled','Deactivated']
+    enabled : ['sb-enabled',  'Enabled'],
+    review  : ['sb-review',   'Needs review'],
+    disabled: ['sb-disabled', 'Deactivated']
   };
   var v = map[s] || map.disabled;
   return '<span class="sbadge '+v[0]+'"><span class="sbadge-dot"></span>'+v[1]+'</span>';
@@ -497,21 +521,23 @@ function renderApps(filter) {
   var rows = APPS.filter(function(a){ return !filter || a.name.toLowerCase().indexOf(filter)>=0; });
   var html = rows.map(function(a) {
     var isOn = a.enabled && aiEnabled;
-    var showTags = aiEnabled; // show tags whenever main is on, regardless of row state
-    var reviewCls = isOn ? 'review-link' : 'review-link muted';
-    var reviewTxt = aiEnabled ? '<a href="screen-9-ai-search-app.html" class="'+reviewCls+'">Configure</a>' : '';
+    var rowStatus = isOn ? a.status : 'disabled';
+    var configMuted = (!isOn || a.status === 'disabled') ? ' muted' : '';
+    var configLink = '<a href="screen-9-ai-search-app.html" class="action-link'+configMuted+'"'+(configMuted?' onclick="return false;"':'')+'>Configure</a>';
     return '<tr>'
-      + '<td><label class="tog tog-sm" style="margin:0" onclick="onRowToggleClick(event,\'app\',\''+a.id+'\')">'
-      +   '<input type="checkbox"'+(isOn?' checked':'')+' onchange="toggleApp(\''+a.id+'\',this)" style="pointer-events:none">'
+      + '<td class="col-toggle"><label class="tog tog-sm" style="margin:0" onclick="onRowToggleClick(event,\'app\',\''+a.id+'\')">'
+      +   '<input type="checkbox"'+(isOn?' checked':'')+' style="pointer-events:none">'
       +   '<span class="tog-t"></span></label></td>'
-      + '<td><div class="app-cell">'
+      + '<td class="col-app"><div class="app-cell">'
       +   '<div class="app-icon">'+(APP_ICONS[a.id]||'')+'</div>'
       +   '<div class="app-cell-text"><div class="app-name">'+a.name+'</div><div class="app-type">'+a.type+'</div></div>'
       + '</div></td>'
-      + '<td>'+(showTags ? tagsHTML(a.tags, a.more) : emptyTags())+'</td>'
+      + '<td class="col-classes">'+tagsHTML(a.tags, a.more)+'</td>'
+      + '<td class="col-status">'+statusBadge(rowStatus)+'</td>'
+      + '<td class="col-action">'+configLink+'</td>'
       + '</tr>';
   }).join('');
-  document.getElementById('apps-tbody').innerHTML = html || '<tr><td colspan="3" style="text-align:center;padding:36px;color:var(--t4)">No applications match your search.</td></tr>';
+  document.getElementById('apps-tbody').innerHTML = html || '<tr><td colspan="5" style="text-align:center;padding:36px;color:var(--t4)">No applications match your search.</td></tr>';
 }
 
 /* ── Render Classes ───────────────────────────────────────────── */
@@ -520,68 +546,35 @@ function renderClasses(filter) {
   var rows = CLASSES.filter(function(c){ return !filter || c.name.toLowerCase().indexOf(filter)>=0; });
   var html = rows.map(function(c) {
     var isOn = c.enabled && aiEnabled;
-    var showTags = aiEnabled;
-
-    var actionCell = '';
-    if (aiEnabled) {
-      if (c.action === 'review') {
-        actionCell = '<a href="screen-10-ai-search-class.html" class="review-link'+(isOn?'':' muted')+'">Configure</a>';
-      } else if (c.action === 'add') {
-        actionCell = '<span class="review-link muted" style="font-weight:500">Add</span>';
-      } else if (c.action === 'add-desc') {
-        actionCell = '<span style="display:flex;gap:12px;align-items:center">'
-          + '<button class="add-desc-btn">Add descriptors</button>'
-          + '<span class="review-link muted" style="font-weight:500">Add</span>'
-          + '</span>';
-      }
-    }
-
-    var tagsCell = '';
-    if (showTags) {
-      if (c.tags && c.tags.length) {
-        tagsCell = tagsHTML(c.tags, c.more);
-      } else if (isOn && c.action === 'add-desc') {
-        tagsCell = ''; // shown in action cell
-      } else {
-        tagsCell = emptyTags();
-      }
-    } else {
-      tagsCell = emptyTags();
-    }
-
+    var rowStatus = isOn ? c.status : 'disabled';
+    var configLink = '<a href="screen-10-ai-search-class.html" class="action-link muted" onclick="return false;">Configure</a>';
     return '<tr>'
-      + '<td><label class="tog tog-sm" style="margin:0" onclick="onRowToggleClick(event,\'class\',\''+c.id+'\')">'
-      +   '<input type="checkbox"'+(isOn?' checked':'')+' onchange="toggleClass(\''+c.id+'\',this)" style="pointer-events:none">'
+      + '<td class="col-toggle"><label class="tog tog-sm" style="margin:0" onclick="onRowToggleClick(event,\'class\',\''+c.id+'\')">'
+      +   '<input type="checkbox"'+(isOn?' checked':'')+' style="pointer-events:none">'
       +   '<span class="tog-t"></span></label></td>'
-      + '<td><div class="app-cell">'
+      + '<td class="col-app"><div class="app-cell">'
       +   '<div class="app-icon">'+(CLASS_ICONS[c.id]||'')+'</div>'
       +   '<div class="app-cell-text"><div class="app-name">'+c.name+'</div><div class="app-type">'+c.type+'</div></div>'
       + '</div></td>'
-      + '<td>'+tagsCell+'</td>'
+      + '<td class="col-status">'+statusBadge(rowStatus)+'</td>'
+      + '<td class="col-action">'+configLink+'</td>'
       + '</tr>';
   }).join('');
-  document.getElementById('classes-tbody').innerHTML = html || '<tr><td colspan="3" style="text-align:center;padding:36px;color:var(--t4)">No classes match your search.</td></tr>';
+  document.getElementById('classes-tbody').innerHTML = html || '<tr><td colspan="4" style="text-align:center;padding:36px;color:var(--t4)">No classes match your search.</td></tr>';
 }
 
 /* ── Metrics ──────────────────────────────────────────────────── */
 function updateMetrics() {
   var a = aiEnabled ? APPS.filter(function(x){ return x.enabled; }).length : 0;
   var c = aiEnabled ? CLASSES.filter(function(x){ return x.enabled; }).length : 0;
-  var f = aiEnabled ? APPS.concat(CLASSES).filter(function(x){ return x.enabled && x.status==='review'; }).length : 0;
-  setM('m-apps', a);
-  setM('m-classes', c);
-  setM('m-followups', f);
-}
-function setM(id, v) {
-  var el = document.getElementById(id);
-  el.textContent = v;
-  el.className = 'metric-num' + (v > 0 ? ' live' : '');
+  var f = aiEnabled ? APPS.filter(function(x){ return x.enabled && x.status==='review'; }).length : 0;
+  document.getElementById('m-apps').textContent = a;
+  document.getElementById('m-classes').textContent = c;
+  document.getElementById('m-followups').textContent = f;
 }
 
 /* ── Main toggle ──────────────────────────────────────────────── */
-function onMainToggleClick(e) {
-  // Allow normal toggle behavior — no modal for main toggle
-}
+function onMainToggleClick(e) { /* allow normal behavior */ }
 function onMainToggleChange(cb) {
   aiEnabled = cb.checked;
   var badge = document.getElementById('cap-badge');
@@ -593,18 +586,14 @@ function onMainToggleChange(cb) {
     badge.className = 'cap-badge disabled';
     badge.style.display = 'inline-flex';
   }
-  document.getElementById('m-apps').textContent = aiEnabled ? '2' : '0';
-  document.getElementById('m-classes').textContent = aiEnabled ? '37' : '0';
-  document.getElementById('m-followups').textContent = aiEnabled ? '1' : '0';
   render();
 }
 
-/* ── Row toggle — intercept when AI is off ────────────────────── */
+/* ── Row toggle ───────────────────────────────────────────────── */
 function onRowToggleClick(e, type, id) {
   e.preventDefault();
   e.stopPropagation();
   if (aiEnabled) {
-    // AI already on — just toggle normally
     var list = type === 'app' ? APPS : CLASSES;
     var item = list.find(function(x){ return x.id===id; });
     if (!item) return;
@@ -612,7 +601,6 @@ function onRowToggleClick(e, type, id) {
     if (item.enabled && item.status === 'disabled') item.status = 'review';
     render();
   } else {
-    // AI is off — show confirmation modal
     var list = type === 'app' ? APPS : CLASSES;
     var item = list.find(function(x){ return x.id===id; });
     if (!item) return;
@@ -633,13 +621,10 @@ function cancelModal() {
 function confirmModal() {
   document.getElementById('enable-modal').classList.remove('open');
   if (pendingToggle) {
-    // Enable main toggle
     aiEnabled = true;
     var cb = document.getElementById('main-toggle');
     cb.checked = true;
-    var badge = document.getElementById('cap-badge');
-    badge.style.display = 'none';
-    // Enable the specific row
+    document.getElementById('cap-badge').style.display = 'none';
     var list = pendingToggle.type === 'app' ? APPS : CLASSES;
     var item = list.find(function(x){ return x.id===pendingToggle.id; });
     if (item) {
@@ -652,9 +637,6 @@ function confirmModal() {
   }
 }
 
-function toggleApp(id, cb) { /* handled by onRowToggleClick */ }
-function toggleClass(id, cb) { /* handled by onRowToggleClick */ }
-
 /* ── Tab switch ───────────────────────────────────────────────── */
 function switchTab(tab) {
   document.getElementById('tab-apps').className    = 'tab'+(tab==='apps'   ?' active':'');
@@ -663,6 +645,7 @@ function switchTab(tab) {
   document.getElementById('panel-classes').style.display = tab==='classes'? '' : 'none';
   document.getElementById('search-input').value = '';
   currentTab = tab;
+  render();
 }
 
 /* ── Search ───────────────────────────────────────────────────── */
@@ -689,9 +672,6 @@ function render() {
   updateMetrics();
 }
 
-document.getElementById('m-apps').textContent = aiEnabled ? '2' : '0';
-document.getElementById('m-classes').textContent = aiEnabled ? '37' : '0';
-document.getElementById('m-followups').textContent = aiEnabled ? '1' : '0';
 render();
 </script>
 </body>

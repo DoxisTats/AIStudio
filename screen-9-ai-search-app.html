@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Search — Doxis Business Studio</title>
+<title>HR Onboarding — Configure — Doxis Business Studio</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -34,9 +34,10 @@
 body{
   font-family:'Inter var','Inter',system-ui,sans-serif;
   background:var(--bg-s);color:var(--t1);font-size:14px;line-height:1.5;
+  overflow:hidden;
 }
-.app{display:flex;padding-top:var(--hh);min-height:100vh}
-.main{margin-left:var(--sw);flex:1;min-width:0}
+.app{display:flex;padding-top:var(--hh);height:100vh}
+.main{margin-left:var(--sw);flex:1;min-width:0;display:flex;flex-direction:column;height:100%;overflow:hidden}
 .hdr{position:fixed;top:0;left:0;right:0;height:64px;background:url(data/header-bg.png) center/cover #075365;display:flex;align-items:center;justify-content:space-between;padding:0 22px;z-index:200}
 .hdr-brand{display:flex;flex-direction:column;align-items:flex-start;gap:3px;width:134px;flex-shrink:0}
 .hdr-logo-img{width:90px;height:22px;object-fit:contain;display:block}
@@ -64,61 +65,6 @@ body{
 .nc-sub{padding-left:40px;padding-right:12px}
 .nc-sub-active{background:#e6eff1 !important;color:#066074 !important}
 .sb-bot{padding:8px;flex-shrink:0}
-.pg-hdr{padding:28px 32px 20px;max-width:1600px;margin-left:auto;margin-right:auto}
-.pg-title{font-size:24px;font-weight:700;color:var(--t1);line-height:32px}
-.pg-sub{font-size:14px;color:var(--t3);margin-top:4px;line-height:20px}
-.cw{padding:0 32px 48px;display:flex;flex-direction:column;gap:16px;max-width:1600px;margin-left:auto;margin-right:auto}
-.tog{position:relative;display:inline-block;width:44px;height:24px;cursor:pointer;flex-shrink:0}
-.tog input{opacity:0;width:0;height:0;position:absolute}
-.tog-t{position:absolute;inset:0;background:var(--gray-300);border-radius:var(--r-full);transition:background .18s}
-.tog-t::after{content:'';position:absolute;width:20px;height:20px;background:#fff;border-radius:50%;top:2px;left:2px;transition:transform .18s;box-shadow:0 1px 3px rgba(0,0,0,.18)}
-.tog input:checked+.tog-t{background:var(--brand-700)}
-.tog input:checked+.tog-t::after{transform:translateX(20px)}
-.tog-sm{width:36px;height:20px}
-.tog-sm .tog-t::after{width:16px;height:16px}
-.tog-sm input:checked+.tog-t::after{transform:translateX(16px)}
-.main-card{background:#fff;border:1px solid var(--bd2);border-radius:var(--r4);box-shadow:var(--sh-xs);overflow:hidden}
-table{width:100%;border-collapse:collapse}
-thead th{text-align:left;font-size:12px;font-weight:600;color:var(--t4);padding:10px 14px;background:var(--gray-50);border-bottom:1px solid var(--bd2)}
-thead th:first-child{padding-left:20px}
-tbody tr{background:#fff;border-bottom:1px solid var(--bd2);transition:background .08s}
-tbody tr:last-child{border-bottom:none}
-tbody tr:hover{background:var(--gray-25)}
-td{padding:12px 14px;font-size:14px;color:var(--t2);vertical-align:middle}
-td:first-child{padding-left:20px;width:52px}
-.app-icon{width:28px;height:28px;border-radius:6px;background:var(--gray-100);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.app-name{font-size:14px;font-weight:600;color:var(--t1);line-height:20px}
-.app-type{font-size:12px;color:var(--t4);line-height:16px;margin-top:1px}
-.app-cell{display:flex;align-items:center;gap:10px}
-.app-cell-text{display:flex;flex-direction:column}
-.sbadge{display:inline-flex;align-items:center;gap:5px;padding:2px 10px;border-radius:var(--r-full);font-size:12px;font-weight:600;white-space:nowrap;line-height:18px;border:1px solid transparent}
-.sbadge-dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0}
-.sb-configured{background:var(--success-100);color:var(--success-700);border-color:#bbf7d0}
-.sb-subtypes{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}
-.sb-not-configured{background:var(--gray-100);color:var(--gray-500);border-color:var(--gray-200)}
-.review-link{font-size:13px;font-weight:600;color:var(--brand-700);cursor:pointer;text-decoration:none;white-space:nowrap;background:none;border:none;padding:0;font-family:inherit}
-.review-link:hover{text-decoration:underline}
-.review-link.muted{color:var(--t4);font-weight:500}
-.toast{position:fixed;top:80px;right:24px;z-index:400;background:#fff;border:1px solid var(--bd2);border-radius:var(--r3);box-shadow:var(--sh-md);padding:14px 16px;display:flex;align-items:flex-start;gap:10px;width:340px;transform:translateX(400px);transition:transform .32s cubic-bezier(.34,1.26,.64,1)}
-.toast.show{transform:translateX(0)}
-.toast-icon-wrap{width:36px;height:36px;border-radius:50%;background:var(--success-100);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.toast-title{font-size:13px;font-weight:700;color:var(--t1);margin-bottom:2px}
-.toast-desc{font-size:12px;color:var(--t3);line-height:1.5}
-.toast-close{background:none;border:none;cursor:pointer;color:var(--t4);padding:2px;border-radius:4px;flex-shrink:0;margin-top:-2px;line-height:1}
-.toast-close:hover{color:var(--t2)}
-.modal-overlay{position:fixed;inset:0;background:rgba(10,13,18,.45);z-index:500;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
-.modal-overlay.open{opacity:1;pointer-events:all}
-.modal{background:#fff;border-radius:16px;padding:28px 28px 24px;width:440px;box-shadow:0 20px 60px rgba(10,13,18,.25);transform:scale(.96) translateY(8px);transition:transform .2s cubic-bezier(.34,1.2,.64,1)}
-.modal-overlay.open .modal{transform:scale(1) translateY(0)}
-.modal-icon{width:52px;height:52px;border-radius:50%;background:var(--brand-50);border:8px solid var(--brand-25);display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
-.modal-title{font-size:18px;font-weight:700;color:var(--t1);text-align:center;margin-bottom:8px}
-.modal-desc{font-size:14px;color:var(--t3);text-align:center;line-height:1.6;margin-bottom:24px}
-.modal-btns{display:flex;gap:12px}
-.modal-btn{flex:1;padding:10px 18px;border-radius:var(--r2);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .1s,border-color .1s;border:1px solid var(--bd)}
-.modal-btn-cancel{background:#fff;color:var(--t2)}
-.modal-btn-cancel:hover{background:var(--bg-s)}
-.modal-btn-confirm{background:var(--brand-700);color:#fff;border-color:var(--brand-700)}
-.modal-btn-confirm:hover{background:var(--brand-800);border-color:var(--brand-800)}
 .hdr-actions{display:flex;gap:2px}
 .nav-toggle{position:absolute;opacity:0;width:0;height:0;pointer-events:none}
 .hdr-menu-btn{display:none;align-items:center;justify-content:center;width:40px;height:40px;border-radius:6px;background:none;border:none;cursor:pointer;flex-shrink:0}
@@ -135,39 +81,90 @@ td:first-child{padding-left:20px;width:52px}
   .sidebar{transform:translateX(-260px);transition:transform .22s ease;z-index:150}
   .main{margin-left:0 !important}
 }
-.breadcrumb{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--t4);margin-bottom:16px}
-.breadcrumb-sep{color:var(--gray-300)}
-.breadcrumb-current{color:var(--t2);font-weight:600}
-.detail-header-row{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px}
-.detail-title{font-size:24px;font-weight:700;color:var(--t1);line-height:32px}
-.detail-subtitle{font-size:14px;color:var(--t4);margin-top:4px;line-height:20px}
-.btn-primary{display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 18px;background:var(--brand-700);color:#fff;border:none;border-radius:var(--r2);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .1s;white-space:nowrap}
-.btn-primary:hover{background:var(--brand-800)}
-.two-col{display:flex;gap:24px;align-items:flex-start}
-.col-left{width:340px;flex-shrink:0}
-.col-right{flex:1;min-width:0}
-.ctrl-card{background:#fff;border:1px solid var(--bd2);border-radius:var(--r4);box-shadow:var(--sh-xs);padding:20px}
-.ctrl-section-label{font-size:12px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.04em;margin-bottom:12px}
-.ctrl-toggle-row{display:flex;align-items:flex-start;gap:12px}
-.ctrl-toggle-label{font-size:14px;font-weight:600;color:var(--t2);line-height:20px}
-.ctrl-toggle-sub{font-size:12px;color:var(--t4);line-height:16px;margin-top:2px}
-.ctrl-divider{height:1px;background:var(--bd2);margin:20px 0}
-.radio-options{display:flex;flex-direction:column;gap:10px}
-.radio-card{display:flex;align-items:flex-start;gap:12px;border:1px solid var(--bd2);border-radius:var(--r2);padding:12px 14px;cursor:pointer;transition:border-color .12s,background .12s}
-.radio-card.selected{border-color:var(--brand-600);background:var(--brand-50)}
-.radio-outer{width:16px;height:16px;border-radius:50%;border:2px solid var(--gray-300);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;background:#fff;transition:border-color .12s}
-.radio-card.selected .radio-outer{border-color:var(--brand-700)}
-.radio-inner{width:6px;height:6px;border-radius:50%;background:var(--brand-700)}
-.radio-label{font-size:14px;font-weight:600;color:var(--t2);line-height:20px}
-.radio-sub{font-size:12px;color:var(--t4);line-height:16px;margin-top:2px}
-.class-card{background:#fff;border:1px solid var(--bd2);border-radius:var(--r4);box-shadow:var(--sh-xs);overflow:hidden}
-.class-card-hdr{padding:16px 20px;border-bottom:1px solid var(--bd2);background:var(--gray-50);display:flex;align-items:center;justify-content:space-between;gap:12px}
-.class-card-title{font-size:15px;font-weight:700;color:var(--t1);line-height:22px}
-.class-card-sub{font-size:13px;color:var(--t4);margin-top:1px;line-height:18px}
-.class-search-wrap{display:flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--bd);border-radius:var(--r2);padding:5px 10px;width:200px;height:34px;box-shadow:var(--sh-xs)}
-.class-search-wrap input{border:none;outline:none;background:transparent;font-size:13px;color:var(--t1);flex:1;font-family:inherit;min-width:0}
-.class-search-wrap input::placeholder{color:var(--t4)}
-.tbl-footer{text-align:center;font-size:13px;color:var(--t4);padding:12px;border-top:1px solid var(--bd2)}
+.pg-hdr{padding:20px 32px 16px;border-bottom:1px solid var(--bd2);background:#fff;position:relative;flex-shrink:0}
+.pg-hdr-back{display:inline-flex;align-items:center;gap:5px;font-size:13px;color:var(--gray-500);text-decoration:none;margin-bottom:10px}
+.pg-hdr-back:hover{color:var(--t2)}
+.pg-hdr-row2{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.pg-title{font-size:24px;font-weight:700;color:var(--t1);line-height:32px}
+.pg-sub{font-size:13px;color:var(--t4);line-height:1.55;max-width:700px}
+.pg-hdr-actions{position:absolute;top:20px;right:32px;display:flex;align-items:center;gap:8px}
+.btn-cancel{height:36px;padding:0 16px;border-radius:var(--r2);background:#fff;border:1px solid var(--bd);font-size:14px;font-weight:600;color:var(--t2);cursor:pointer;font-family:inherit;transition:background .1s}
+.btn-cancel:hover{background:var(--bg-s)}
+.btn-save{height:36px;padding:0 18px;border-radius:var(--r2);background:var(--brand-700);border:1px solid var(--brand-700);font-size:14px;font-weight:600;color:#fff;cursor:pointer;font-family:inherit;transition:background .1s}
+.btn-save:hover{background:var(--brand-800)}
+.warn-badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:var(--r-full);font-size:12px;font-weight:600;background:var(--warning-100);color:var(--warning-700);border:1px solid #fcd34d;white-space:nowrap}
+.split{display:flex;flex:1;overflow:hidden}
+.left-pane{width:320px;flex-shrink:0;border-right:1px solid var(--bd2);background:#fff;display:flex;flex-direction:column}
+.lp-search-row{padding:12px 16px;border-bottom:1px solid var(--bd2);display:flex;align-items:center;gap:8px}
+.lp-search{flex:1;height:34px;border:1px solid var(--bd);border-radius:var(--r2);padding:0 10px;font-size:13px;color:var(--t1);font-family:inherit;outline:none;background:#fff}
+.lp-search::placeholder{color:var(--t4)}
+.lp-filter-btn{width:28px;height:28px;border-radius:6px;background:#fff;border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;color:var(--t4)}
+.lp-filter-btn:hover{background:var(--bg-s)}
+.class-list{flex:1;overflow-y:auto}
+.class-row{display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--bd2);cursor:pointer;transition:background .08s;position:relative}
+.class-row:hover{background:var(--gray-50)}
+.class-row.selected{background:var(--brand-50);border-left:3px solid var(--brand-600);padding-left:13px}
+.ck{width:16px;height:16px;min-width:16px;border:1.5px solid var(--bd);border-radius:4px;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ck.checked{background:var(--brand-700);border-color:var(--brand-700)}
+.class-info{flex:1;min-width:0}
+.class-name{font-size:14px;font-weight:600;color:var(--t1);line-height:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.class-type{font-size:12px;color:var(--t4);line-height:16px;margin-top:1px}
+.status-badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:var(--r-full);font-size:11px;font-weight:600;white-space:nowrap;line-height:16px;flex-shrink:0;border:1px solid transparent}
+.sb-included{background:var(--success-100);color:var(--success-700);border-color:#bbf7d0}
+.sb-not-included{background:var(--gray-100);color:var(--gray-400);border-color:var(--gray-200)}
+.sb-needs{background:var(--warning-100);color:var(--warning-700);border-color:#fcd34d}
+.right-pane{flex:1;background:var(--gray-50);overflow-y:auto;padding:24px 32px;display:flex;flex-direction:column;gap:20px}
+.detail-top-row{display:flex;align-items:center;gap:10px}
+.detail-title{font-size:20px;font-weight:700;color:var(--t1);line-height:28px}
+.class-type-pill{display:inline-flex;align-items:center;padding:2px 8px;border-radius:var(--r-full);font-size:12px;font-weight:500;background:var(--gray-100);color:var(--gray-600);white-space:nowrap}
+.section{display:flex;flex-direction:column}
+.section-label{font-size:13px;font-weight:600;color:var(--t4);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.desc-textarea{width:100%;min-height:80px;border:1px solid var(--bd);border-radius:var(--r2);padding:12px;font-size:14px;font-family:inherit;color:var(--t1);resize:vertical;outline:none;line-height:1.5;background:#fff}
+.desc-textarea::placeholder{color:var(--t4)}
+.desc-textarea:focus{border-color:var(--brand-400)}
+.entity-filter-row{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.ef-left{display:flex;flex-direction:column}
+.ef-label{font-size:14px;font-weight:600;color:var(--t1)}
+.ef-sub{font-size:13px;color:var(--t4);margin-top:2px}
+.tog{position:relative;display:inline-block;width:44px;height:24px;cursor:pointer;flex-shrink:0}
+.tog input{opacity:0;width:0;height:0;position:absolute}
+.tog-t{position:absolute;inset:0;background:var(--gray-300);border-radius:var(--r-full);transition:background .18s}
+.tog-t::after{content:'';position:absolute;width:20px;height:20px;background:#fff;border-radius:50%;top:2px;left:2px;transition:transform .18s;box-shadow:0 1px 3px rgba(0,0,0,.18)}
+.tog input:checked+.tog-t{background:var(--brand-700)}
+.tog input:checked+.tog-t::after{transform:translateX(20px)}
+.descriptors-empty{border:1px solid var(--bd2);border-radius:var(--r4);padding:40px 24px;background:#fff;text-align:center;display:flex;flex-direction:column;align-items:center}
+.desc-empty-title{font-size:15px;font-weight:600;color:var(--t1);margin-top:12px}
+.desc-empty-sub{font-size:13px;color:var(--t4);margin-top:4px}
+.add-now-btn{display:inline-flex;align-items:center;gap:6px;background:var(--brand-700);color:#fff;border:none;border-radius:var(--r2);padding:10px 20px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:16px;transition:background .1s}
+.add-now-btn:hover{background:var(--brand-800)}
+.modal-overlay{position:fixed;inset:0;background:rgba(10,13,18,.45);z-index:500;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.sem-modal{background:#fff;border-radius:16px;width:540px;padding:28px;box-shadow:0 20px 60px rgba(10,13,18,.25);transform:scale(.96) translateY(8px);transition:transform .2s cubic-bezier(.34,1.2,.64,1)}
+.modal-overlay.open .sem-modal{transform:scale(1) translateY(0)}
+.sem-modal-top{display:flex;align-items:flex-start;gap:10px;margin-bottom:4px}
+.sem-modal-icon{width:20px;height:20px;min-width:20px;border-radius:50%;border:2px solid var(--brand-700);display:block;flex-shrink:0;margin-top:2px}
+.sem-modal-title{font-size:18px;font-weight:700;color:var(--t1);flex:1}
+.sem-modal-close{background:none;border:none;cursor:pointer;color:var(--t4);padding:2px;border-radius:4px;line-height:1;flex-shrink:0}
+.sem-modal-close:hover{color:var(--t2)}
+.sem-modal-sub{font-size:14px;color:var(--t3);line-height:1.55;margin-bottom:20px}
+.sem-entity-row{display:flex;align-items:center;gap:8px;margin-bottom:0}
+.sem-entity-label{font-size:15px;font-weight:700;color:var(--t1)}
+.sem-badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:var(--r-full);font-size:12px;font-weight:600;background:var(--brand-50);color:var(--brand-700);border:1px solid var(--brand-300)}
+.sem-inputs-row{display:flex;gap:12px;margin-top:12px}
+.sem-field{display:flex;flex-direction:column;flex:1}
+.sem-field label{font-size:13px;font-weight:500;color:var(--t2);margin-bottom:4px}
+.sem-field input{height:40px;border:1px solid var(--bd);border-radius:var(--r2);padding:0 12px;font-size:14px;font-family:inherit;color:var(--t1);outline:none;background:#fff}
+.sem-field input::placeholder{color:var(--t4)}
+.sem-field input:focus{border-color:var(--brand-400)}
+.sem-desc-label{font-size:13px;font-weight:500;color:var(--t2);margin-top:16px;margin-bottom:6px;display:block}
+.sem-desc-textarea{width:100%;min-height:80px;border:1px solid var(--bd);border-radius:var(--r2);padding:12px;font-size:14px;font-family:inherit;color:var(--t1);resize:vertical;outline:none;line-height:1.5;background:#fff}
+.sem-desc-textarea::placeholder{color:var(--t4)}
+.sem-desc-textarea:focus{border-color:var(--brand-400)}
+.sem-footer{margin-top:20px;display:flex;justify-content:flex-end;gap:8px}
+.sem-btn-cancel{height:40px;padding:0 16px;border-radius:var(--r2);background:#fff;border:1px solid var(--bd);font-size:14px;font-weight:600;color:var(--t2);cursor:pointer;font-family:inherit;transition:background .1s}
+.sem-btn-cancel:hover{background:var(--bg-s)}
+.sem-btn-add{height:40px;padding:0 20px;border-radius:var(--r2);background:var(--brand-700);border:1px solid var(--brand-700);font-size:14px;font-weight:600;color:#fff;cursor:pointer;font-family:inherit;transition:background .1s}
+.sem-btn-add:hover{background:var(--brand-800)}
 </style>
 </head>
 <body>
@@ -198,194 +195,254 @@ td:first-child{padding-left:20px;width:52px}
 <div class="app">
 
   <nav class="sidebar">
-  <div class="sb-scroll">
-    <div class="sb-grp0">
-      <div class="nw"><a class="nc"><img src="data/icons/bar-chart-square-02.svg" class="ni" alt="Overview"><span class="nc-flex">Overview</span></a></div>
-      <div class="nw"><a class="nc"><img src="data/icons/book-open-01.svg" class="ni" alt="Library"><span class="nc-flex">Library</span></a></div>
-      <div class="nw"><a class="nc"><img src="data/icons/intersect-square.svg" class="ni" alt="Applications"><span class="nc-flex">Applications</span></a></div>
-      <div class="nw"><a class="nc"><img src="data/icons/link-04.svg" class="ni" alt="Integrations"><span class="nc-flex">Integrations</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
-      <div class="nw"><a class="nc"><img src="data/icons/cpu-chip-01.svg" class="ni" alt="AI studio"><span class="nc-flex">AI studio</span><img src="data/icons/chevron-down.svg" class="nchev" alt="" style="transform:rotate(180deg)"></a></div>
-      <div class="nw"><a class="nc nc-sub" href="screen-1-ai-manager.html"><span class="nc-flex">AI agent manager</span></a></div>
-      <div class="nw"><a class="nc nc-sub nc-sub-active" href="screen-8-superhuman-search.html"><span class="nc-flex">Superhuman search</span></a></div>
+    <div class="sb-scroll">
+      <div class="sb-grp0">
+        <div class="nw"><a class="nc"><img src="data/icons/bar-chart-square-02.svg" class="ni" alt="Overview"><span class="nc-flex">Overview</span></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/book-open-01.svg" class="ni" alt="Library"><span class="nc-flex">Library</span></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/intersect-square.svg" class="ni" alt="Applications"><span class="nc-flex">Applications</span></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/link-04.svg" class="ni" alt="Integrations"><span class="nc-flex">Integrations</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/cpu-chip-01.svg" class="ni" alt="AI studio"><span class="nc-flex">AI studio</span><img src="data/icons/chevron-down.svg" class="nchev" alt="" style="transform:rotate(180deg)"></a></div>
+        <div class="nw"><a class="nc nc-sub" href="screen-1-ai-manager.html"><span class="nc-flex">AI agent manager</span></a></div>
+        <div class="nw"><a class="nc nc-sub nc-sub-active" href="screen-8-superhuman-search.html"><span class="nc-flex">Superhuman search</span></a></div>
+      </div>
+      <div class="sb-grp">
+        <div class="sb-grp-inner">
+          <div class="sb-sec-hdr">Configuration</div>
+          <div class="nw"><a class="nc"><img src="data/icons/tool-02.svg" class="ni" alt="General"><span class="nc-flex">General</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+          <div class="nw"><a class="nc"><img src="data/icons/database-02.svg" class="ni" alt="Databases"><span class="nc-flex">Databases</span></a></div>
+          <div class="nw"><a class="nc"><img src="data/icons/data.svg" class="ni" alt="Metadata"><span class="nc-flex">Metadata</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+          <div class="nw"><a class="nc"><img src="data/icons/file-02.svg" class="ni" alt="Document management"><span class="nc-flex">Document management</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+          <div class="nw"><a class="nc"><img src="data/icons/search-sm.svg" class="ni" alt="Search"><span class="nc-flex">Search</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+          <div class="nw"><a class="nc"><img src="data/icons/layout-left.svg" class="ni" alt="Template designer"><span class="nc-flex">Template designer</span><img src="data/icons/link-external-02.svg" class="nchev" alt=""></a></div>
+        </div>
+        <div class="sb-grp-inner">
+          <div class="sb-sec-hdr">Access &amp; Security</div>
+          <div class="nw"><a class="nc"><img src="data/icons/building-07.svg" class="ni" alt="Organization"><span class="nc-flex">Organization</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+          <div class="nw"><a class="nc"><img src="data/icons/lock-unlocked-03.svg" class="ni" alt="Access control"><span class="nc-flex">Access control</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+          <div class="nw"><a class="nc"><img src="data/icons/scale-01.svg" class="ni" alt="Retention rules"><span class="nc-flex">Retention rules</span></a></div>
+        </div>
+        <div class="sb-grp-inner">
+          <div class="sb-sec-hdr">Operations</div>
+          <div class="nw"><a class="nc"><img src="data/icons/clock-fast-forward.svg" class="ni" alt="Timeslices"><span class="nc-flex">Timeslices</span></a></div>
+          <div class="nw"><a class="nc"><img src="data/icons/server-03.svg" class="ni" alt="Agents &amp; Webhooks"><span class="nc-flex">Agents &amp; Webhooks</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+          <div class="nw"><a class="nc"><img src="data/icons/search-sm.svg" class="ni" alt="Fulltext"><span class="nc-flex">Fulltext</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+          <div class="nw"><a class="nc"><img src="data/icons/file-download-01.svg" class="ni" alt="File import (FIPS)"><span class="nc-flex">File import (FIPS)</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+          <div class="nw"><a class="nc"><img src="data/icons/server-04.svg" class="ni" alt="Storage jobs"><span class="nc-flex">Storage jobs</span></a></div>
+          <div class="nw"><a class="nc"><img src="data/icons/bar-chart-square-02.svg" class="ni" alt="System status"><span class="nc-flex">System status</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        </div>
+      </div>
     </div>
-    <div class="sb-grp">
-      <div class="sb-grp-inner">
-        <div class="sb-sec-hdr">Configuration</div>
-        <div class="nw"><a class="nc"><img src="data/icons/tool-02.svg" class="ni" alt="General"><span class="nc-flex">General</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
-        <div class="nw"><a class="nc"><img src="data/icons/database-02.svg" class="ni" alt="Databases"><span class="nc-flex">Databases</span></a></div>
-        <div class="nw"><a class="nc"><img src="data/icons/data.svg" class="ni" alt="Metadata"><span class="nc-flex">Metadata</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
-        <div class="nw"><a class="nc"><img src="data/icons/file-02.svg" class="ni" alt="Document management"><span class="nc-flex">Document management</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
-        <div class="nw"><a class="nc"><img src="data/icons/search-sm.svg" class="ni" alt="Search"><span class="nc-flex">Search</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
-        <div class="nw"><a class="nc"><img src="data/icons/layout-left.svg" class="ni" alt="Template designer"><span class="nc-flex">Template designer</span><img src="data/icons/link-external-02.svg" class="nchev" alt=""></a></div>
-      </div>
-      <div class="sb-grp-inner">
-        <div class="sb-sec-hdr">Access &amp; Security</div>
-        <div class="nw"><a class="nc"><img src="data/icons/building-07.svg" class="ni" alt="Organization"><span class="nc-flex">Organization</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
-        <div class="nw"><a class="nc"><img src="data/icons/lock-unlocked-03.svg" class="ni" alt="Access control"><span class="nc-flex">Access control</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
-        <div class="nw"><a class="nc"><img src="data/icons/scale-01.svg" class="ni" alt="Retention rules"><span class="nc-flex">Retention rules</span></a></div>
-      </div>
-      <div class="sb-grp-inner">
-        <div class="sb-sec-hdr">Operations</div>
-        <div class="nw"><a class="nc"><img src="data/icons/clock-fast-forward.svg" class="ni" alt="Timeslices"><span class="nc-flex">Timeslices</span></a></div>
-        <div class="nw"><a class="nc"><img src="data/icons/server-03.svg" class="ni" alt="Agents &amp; Webhooks"><span class="nc-flex">Agents &amp; Webhooks</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
-        <div class="nw"><a class="nc"><img src="data/icons/search-sm.svg" class="ni" alt="Fulltext"><span class="nc-flex">Fulltext</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
-        <div class="nw"><a class="nc"><img src="data/icons/file-download-01.svg" class="ni" alt="File import (FIPS)"><span class="nc-flex">File import (FIPS)</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
-        <div class="nw"><a class="nc"><img src="data/icons/server-04.svg" class="ni" alt="Storage jobs"><span class="nc-flex">Storage jobs</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
-        <div class="nw"><a class="nc"><img src="data/icons/bar-chart-square-02.svg" class="ni" alt="System status"><span class="nc-flex">System status</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
-      </div>
+    <div class="sb-bot">
+      <div class="nw"><a class="nc"><img src="data/icons/layout-left.svg" class="ni" alt="Collapse menu"><span class="nc-flex">Collapse menu</span></a></div>
     </div>
-  </div>
-  <div class="sb-bot">
-    <div class="nw"><a class="nc"><img src="data/icons/layout-left.svg" class="ni" alt="Collapse menu"><span class="nc-flex">Collapse menu</span></a></div>
-  </div>
   </nav>
 
   <main class="main">
     <div class="pg-hdr">
-      <div class="breadcrumb">
-        <span>AI Search</span>
-        <span class="breadcrumb-sep"><svg width="12" height="12" fill="none" stroke="#d5d7da" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 12 12"><path d="M4.5 2.5L7.5 6l-3 3.5"/></svg></span>
-        <span>Applications</span>
-        <span class="breadcrumb-sep"><svg width="12" height="12" fill="none" stroke="#d5d7da" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 12 12"><path d="M4.5 2.5L7.5 6l-3 3.5"/></svg></span>
-        <span class="breadcrumb-current">HR Onboarding</span>
+      <a href="screen-8-superhuman-search.html" class="pg-hdr-back">
+        <svg width="14" height="14" fill="none" stroke="#717680" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 14 14"><path d="M9 11L5 7l4-4"/></svg>
+        Back
+      </a>
+      <div class="pg-hdr-row2">
+        <h1 class="pg-title">HR Onboarding</h1>
+        <span class="warn-badge">2 classes need semantics</span>
       </div>
-      <div class="detail-header-row">
-        <div>
-          <div class="detail-title">HR Onboarding</div>
-          <div class="detail-subtitle">Custom application · 14 classes</div>
-        </div>
-        <button class="btn-primary">Save changes</button>
+      <p class="pg-sub">Select classes, refine the description and metadata, describe contents and search terms, and add AI metadata with clear meanings.</p>
+      <div class="pg-hdr-actions">
+        <button class="btn-cancel">Cancel</button>
+        <button class="btn-save">Save</button>
       </div>
     </div>
 
-    <div class="cw">
-      <div class="two-col">
+    <div class="split">
 
-        <div class="col-left">
-          <div class="ctrl-card">
-            <div class="ctrl-section-label">AI Search</div>
-            <div class="ctrl-toggle-row">
-              <label class="tog" style="margin-top:2px">
-                <input type="checkbox" checked>
-                <span class="tog-t"></span>
-              </label>
-              <div>
-                <div class="ctrl-toggle-label">Enable AI Search</div>
-                <div class="ctrl-toggle-sub">Make this application searchable with Ask Doxi and Superhuman Search</div>
-              </div>
+      <div class="left-pane">
+        <div class="lp-search-row">
+          <input type="text" class="lp-search" placeholder="Search&hellip;">
+          <button class="lp-filter-btn" title="Filter">
+            <svg width="14" height="14" fill="none" stroke="#717680" stroke-width="1.8" viewBox="0 0 14 14"><path d="M1 3h12M3.5 7h7M6 11h2" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+        <div class="class-list">
+
+          <div class="class-row" onclick="selectClass(this)">
+            <div class="ck checked"><svg width="10" height="8" fill="none" viewBox="0 0 10 8"><path d="M1 4l3 3 5-5" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="class-info">
+              <div class="class-name">Approval</div>
+              <div class="class-type">E-file class</div>
             </div>
-            <div class="ctrl-divider"></div>
-            <div class="ctrl-section-label">Class scope</div>
-            <div class="radio-options">
-              <div class="radio-card selected">
-                <div class="radio-outer">
-                  <div class="radio-inner"></div>
-                </div>
-                <div>
-                  <div class="radio-label">All classes</div>
-                  <div class="radio-sub">AI Search applies to all 14 classes in this application</div>
-                </div>
-              </div>
-              <div class="radio-card">
-                <div class="radio-outer"></div>
-                <div>
-                  <div class="radio-label">Selected classes</div>
-                  <div class="radio-sub">Choose which classes are searchable</div>
-                </div>
-              </div>
+            <span class="status-badge sb-included">Included</span>
+          </div>
+
+          <div class="class-row" onclick="selectClass(this)">
+            <div class="ck"></div>
+            <div class="class-info">
+              <div class="class-name">CustomerWS</div>
+              <div class="class-type">Document class</div>
             </div>
+            <span class="status-badge sb-not-included">Not included</span>
+          </div>
+
+          <div class="class-row selected" onclick="selectClass(this)">
+            <div class="ck checked"><svg width="10" height="8" fill="none" viewBox="0 0 10 8"><path d="M1 4l3 3 5-5" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="class-info">
+              <div class="class-name">CustomDocS</div>
+              <div class="class-type">Document class</div>
+            </div>
+            <span class="status-badge sb-needs">Needs selection</span>
+          </div>
+
+          <div class="class-row" onclick="selectClass(this)">
+            <div class="ck"></div>
+            <div class="class-info">
+              <div class="class-name">CloudWatch</div>
+              <div class="class-type">BPM class</div>
+            </div>
+            <span class="status-badge sb-not-included">Not included</span>
+          </div>
+
+          <div class="class-row" onclick="selectClass(this)">
+            <div class="ck"></div>
+            <div class="class-info">
+              <div class="class-name">ContractAI</div>
+              <div class="class-type">E-file class</div>
+            </div>
+            <span class="status-badge sb-not-included">Not included</span>
+          </div>
+
+          <div class="class-row" onclick="selectClass(this)">
+            <div class="ck checked"><svg width="10" height="8" fill="none" viewBox="0 0 10 8"><path d="M1 4l3 3 5-5" stroke="#ffffff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="class-info">
+              <div class="class-name">Contracts</div>
+              <div class="class-type">Document class</div>
+            </div>
+            <span class="status-badge sb-included">Included</span>
+          </div>
+
+          <div class="class-row" onclick="selectClass(this)">
+            <div class="ck"></div>
+            <div class="class-info">
+              <div class="class-name">Luminose</div>
+              <div class="class-type">E-file class</div>
+            </div>
+            <span class="status-badge sb-not-included">Not included</span>
+          </div>
+
+          <div class="class-row" onclick="selectClass(this)">
+            <div class="ck"></div>
+            <div class="class-info">
+              <div class="class-name">Opportunities</div>
+              <div class="class-type">E-file class</div>
+            </div>
+            <span class="status-badge sb-not-included">Not included</span>
+          </div>
+
+          <div class="class-row" onclick="selectClass(this)">
+            <div class="ck"></div>
+            <div class="class-info">
+              <div class="class-name">ChromaFlow</div>
+              <div class="class-type">E-file class</div>
+            </div>
+            <span class="status-badge sb-not-included">Not included</span>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="right-pane">
+
+        <div class="detail-top-row">
+          <span class="detail-title">CustomDocS</span>
+          <span class="class-type-pill">Document class</span>
+        </div>
+
+        <div class="section">
+          <div class="section-label">Class description</div>
+          <textarea class="desc-textarea" placeholder="Describe what this class contains and which natural-language terms users are likely to use when searching for it."></textarea>
+        </div>
+
+        <div class="section">
+          <div class="entity-filter-row">
+            <div class="ef-left">
+              <div class="ef-label">Entity filter</div>
+              <div class="ef-sub">Filter search results by a specific field value.</div>
+            </div>
+            <label class="tog">
+              <input type="checkbox">
+              <span class="tog-t"></span>
+            </label>
           </div>
         </div>
 
-        <div class="col-right">
-          <div class="class-card">
-            <div class="class-card-hdr">
-              <div>
-                <div class="class-card-title">Classes</div>
-                <div class="class-card-sub">4 of 14 configured</div>
-              </div>
-              <div class="class-search-wrap">
-                <svg width="14" height="14" fill="none" stroke="#717680" stroke-width="1.8" viewBox="0 0 14 14" style="flex-shrink:0;opacity:.6"><circle cx="6" cy="6" r="4"/><path d="M9.5 9.5L13 13" stroke-linecap="round"/></svg>
-                <input type="text" placeholder="Search classes…">
-              </div>
-            </div>
-            <table>
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>Class</th>
-                  <th>Type</th>
-                  <th>Status</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><div class="app-icon"><svg width="14" height="14" fill="none" stroke="#1f7082" stroke-width="1.7" viewBox="0 0 14 14"><circle cx="7" cy="4.5" r="2.5"/><path d="M1.5 13c0-3.03 2.46-5.5 5.5-5.5s5.5 2.47 5.5 5.5" stroke-linecap="round"/></svg></div></td>
-                  <td><div class="app-cell-text"><div class="app-name">Employee e-file</div><div class="app-type">E-file class</div></div></td>
-                  <td><span style="font-size:13px;color:var(--t3)">E-file class</span></td>
-                  <td><span class="sbadge sb-configured"><span class="sbadge-dot"></span>Configured</span></td>
-                  <td><a href="screen-10-ai-search-class.html" class="review-link">Configure</a></td>
-                </tr>
-                <tr>
-                  <td><div class="app-icon"><svg width="14" height="14" fill="none" stroke="#1f7082" stroke-width="1.7" viewBox="0 0 14 14"><path d="M3 1.5h5L11 5v7.5H3z"/><path d="M7.5 1.5V5.5H11" stroke-linecap="round"/></svg></div></td>
-                  <td><div class="app-cell-text"><div class="app-name">Document metadata</div><div class="app-type">Document class</div></div></td>
-                  <td><span style="font-size:13px;color:var(--t3)">Document class</span></td>
-                  <td><span class="sbadge sb-configured"><span class="sbadge-dot"></span>Configured</span></td>
-                  <td><a href="screen-10-ai-search-class.html" class="review-link">Configure</a></td>
-                </tr>
-                <tr>
-                  <td><div class="app-icon"><svg width="14" height="14" fill="none" stroke="#1f7082" stroke-width="1.7" viewBox="0 0 14 14"><path d="M3 1.5h5L11 5v7.5H3z"/><path d="M7.5 1.5V5.5H11" stroke-linecap="round"/></svg></div></td>
-                  <td><div class="app-cell-text"><div class="app-name">HR Onboarding Policy</div><div class="app-type">Document class</div></div></td>
-                  <td><span style="font-size:13px;color:var(--t3)">Document class</span></td>
-                  <td><span class="sbadge sb-subtypes"><span class="sbadge-dot"></span>Uses subtypes</span></td>
-                  <td><a href="screen-10-ai-search-class.html" class="review-link">Configure</a></td>
-                </tr>
-                <tr>
-                  <td><div class="app-icon"><svg width="14" height="14" fill="none" stroke="#1f7082" stroke-width="1.7" viewBox="0 0 14 14"><path d="M3 1.5h5L11 5v7.5H3z"/><path d="M7.5 1.5V5.5H11" stroke-linecap="round"/></svg></div></td>
-                  <td><div class="app-cell-text"><div class="app-name">Leave Request</div><div class="app-type">BPM class</div></div></td>
-                  <td><span style="font-size:13px;color:var(--t3)">BPM class</span></td>
-                  <td><span class="sbadge sb-configured"><span class="sbadge-dot"></span>Configured</span></td>
-                  <td><a href="screen-10-ai-search-class.html" class="review-link">Configure</a></td>
-                </tr>
-                <tr>
-                  <td><div class="app-icon"><svg width="14" height="14" fill="none" stroke="#1f7082" stroke-width="1.7" viewBox="0 0 14 14"><path d="M3 1.5h5L11 5v7.5H3z"/><path d="M7.5 1.5V5.5H11" stroke-linecap="round"/></svg></div></td>
-                  <td><div class="app-cell-text"><div class="app-name">Performance Review</div><div class="app-type">Document class</div></div></td>
-                  <td><span style="font-size:13px;color:var(--t3)">Document class</span></td>
-                  <td><span class="sbadge sb-not-configured"><span class="sbadge-dot"></span>Not configured</span></td>
-                  <td><a href="screen-10-ai-search-class.html" class="review-link muted">Configure</a></td>
-                </tr>
-                <tr>
-                  <td><div class="app-icon"><svg width="14" height="14" fill="none" stroke="#1f7082" stroke-width="1.7" viewBox="0 0 14 14"><path d="M3 1.5h5L11 5v7.5H3z"/><path d="M7.5 1.5V5.5H11" stroke-linecap="round"/></svg></div></td>
-                  <td><div class="app-cell-text"><div class="app-name">Payroll</div><div class="app-type">Document class</div></div></td>
-                  <td><span style="font-size:13px;color:var(--t3)">Document class</span></td>
-                  <td><span class="sbadge sb-not-configured"><span class="sbadge-dot"></span>Not configured</span></td>
-                  <td><a href="screen-10-ai-search-class.html" class="review-link muted">Configure</a></td>
-                </tr>
-                <tr>
-                  <td><div class="app-icon"><svg width="14" height="14" fill="none" stroke="#1f7082" stroke-width="1.7" viewBox="0 0 14 14"><path d="M3 1.5h5L11 5v7.5H3z"/><path d="M7.5 1.5V5.5H11" stroke-linecap="round"/></svg></div></td>
-                  <td><div class="app-cell-text"><div class="app-name">Approved folders</div><div class="app-type">E-file class</div></div></td>
-                  <td><span style="font-size:13px;color:var(--t3)">E-file class</span></td>
-                  <td><span class="sbadge sb-not-configured"><span class="sbadge-dot"></span>Not configured</span></td>
-                  <td><a href="screen-10-ai-search-class.html" class="review-link muted">Configure</a></td>
-                </tr>
-                <tr>
-                  <td><div class="app-icon"><svg width="14" height="14" fill="none" stroke="#1f7082" stroke-width="1.7" viewBox="0 0 14 14"><path d="M3 1.5h5L11 5v7.5H3z"/><path d="M7.5 1.5V5.5H11" stroke-linecap="round"/></svg></div></td>
-                  <td><div class="app-cell-text"><div class="app-name">Salary documents</div><div class="app-type">Document class</div></div></td>
-                  <td><span style="font-size:13px;color:var(--t3)">Document class</span></td>
-                  <td><span class="sbadge sb-not-configured"><span class="sbadge-dot"></span>Not configured</span></td>
-                  <td><a href="screen-10-ai-search-class.html" class="review-link muted">Configure</a></td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="tbl-footer">Showing 8 of 14 classes</div>
+        <div class="section">
+          <div class="section-label">Descriptors</div>
+          <div class="descriptors-empty">
+            <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <rect x="3" y="3" width="8" height="8" rx="1.5" stroke="#066074" stroke-width="1.8"/>
+              <rect x="13" y="3" width="8" height="8" rx="1.5" stroke="#066074" stroke-width="1.8"/>
+              <rect x="3" y="13" width="8" height="8" rx="1.5" stroke="#066074" stroke-width="1.8"/>
+              <rect x="13" y="13" width="8" height="8" rx="1.5" stroke="#066074" stroke-width="1.8"/>
+            </svg>
+            <div class="desc-empty-title">No descriptors available</div>
+            <div class="desc-empty-sub">Add descriptors to improve search</div>
+            <button class="add-now-btn" onclick="openModal()">
+              <svg width="14" height="14" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" viewBox="0 0 14 14"><line x1="7" y1="2" x2="7" y2="12"/><line x1="2" y1="7" x2="12" y2="7"/></svg>
+              Add now
+            </button>
           </div>
         </div>
 
       </div>
+
     </div>
   </main>
 </div>
 
+<div class="modal-overlay" id="new-semantic-modal">
+  <div class="sem-modal">
+    <div class="sem-modal-top">
+      <span class="sem-modal-icon"></span>
+      <span class="sem-modal-title">New Semantic</span>
+      <button class="sem-modal-close" onclick="closeModal()">
+        <svg width="16" height="16" fill="none" stroke="#717680" stroke-width="2" stroke-linecap="round" viewBox="0 0 16 16"><line x1="4" y1="4" x2="12" y2="12"/><line x1="12" y1="4" x2="4" y2="12"/></svg>
+      </button>
+    </div>
+    <p class="sem-modal-sub">This helps AI interpret and understand your classes more effectively.</p>
+    <div class="sem-entity-row">
+      <span class="sem-entity-label">Entity Definition</span>
+      <span class="sem-badge">Fulltext: Content</span>
+    </div>
+    <div class="sem-inputs-row">
+      <div class="sem-field">
+        <label>Name</label>
+        <input type="text" placeholder="Add a name">
+      </div>
+      <div class="sem-field">
+        <label>Filter value</label>
+        <input type="text" placeholder="Add a value">
+      </div>
+    </div>
+    <label class="sem-desc-label">Description</label>
+    <textarea class="sem-desc-textarea" placeholder="Describe what this class contains and which natural-language terms users are likely to use when searching for it."></textarea>
+    <div class="sem-footer">
+      <button class="sem-btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="sem-btn-add">Add</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function selectClass(row) {
+  var rows = document.querySelectorAll('.class-row');
+  rows.forEach(function(r){ r.classList.remove('selected'); });
+  row.classList.add('selected');
+}
+function openModal() {
+  document.getElementById('new-semantic-modal').classList.add('open');
+}
+function closeModal() {
+  document.getElementById('new-semantic-modal').classList.remove('open');
+}
+</script>
 </body>
 </html>
