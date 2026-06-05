@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="preconnect" href="https://rsms.me/">
+<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Search — Doxis Business Studio</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gray-25:#fdfdfd;--gray-50:#fafafa;--gray-100:#f5f5f5;
+  --gray-200:#e9eaeb;--gray-300:#d5d7da;--gray-400:#a4a7ae;
+  --gray-500:#717680;--gray-600:#535862;--gray-700:#414651;
+  --gray-800:#252b37;--gray-900:#181d27;
+  --brand-25:#f3f7f8;--brand-50:#e6eff1;--brand-100:#dae7ea;
+  --brand-300:#9bbfc7;--brand-400:#6aa0ac;--brand-500:#388090;
+  --brand-600:#1f7082;--brand-700:#066074;--brand-800:#075365;
+  --error-100:#fee4e2;--error-500:#f04438;--error-700:#b42318;
+  --warning-100:#fef0c7;--warning-500:#f79009;--warning-700:#b54708;
+  --success-100:#dcfae6;--success-500:#17b26a;--success-700:#067647;
+  --bg:#ffffff;--bg-s:var(--gray-50);
+  --bd:var(--gray-300);--bd2:var(--gray-200);
+  --t1:var(--gray-900);--t2:var(--gray-700);--t3:var(--gray-600);--t4:var(--gray-500);
+  --r:6px;--r2:8px;--r3:10px;--r4:12px;--r-full:9999px;
+  --sw:260px;--hh:64px;
+  --sh-xs:0 1px 2px 0 rgba(10,13,18,.05);
+  --sh-sm:0 1px 3px 0 rgba(10,13,18,.1),0 1px 2px -1px rgba(10,13,18,.1);
+  --sh-md:0 4px 8px -2px rgba(10,13,18,.1),0 2px 4px -2px rgba(10,13,18,.06);
+}
+body{
+  font-family:'Inter var','Inter',system-ui,sans-serif;
+  background:var(--bg-s);color:var(--t1);font-size:14px;line-height:1.5;
+}
+.app{display:flex;padding-top:var(--hh);min-height:100vh}
+.main{margin-left:var(--sw);flex:1;min-width:0}
+
+.hdr{position:fixed;top:0;left:0;right:0;height:64px;background:url(data/header-bg.png) center/cover #075365;display:flex;align-items:center;justify-content:space-between;padding:0 22px;z-index:200}
+.hdr-brand{display:flex;flex-direction:column;align-items:flex-start;gap:3px;width:134px;flex-shrink:0}
+.hdr-logo-img{width:90px;height:22px;object-fit:contain;display:block}
+.hdr-bs{font-family:'Poppins','Inter',sans-serif;font-size:10px;font-weight:500;color:#fff;line-height:12px;white-space:nowrap}
+.hdr-search{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.2);border:1px solid #6aa0ac;border-radius:8px;padding:8px 12px;width:496px;flex-shrink:0}
+.hdr-search-text{font-family:'Inter var','Inter',sans-serif;font-size:16px;color:#fff;flex:1}
+.hdr-si{width:20px;height:20px;min-width:16px;min-height:16px;flex-shrink:0;display:block;filter:brightness(0) invert(1)}
+.hdr-right{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.hdr-btn{width:40px;height:40px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:6px}
+.hdr-btn:hover{background:rgba(255,255,255,.1)}
+.hdr-avatar-wrap{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.7);overflow:hidden;cursor:pointer;flex-shrink:0}
+.hdr-avatar{width:100%;height:100%;object-fit:cover;display:block}
+
+.sidebar{width:260px;background:#fff;border-right:1px solid #e9eaeb;position:fixed;top:64px;bottom:0;left:0;display:flex;flex-direction:column;overflow:hidden}
+.sb-scroll{flex:1;overflow-y:auto}
+.sb-grp0{padding:8px}
+.sb-grp{padding:8px;display:flex;flex-direction:column;gap:16px}
+.sb-grp-inner{display:flex;flex-direction:column}
+.sb-sec-hdr{height:28px;padding:4px 8px;display:flex;align-items:center;font-family:'Inter var','Inter',sans-serif;font-size:12px;font-weight:600;color:#717680;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nw{padding:2px 0}
+.nc{display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:6px;background:#fff;font-family:'Inter var','Inter',sans-serif;font-size:14px;font-weight:500;color:#414651;cursor:pointer;text-decoration:none;transition:background .1s}
+.nc:hover{background:#f5f5f5}
+.ni{width:20px;height:20px;min-width:16px;min-height:16px;flex-shrink:0;display:block}
+.nchev{width:16px;height:16px;min-width:16px;min-height:16px;flex-shrink:0;display:block;margin-left:auto}
+.nc-flex{flex:1;min-width:0}
+.nc-sub{padding-left:40px;padding-right:12px}
+.nc-sub-active{background:#e6eff1 !important;color:#066074 !important}
+.sb-bot{padding:8px;flex-shrink:0}
+
+.tog{position:relative;display:inline-block;width:44px;height:24px;cursor:pointer;flex-shrink:0}
+.tog input{opacity:0;width:0;height:0;position:absolute}
+.tog-t{position:absolute;inset:0;background:var(--gray-300);border-radius:var(--r-full);transition:background .18s}
+.tog-t::after{content:'';position:absolute;width:20px;height:20px;background:#fff;border-radius:50%;top:2px;left:2px;transition:transform .18s;box-shadow:0 1px 3px rgba(0,0,0,.18)}
+.tog input:checked+.tog-t{background:var(--brand-700)}
+.tog input:checked+.tog-t::after{transform:translateX(20px)}
+
+.hdr-actions{display:flex;gap:2px}
+.nav-toggle{position:absolute;opacity:0;width:0;height:0;pointer-events:none}
+.hdr-menu-btn{display:none;align-items:center;justify-content:center;width:40px;height:40px;border-radius:6px;background:none;border:none;cursor:pointer;flex-shrink:0}
+.hdr-menu-btn:hover{background:rgba(255,255,255,.1)}
+.hdr-menu-icon{display:block}
+.hdr-close-icon{display:none}
+.nav-toggle:checked ~ .app .sidebar{transform:translateX(0) !important;box-shadow:4px 0 24px rgba(0,0,0,.15)}
+.nav-toggle:checked ~ header .hdr-menu-icon{display:none}
+.nav-toggle:checked ~ header .hdr-close-icon{display:block}
+.nav-toggle:checked ~ .app::before{content:'';position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:149}
+@media (max-width:1023px){
+  .hdr-menu-btn{display:flex}
+  .hdr-search{width:auto;flex:1;max-width:360px}
+  .sidebar{transform:translateX(-260px);transition:transform .22s ease;z-index:150}
+  .main{margin-left:0 !important}
+}
+
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--t4);margin-bottom:8px}
+.breadcrumb a{color:var(--t4);text-decoration:none}
+.breadcrumb a:hover{color:var(--brand-700);text-decoration:underline}
+.breadcrumb-sep{color:var(--gray-300)}
+
+.pg-hdr{padding:28px 32px 20px;max-width:1600px;margin-left:auto;margin-right:auto}
+.cw{padding:0 32px 48px;display:flex;flex-direction:column;gap:16px;max-width:752px;margin-left:auto;margin-right:auto;width:100%}
+
+.page-header-row{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:24px}
+.page-header-left{}
+.page-title{font-size:24px;font-weight:700;color:var(--t1);line-height:32px}
+.page-title-meta{display:flex;align-items:center;gap:8px;margin-top:6px;flex-wrap:wrap}
+.meta-sep{color:var(--gray-300);font-size:14px}
+.page-header-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+
+.pill-gray{display:inline-flex;align-items:center;padding:2px 10px;border-radius:var(--r-full);font-size:12px;font-weight:600;background:var(--gray-100);color:var(--gray-600);border:1px solid var(--gray-200);white-space:nowrap;line-height:18px}
+
+.btn-secondary{display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 16px;border-radius:var(--r2);font-size:14px;font-weight:600;color:var(--t2);background:#fff;border:1px solid var(--bd);cursor:pointer;font-family:inherit;white-space:nowrap;transition:background .1s,border-color .1s}
+.btn-secondary:hover{background:var(--gray-50);border-color:var(--bd)}
+.btn-primary{display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 16px;border-radius:var(--r2);font-size:14px;font-weight:600;color:#fff;background:var(--brand-700);border:1px solid var(--brand-700);cursor:pointer;font-family:inherit;white-space:nowrap;transition:background .1s}
+.btn-primary:hover{background:var(--brand-800);border-color:var(--brand-800)}
+
+.card{background:#fff;border:1px solid var(--bd2);border-radius:var(--r4);box-shadow:var(--sh-xs);overflow:hidden}
+
+.card-header{padding:20px 24px;border-bottom:1px solid var(--bd2)}
+.card-header-title{font-size:15px;font-weight:700;color:var(--t1);line-height:22px}
+.card-header-sub{font-size:13px;color:var(--t3);margin-top:3px;line-height:1.5}
+
+table{width:100%;border-collapse:collapse}
+thead th{text-align:left;font-size:12px;font-weight:600;color:var(--t4);padding:10px 14px;background:var(--gray-50);border-bottom:1px solid var(--bd2)}
+thead th:first-child{padding-left:24px}
+thead th.th-center{text-align:center}
+tbody tr{background:#fff;border-bottom:1px solid var(--bd2)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:hover{background:var(--gray-25)}
+td{padding:12px 14px;font-size:14px;color:var(--t2);vertical-align:middle}
+td:first-child{padding-left:24px}
+td.td-center{text-align:center}
+
+.ck{display:inline-flex;align-items:center;cursor:pointer;position:relative;width:20px;height:20px}
+.ck input{position:absolute;opacity:0;width:0;height:0}
+.ck-box{width:16px;height:16px;border-radius:4px;border:1.5px solid var(--gray-300);background:#fff;display:flex;align-items:center;justify-content:center;transition:background .12s,border-color .12s;flex-shrink:0}
+.ck input:checked+.ck-box{background:var(--brand-700);border-color:var(--brand-700);background-image:url("data:image/svg+xml,%3Csvg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4L3.5 6.5L9 1' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center;background-size:10px 8px}
+
+.drag-handle{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;cursor:grab;opacity:.45}
+.drag-handle:hover{opacity:.7}
+
+.card-footer{padding:12px 24px;border-top:1px solid var(--bd2);background:var(--gray-50)}
+
+.add-link{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:600;color:var(--brand-700);background:none;border:none;cursor:pointer;font-family:inherit;padding:0;line-height:20px}
+.add-link:hover{text-decoration:underline}
+
+.card-body{padding:20px 24px}
+
+.filter-row{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.filter-row-left{flex:1;min-width:0}
+.filter-label{font-size:14px;font-weight:600;color:var(--t1);line-height:20px}
+.filter-sub{font-size:13px;color:var(--t3);margin-top:4px;max-width:480px;line-height:1.5}
+
+.select-disabled{height:36px;width:200px;border:1px solid var(--gray-300);border-radius:var(--r2);background:var(--gray-100);color:var(--gray-400);font-size:13px;font-family:inherit;padding:0 10px;cursor:not-allowed;appearance:none;-webkit-appearance:none;pointer-events:none}
+.filter-desc-row{margin-top:16px;display:flex;flex-direction:column;gap:6px}
+.filter-desc-label{font-size:13px;font-weight:600;color:var(--t4)}
+.filter-helper{font-size:12px;color:var(--t4)}
+
+.profiles-card-header{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;border-bottom:1px solid var(--bd2);background:var(--gray-50)}
+.profiles-header-left{font-size:15px;font-weight:700;color:var(--t1)}
+.profiles-header-right{font-size:13px;color:var(--t4)}
+
+.profile-row{padding:16px 24px;display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--bd2)}
+.profile-row:last-of-type{border-bottom:none}
+.profile-badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:var(--r-full);font-size:12px;font-weight:600;background:var(--brand-50);color:var(--brand-700);border:1px solid var(--brand-300);white-space:nowrap;line-height:18px}
+.profile-name{font-size:14px;font-weight:500;color:var(--t2);flex:1}
+
+.review-link{font-size:13px;font-weight:600;color:var(--brand-700);cursor:pointer;text-decoration:none;white-space:nowrap;background:none;border:none;padding:0;font-family:inherit}
+.review-link:hover{text-decoration:underline}
+
+.profiles-footer{padding:12px 24px;border-top:1px solid var(--bd2);background:var(--gray-50)}
+.profiles-footer-note{font-size:13px;color:var(--t4);font-style:italic;line-height:1.5}
+
+.preview-result{border:1px solid var(--bd2);border-radius:var(--r3);padding:16px;background:var(--gray-50)}
+.preview-result-top{display:flex;align-items:center;gap:6px}
+.preview-result-class{font-size:12px;font-weight:600;color:var(--brand-700)}
+.preview-result-app{font-size:12px;color:var(--t4)}
+.preview-result-sep{color:var(--gray-300);font-size:12px}
+.preview-result-title{font-size:15px;font-weight:600;color:var(--t1);margin-top:8px;line-height:22px}
+.preview-pills{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.preview-pill{display:inline-flex;align-items:center;padding:2px 8px;border-radius:var(--r-full);font-size:12px;font-weight:500;line-height:18px;border:1px solid transparent;white-space:nowrap}
+.preview-pill-gray{background:var(--gray-100);color:var(--gray-600);border-color:var(--gray-200)}
+.preview-pill-green{background:#f0fdf4;color:#15803d;border-color:#bbf7d0}
+.preview-result-meta{font-size:12px;color:var(--t4);margin-top:10px}
+
+.modal-overlay{position:fixed;inset:0;background:rgba(10,13,18,.45);z-index:500;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{background:#fff;border-radius:16px;padding:28px 28px 24px;width:440px;box-shadow:0 20px 60px rgba(10,13,18,.25);transform:scale(.96) translateY(8px);transition:transform .2s cubic-bezier(.34,1.2,.64,1)}
+.modal-overlay.open .modal{transform:scale(1) translateY(0)}
+.modal-icon{width:52px;height:52px;border-radius:50%;background:var(--brand-50);border:8px solid var(--brand-25);display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.modal-title{font-size:18px;font-weight:700;color:var(--t1);text-align:center;margin-bottom:8px}
+.modal-desc{font-size:14px;color:var(--t3);text-align:center;line-height:1.6;margin-bottom:24px}
+.modal-btns{display:flex;gap:12px}
+.modal-btn{flex:1;padding:10px 18px;border-radius:var(--r2);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .1s,border-color .1s;border:1px solid var(--bd)}
+.modal-btn-cancel{background:#fff;color:var(--t2)}
+.modal-btn-cancel:hover{background:var(--bg-s)}
+.modal-btn-confirm{background:var(--brand-700);color:#fff;border-color:var(--brand-700)}
+.modal-btn-confirm:hover{background:var(--brand-800);border-color:var(--brand-800)}
+</style>
+</head>
+<body>
+
+<input type="checkbox" id="nav-toggle" class="nav-toggle">
+<header class="hdr">
+  <label for="nav-toggle" class="hdr-menu-btn">
+    <span class="hdr-menu-icon"><svg width="20" height="20" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="1.8" stroke-linecap="round" viewBox="0 0 20 20"><line x1="3" y1="6" x2="17" y2="6"/><line x1="3" y1="10" x2="17" y2="10"/><line x1="3" y1="14" x2="17" y2="14"/></svg></span>
+    <span class="hdr-close-icon"><svg width="20" height="20" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="1.8" stroke-linecap="round" viewBox="0 0 20 20"><line x1="5" y1="5" x2="15" y2="15"/><line x1="15" y1="5" x2="5" y2="15"/></svg></span>
+  </label>
+  <div class="hdr-brand">
+    <img src="data/doxis-logo.svg" alt="DOXIS" class="hdr-logo-img">
+    <span class="hdr-bs">Business Studio</span>
+  </div>
+  <div class="hdr-search">
+    <img src="data/icons/search-lg.svg" class="hdr-si" alt="">
+    <span class="hdr-search-text">Search</span>
+  </div>
+  <div class="hdr-right">
+    <div class="hdr-actions">
+      <button class="hdr-btn"><img src="data/icons/bell-01.svg" class="hdr-si" alt=""></button>
+      <button class="hdr-btn"><img src="data/icons/help-circle.svg" class="hdr-si" alt=""></button>
+    </div>
+    <div class="hdr-avatar-wrap"><img src="data/avatar.png" class="hdr-avatar" alt="TS"></div>
+  </div>
+</header>
+
+<div class="app">
+
+  <nav class="sidebar">
+    <div class="sb-scroll">
+      <div class="sb-grp0">
+        <div class="nw"><a class="nc"><img src="data/icons/bar-chart-square-02.svg" class="ni" alt="Overview"><span class="nc-flex">Overview</span></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/book-open-01.svg" class="ni" alt="Library"><span class="nc-flex">Library</span></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/intersect-square.svg" class="ni" alt="Applications"><span class="nc-flex">Applications</span></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/link-04.svg" class="ni" alt="Integrations"><span class="nc-flex">Integrations</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        <div class="nw"><a class="nc"><img src="data/icons/cpu-chip-01.svg" class="ni" alt="AI studio"><span class="nc-flex">AI studio</span><img src="data/icons/chevron-down.svg" class="nchev" alt="" style="transform:rotate(180deg)"></a></div>
+        <div class="nw"><a class="nc nc-sub" href="screen-1-ai-manager.html"><span class="nc-flex">AI agent manager</span></a></div>
+        <div class="nw"><a class="nc nc-sub nc-sub-active" href="screen-8-superhuman-search.html"><span class="nc-flex">Superhuman search</span></a></div>
+      </div>
+      <div class="sb-grp">
+        <div class="sb-grp-inner">
+          <div class="sb-sec-hdr">Configuration</div>
+          <div class="nw"><a class="nc"><img src="data/icons/tool-02.svg" class="ni" alt="General"><span class="nc-flex">General</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+          <div class="nw"><a class="nc"><img src="data/icons/database-02.svg" class="ni" alt="Databases"><span class="nc-flex">Databases</span></a></div>
+          <div class="nw"><a class="nc"><img src="data/icons/data.svg" class="ni" alt="Metadata"><span class="nc-flex">Metadata</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+          <div class="nw"><a class="nc"><img src="data/icons/file-02.svg" class="ni" alt="Document management"><span class="nc-flex">Document management</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+          <div class="nw"><a class="nc"><img src="data/icons/search-sm.svg" class="ni" alt="Search"><span class="nc-flex">Search</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+          <div class="nw"><a class="nc"><img src="data/icons/layout-left.svg" class="ni" alt="Template designer"><span class="nc-flex">Template designer</span><img src="data/icons/link-external-02.svg" class="nchev" alt=""></a></div>
+        </div>
+        <div class="sb-grp-inner">
+          <div class="sb-sec-hdr">Access &amp; Security</div>
+          <div class="nw"><a class="nc"><img src="data/icons/building-07.svg" class="ni" alt="Organization"><span class="nc-flex">Organization</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+          <div class="nw"><a class="nc"><img src="data/icons/lock-unlocked-03.svg" class="ni" alt="Access control"><span class="nc-flex">Access control</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+          <div class="nw"><a class="nc"><img src="data/icons/scale-01.svg" class="ni" alt="Retention rules"><span class="nc-flex">Retention rules</span></a></div>
+        </div>
+        <div class="sb-grp-inner">
+          <div class="sb-sec-hdr">Operations</div>
+          <div class="nw"><a class="nc"><img src="data/icons/clock-fast-forward.svg" class="ni" alt="Timeslices"><span class="nc-flex">Timeslices</span></a></div>
+          <div class="nw"><a class="nc"><img src="data/icons/server-03.svg" class="ni" alt="Agents &amp; Webhooks"><span class="nc-flex">Agents &amp; Webhooks</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+          <div class="nw"><a class="nc"><img src="data/icons/search-sm.svg" class="ni" alt="Fulltext"><span class="nc-flex">Fulltext</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+          <div class="nw"><a class="nc"><img src="data/icons/file-download-01.svg" class="ni" alt="File import (FIPS)"><span class="nc-flex">File import (FIPS)</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+          <div class="nw"><a class="nc"><img src="data/icons/server-04.svg" class="ni" alt="Storage jobs"><span class="nc-flex">Storage jobs</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+          <div class="nw"><a class="nc"><img src="data/icons/bar-chart-square-02.svg" class="ni" alt="System status"><span class="nc-flex">System status</span><img src="data/icons/chevron-down.svg" class="nchev" alt=""></a></div>
+        </div>
+      </div>
+    </div>
+    <div class="sb-bot">
+      <div class="nw"><a class="nc"><img src="data/icons/layout-left.svg" class="ni" alt="Collapse menu"><span class="nc-flex">Collapse menu</span></a></div>
+    </div>
+  </nav>
+
+  <main class="main">
+    <div class="pg-hdr">
+      <div class="breadcrumb">
+        <a href="screen-8-superhuman-search.html">AI Search</a>
+        <span class="breadcrumb-sep"><svg width="12" height="12" fill="none" stroke="#d5d7da" stroke-width="1.8" stroke-linecap="round" viewBox="0 0 12 12"><path d="M4.5 2.5L7.5 6l-3 3.5"/></svg></span>
+        <a href="screen-8-superhuman-search.html">Class library</a>
+        <span class="breadcrumb-sep"><svg width="12" height="12" fill="none" stroke="#d5d7da" stroke-width="1.8" stroke-linecap="round" viewBox="0 0 12 12"><path d="M4.5 2.5L7.5 6l-3 3.5"/></svg></span>
+        <span style="color:var(--t2)">Employee e-file</span>
+      </div>
+    </div>
+
+    <div class="cw">
+
+      <div class="page-header-row">
+        <div class="page-header-left">
+          <div class="page-title">Employee e-file</div>
+          <div class="page-title-meta">
+            <span class="pill-gray">E-file class</span>
+            <span class="meta-sep">·</span>
+            <span style="font-size:13px;color:var(--t4)">Used in 3 applications</span>
+            <span class="meta-sep">·</span>
+            <span style="font-size:13px;color:var(--t4);font-style:italic">Editing global class config</span>
+          </div>
+        </div>
+        <div class="page-header-right">
+          <button class="btn-secondary">Discard</button>
+          <button class="btn-primary">Save changes</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-header-title">Included descriptors</div>
+          <div class="card-header-sub">Define what semantic fields this class exposes for AI Search indexing.</div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Field name</th>
+              <th>Type</th>
+              <th class="th-center">Searchable</th>
+              <th class="th-center">Filterable</th>
+              <th class="th-center">Sortable</th>
+              <th style="width:40px"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-size:14px;font-weight:500;color:var(--t1)">Document title</td>
+              <td style="font-size:13px;color:var(--t4)">Text</td>
+              <td class="td-center"><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td>
+              <td class="td-center"><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td>
+              <td class="td-center"><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td>
+              <td class="td-center"><span class="drag-handle"><svg width="14" height="14" fill="none" viewBox="0 0 14 14"><circle cx="5" cy="3.5" r="1.2" fill="#d5d7da"/><circle cx="9" cy="3.5" r="1.2" fill="#d5d7da"/><circle cx="5" cy="7" r="1.2" fill="#d5d7da"/><circle cx="9" cy="7" r="1.2" fill="#d5d7da"/><circle cx="5" cy="10.5" r="1.2" fill="#d5d7da"/><circle cx="9" cy="10.5" r="1.2" fill="#d5d7da"/></svg></span></td>
+            </tr>
+            <tr>
+              <td style="font-size:14px;font-weight:500;color:var(--t1)">Employee ID</td>
+              <td style="font-size:13px;color:var(--t4)">Text</td>
+              <td class="td-center"><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td>
+              <td class="td-center"><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td>
+              <td class="td-center"><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td>
+              <td class="td-center"><span class="drag-handle"><svg width="14" height="14" fill="none" viewBox="0 0 14 14"><circle cx="5" cy="3.5" r="1.2" fill="#d5d7da"/><circle cx="9" cy="3.5" r="1.2" fill="#d5d7da"/><circle cx="5" cy="7" r="1.2" fill="#d5d7da"/><circle cx="9" cy="7" r="1.2" fill="#d5d7da"/><circle cx="5" cy="10.5" r="1.2" fill="#d5d7da"/><circle cx="9" cy="10.5" r="1.2" fill="#d5d7da"/></svg></span></td>
+            </tr>
+            <tr>
+              <td style="font-size:14px;font-weight:500;color:var(--t1)">Department</td>
+              <td style="font-size:13px;color:var(--t4)">Text</td>
+              <td class="td-center"><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td>
+              <td class="td-center"><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td>
+              <td class="td-center"><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td>
+              <td class="td-center"><span class="drag-handle"><svg width="14" height="14" fill="none" viewBox="0 0 14 14"><circle cx="5" cy="3.5" r="1.2" fill="#d5d7da"/><circle cx="9" cy="3.5" r="1.2" fill="#d5d7da"/><circle cx="5" cy="7" r="1.2" fill="#d5d7da"/><circle cx="9" cy="7" r="1.2" fill="#d5d7da"/><circle cx="5" cy="10.5" r="1.2" fill="#d5d7da"/><circle cx="9" cy="10.5" r="1.2" fill="#d5d7da"/></svg></span></td>
+            </tr>
+            <tr>
+              <td style="font-size:14px;font-weight:500;color:var(--t1)">Document date</td>
+              <td style="font-size:13px;color:var(--t4)">Date</td>
+              <td class="td-center"><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td>
+              <td class="td-center"><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td>
+              <td class="td-center"><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td>
+              <td class="td-center"><span class="drag-handle"><svg width="14" height="14" fill="none" viewBox="0 0 14 14"><circle cx="5" cy="3.5" r="1.2" fill="#d5d7da"/><circle cx="9" cy="3.5" r="1.2" fill="#d5d7da"/><circle cx="5" cy="7" r="1.2" fill="#d5d7da"/><circle cx="9" cy="7" r="1.2" fill="#d5d7da"/><circle cx="5" cy="10.5" r="1.2" fill="#d5d7da"/><circle cx="9" cy="10.5" r="1.2" fill="#d5d7da"/></svg></span></td>
+            </tr>
+            <tr>
+              <td style="font-size:14px;font-weight:500;color:var(--t1)">Document status</td>
+              <td style="font-size:13px;color:var(--t4)">Text</td>
+              <td class="td-center"><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td>
+              <td class="td-center"><label class="ck"><input type="checkbox" checked><div class="ck-box"></div></label></td>
+              <td class="td-center"><label class="ck"><input type="checkbox"><div class="ck-box"></div></label></td>
+              <td class="td-center"><span class="drag-handle"><svg width="14" height="14" fill="none" viewBox="0 0 14 14"><circle cx="5" cy="3.5" r="1.2" fill="#d5d7da"/><circle cx="9" cy="3.5" r="1.2" fill="#d5d7da"/><circle cx="5" cy="7" r="1.2" fill="#d5d7da"/><circle cx="9" cy="7" r="1.2" fill="#d5d7da"/><circle cx="5" cy="10.5" r="1.2" fill="#d5d7da"/><circle cx="9" cy="10.5" r="1.2" fill="#d5d7da"/></svg></span></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="card-footer">
+          <button class="add-link">
+            <svg width="14" height="14" fill="none" stroke="#066074" stroke-width="2" stroke-linecap="round" viewBox="0 0 14 14"><line x1="7" y1="2" x2="7" y2="12"/><line x1="2" y1="7" x2="12" y2="7"/></svg>
+            Add descriptor
+          </button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="filter-row">
+            <div class="filter-row-left">
+              <div class="filter-label">Segment this class by filter descriptor</div>
+              <div class="filter-sub">When enabled, users can filter search results by a specific field, creating sub-profiles for each unique value.</div>
+            </div>
+            <label class="tog" style="margin-top:2px">
+              <input type="checkbox">
+              <span class="tog-t"></span>
+            </label>
+          </div>
+          <div class="filter-desc-row">
+            <div class="filter-desc-label">Filter descriptor</div>
+            <select class="select-disabled" disabled>
+              <option>Select a descriptor…</option>
+            </select>
+            <div class="filter-helper">Enable filtering above to choose a descriptor.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="profiles-card-header">
+          <div class="profiles-header-left">Profiles</div>
+          <div class="profiles-header-right">1 profile · filtering disabled</div>
+        </div>
+        <div class="profile-row">
+          <span class="profile-badge">Default</span>
+          <span class="profile-name">All documents in this class</span>
+          <a class="review-link" href="#">Edit profile</a>
+        </div>
+        <div class="profiles-footer">
+          <div class="profiles-footer-note">Enable filtering in Section 2 to add sub-profiles (subtypes) for each filter value.</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <div style="font-size:15px;font-weight:700;color:var(--t1);margin-bottom:4px">Search preview</div>
+          <div style="font-size:13px;color:var(--t3);margin-bottom:16px;line-height:1.5">How this class will appear in Superhuman Search results.</div>
+          <div class="preview-result">
+            <div class="preview-result-top">
+              <svg width="14" height="14" fill="none" stroke="#066074" stroke-width="1.7" stroke-linecap="round" viewBox="0 0 14 14"><path d="M3 1.5h5L11 5v7.5H3z"/><path d="M7.5 1.5V5.5H11"/></svg>
+              <span class="preview-result-class">Employee e-file</span>
+              <span class="preview-result-sep">·</span>
+              <span class="preview-result-app">HR Onboarding</span>
+            </div>
+            <div class="preview-result-title">John Smith — Onboarding Package</div>
+            <div class="preview-pills">
+              <span class="preview-pill preview-pill-gray">Dept: Engineering</span>
+              <span class="preview-pill preview-pill-green">Status: Active</span>
+              <span class="preview-pill preview-pill-gray">Date: 12 Jan 2025</span>
+            </div>
+            <div class="preview-result-meta">3 searchable fields · 2 filterable · 1 sortable</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+</body>
+</html>

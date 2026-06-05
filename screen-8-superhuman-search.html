@@ -350,7 +350,7 @@ td:first-child{padding-left:20px;width:52px}
         <div class="tab-bar">
           <div class="tabs">
             <div class="tab active" id="tab-apps" onclick="switchTab('apps')">Applications</div>
-            <div class="tab" id="tab-classes" onclick="switchTab('classes')">Classes</div>
+            <div class="tab" id="tab-classes" onclick="switchTab('classes')">Class library</div>
           </div>
           <div class="toolbar-right">
             <div class="search-wrap">
@@ -384,7 +384,7 @@ td:first-child{padding-left:20px;width:52px}
               <tr>
                 <th></th>
                 <th>Classes</th>
-                <th>Included classes</th>
+                <th>Descriptors</th>
               </tr>
             </thead>
             <tbody id="classes-tbody"></tbody>
@@ -499,7 +499,7 @@ function renderApps(filter) {
     var isOn = a.enabled && aiEnabled;
     var showTags = aiEnabled; // show tags whenever main is on, regardless of row state
     var reviewCls = isOn ? 'review-link' : 'review-link muted';
-    var reviewTxt = aiEnabled ? '<a href="screen-8-hr-onboarding.html" class="'+reviewCls+'">Review</a>' : '';
+    var reviewTxt = aiEnabled ? '<a href="screen-9-ai-search-app.html" class="'+reviewCls+'">Configure</a>' : '';
     return '<tr>'
       + '<td><label class="tog tog-sm" style="margin:0" onclick="onRowToggleClick(event,\'app\',\''+a.id+'\')">'
       +   '<input type="checkbox"'+(isOn?' checked':'')+' onchange="toggleApp(\''+a.id+'\',this)" style="pointer-events:none">'
@@ -525,7 +525,7 @@ function renderClasses(filter) {
     var actionCell = '';
     if (aiEnabled) {
       if (c.action === 'review') {
-        actionCell = '<a href="screen-8-hr-onboarding.html" class="review-link'+(isOn?'':' muted')+'">Review</a>';
+        actionCell = '<a href="screen-10-ai-search-class.html" class="review-link'+(isOn?'':' muted')+'">Configure</a>';
       } else if (c.action === 'add') {
         actionCell = '<span class="review-link muted" style="font-weight:500">Add</span>';
       } else if (c.action === 'add-desc') {
